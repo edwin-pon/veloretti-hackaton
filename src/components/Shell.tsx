@@ -70,7 +70,7 @@ export default function Shell({ children }: { children: ReactNode }) {
                 style={{
                   height: '100%',
                   width: `${Math.round((doneCount / DOC_ORDER.length) * 100)}%`,
-                  background: 'var(--mint)',
+                  background: 'var(--navy)',
                   transition: 'width 240ms ease-out',
                 }}
               />

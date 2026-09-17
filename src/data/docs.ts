@@ -58,7 +58,7 @@ export const DOC_ORDER: DocKey[] = ['brand', 'legal', 'style']
 export const DEFS: Record<DocKey, DocDef> =
 {
     brand: {
-      order: 1, title: 'Brand information', well: '#DAE7FE',
+      order: 1, title: 'Brand information', well: '#E8E8E6',
       card: 'Brand information',
       desc: 'Identity, positioning, markets and voice, pulled from the brand book.',
       intro: 'The agent reads the brand book and drafts the identity, market and voice rules that every generated campaign will inherit.',
@@ -96,7 +96,7 @@ export const DEFS: Record<DocKey, DocDef> =
       ]
     },
     legal: {
-      order: 2, title: 'Legal rules', well: '#B399FF',
+      order: 2, title: 'Legal rules', well: '#D9D7D3',
       card: 'Legal rules',
       desc: 'Claim limits, disclaimers and market-specific constraints.',
       intro: 'The agent turns your legal guidelines into machine-checkable rules. Anything it cannot state as a rule is surfaced for you to write.',
@@ -130,7 +130,7 @@ export const DEFS: Record<DocKey, DocDef> =
       ]
     },
     style: {
-      order: 3, title: 'Style guide', well: '#52E9C0',
+      order: 3, title: 'Style guide', well: '#BBB8B3',
       card: 'Style guide',
       desc: 'Writing mechanics, colors and typefaces.',
       intro: 'Mechanical rules the generator applies to every asset: casing, punctuation, the color palette and the typefaces used in generated layouts.',
@@ -173,9 +173,9 @@ export const DEFS: Record<DocKey, DocDef> =
 
 export const BRANDS: Brand[] =
 [
-    { key: 'veloretti', name: 'Veloretti', short: 'Veloretti', slug: 'veloretti', initials: 'VA', color: '#52E9C0' },
-    { key: 'canondale', name: 'Canondale', short: 'Canondale', slug: 'canondale', initials: 'CA', color: '#DAE7FE' },
-    { key: 'gazelle', name: 'Gazelle', short: 'Gazelle', slug: 'gazelle', initials: 'GA', color: '#B399FF' }
+    { key: 'veloretti', name: 'Veloretti', short: 'Veloretti', slug: 'veloretti', initials: 'VA', color: '#1A1A1A' },
+    { key: 'canondale', name: 'Canondale', short: 'Canondale', slug: 'canondale', initials: 'CA', color: '#9F9A93' },
+    { key: 'gazelle', name: 'Gazelle', short: 'Gazelle', slug: 'gazelle', initials: 'GA', color: '#D9D7D3' }
 ]
 
 /**

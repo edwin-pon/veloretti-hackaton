@@ -4,9 +4,9 @@ import { useStore } from '../lib/store'
 
 /** Confidence dot colour — the prototype's three-step scale. */
 function confidenceColor(conf: number): string {
-  if (conf >= 85) return '#52E9C0'
-  if (conf >= 70) return '#B399FF'
-  return '#E4572E'
+  if (conf >= 85) return 'var(--navy)'
+  if (conf >= 70) return 'var(--slate)'
+  return 'var(--flag)'
 }
 
 interface Props {

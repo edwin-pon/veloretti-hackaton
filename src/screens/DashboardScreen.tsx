@@ -6,7 +6,7 @@ const CARD: React.CSSProperties = {
   background: '#fff',
   borderRadius: 20,
   padding: 24,
-  boxShadow: '0 2px 8px rgba(0,44,71,0.08)',
+  boxShadow: '0 1px 2px rgba(22,21,20,0.06)',
 }
 
 export default function DashboardScreen() {
@@ -491,8 +491,8 @@ function EmptyPanel({
         onClick={onAction}
         style={{
           border: 'none',
-          background: 'var(--mint)',
-          color: 'var(--navy)',
+          background: 'var(--cta)',
+          color: 'var(--cta-ink)',
           borderRadius: 20,
           padding: '12px 24px',
           fontFamily: 'var(--font-sans)',

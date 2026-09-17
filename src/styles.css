@@ -31,7 +31,7 @@ a:hover { color: var(--navy-700); }
 .dl-brand-option:hover { background: var(--mist) !important; }
 
 .dl-drop { transition: all 150ms ease-out; }
-.dl-drop:hover { border-color: var(--mint); background: #eaf1f8; }
+.dl-drop:hover { border-color: var(--navy); background: var(--mist); }
 
 .dl-nav-item { transition: background 150ms ease-out; }
 .dl-nav-item:hover { background: rgba(255, 255, 255, 0.08); }

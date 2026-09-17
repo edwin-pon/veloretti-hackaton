@@ -47,7 +47,7 @@ export default function Sidebar() {
           style={{
             fontSize: 11,
             letterSpacing: '1.2px',
-            color: 'var(--mint)',
+            color: 'var(--ink-secondary-dark)',
             marginTop: 6,
             fontWeight: 700,
           }}
@@ -79,7 +79,7 @@ export default function Sidebar() {
             alignItems: 'center',
             gap: 10,
             background: 'rgba(255,255,255,0.07)',
-            border: `1px solid ${state.brandsOpen ? 'rgba(82,233,192,0.6)' : 'rgba(255,255,255,0.18)'}`,
+            border: `1px solid ${state.brandsOpen ? 'rgba(255,255,255,0.45)' : 'rgba(255,255,255,0.18)'}`,
             borderRadius: 20,
             padding: '10px 12px',
             cursor: 'pointer',
@@ -121,7 +121,7 @@ export default function Sidebar() {
               marginTop: 8,
               background: '#fff',
               borderRadius: 20,
-              boxShadow: '0 8px 24px rgba(0,44,71,0.12)',
+              boxShadow: '0 6px 20px rgba(22,21,20,0.08)',
               padding: 8,
               zIndex: 20,
               animation: 'dl-in 160ms ease-out',
@@ -193,8 +193,8 @@ export default function Sidebar() {
                 borderRadius: 20,
                 fontFamily: 'var(--font-sans)',
                 fontSize: 15,
-                background: active ? 'rgba(82,233,192,0.14)' : 'transparent',
-                color: active ? '#fff' : '#a0abc6',
+                background: active ? 'rgba(255,255,255,0.12)' : 'transparent',
+                color: active ? '#fff' : 'var(--ink-secondary-dark)',
                 fontWeight: active ? 700 : 400,
                 cursor: enabled ? 'pointer' : 'not-allowed',
                 opacity: enabled ? 1 : 0.55,
@@ -207,7 +207,7 @@ export default function Sidebar() {
                   width: 6,
                   height: 6,
                   borderRadius: 999,
-                  background: active ? '#52E9C0' : 'rgba(160,171,198,0.5)',
+                  background: active ? '#fff' : 'rgba(255,255,255,0.35)',
                   flex: 'none',
                 }}
               />
@@ -267,12 +267,20 @@ function BrandDot({ initials, color }: { initials: string; color: string }) {
         justifyContent: 'center',
         fontSize: 11,
         fontWeight: 700,
-        color: 'var(--navy)',
+        color: isDark(color) ? '#fff' : 'var(--navy)',
       }}
     >
       {initials}
     </span>
   )
+}
+
+/** The workspace colours run the brand's grey ramp, so the darkest needs white. */
+function isDark(hex: string): boolean {
+  const value = hex.replace('#', '')
+  if (value.length !== 6) return false
+  const [r, g, b] = [0, 2, 4].map((i) => parseInt(value.slice(i, i + 2), 16))
+  return (r * 299 + g * 587 + b * 114) / 1000 < 140
 }
 
 function useSidebarModel() {

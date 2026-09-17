@@ -6,7 +6,7 @@ const CARD: React.CSSProperties = {
   background: '#fff',
   borderRadius: 20,
   padding: 24,
-  boxShadow: '0 2px 8px rgba(0,44,71,0.08)',
+  boxShadow: '0 1px 2px rgba(22,21,20,0.06)',
 }
 
 export default function HubScreen() {
@@ -59,7 +59,7 @@ export default function HubScreen() {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 16,
-                border: `2px solid ${isNext ? '#52E9C0' : 'transparent'}`,
+                border: `2px solid ${isNext ? 'var(--navy)' : 'transparent'}`,
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -126,8 +126,8 @@ export default function HubScreen() {
                 onClick={() => openDoc(key as DocKey)}
                 style={{
                   border: isDone ? '2px solid var(--navy)' : 'none',
-                  background: isDone ? 'transparent' : locked ? 'var(--mist)' : 'var(--mint)',
-                  color: locked ? 'var(--slate)' : 'var(--navy)',
+                  background: isDone ? 'transparent' : locked ? 'var(--mist)' : 'var(--cta)',
+                  color: isDone ? 'var(--navy)' : locked ? 'var(--slate)' : 'var(--cta-ink)',
                   borderRadius: 20,
                   padding: '12px 24px',
                   fontFamily: 'var(--font-sans)',
@@ -187,8 +187,8 @@ export default function HubScreen() {
             onClick={() => go('dashboard')}
             style={{
               border: 'none',
-              background: 'var(--mint)',
-              color: 'var(--navy)',
+              background: 'var(--cta)',
+              color: 'var(--cta-ink)',
               borderRadius: 20,
               padding: '14px 28px',
               fontFamily: 'var(--font-sans)',

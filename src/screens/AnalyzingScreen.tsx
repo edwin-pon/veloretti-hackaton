@@ -21,7 +21,7 @@ export default function AnalyzingScreen() {
           background: '#fff',
           borderRadius: 20,
           padding: 40,
-          boxShadow: '0 2px 8px rgba(0,44,71,0.08)',
+          boxShadow: '0 1px 2px rgba(22,21,20,0.06)',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24 }}>
@@ -66,8 +66,8 @@ export default function AnalyzingScreen() {
                     height: 24,
                     flex: 'none',
                     borderRadius: 999,
-                    background: done ? '#52E9C0' : running ? '#DAE7FE' : 'var(--mist)',
-                    color: 'var(--navy)',
+                    background: done ? 'var(--navy)' : running ? 'var(--mist)' : 'var(--mist)',
+                    color: done ? '#fff' : 'var(--navy)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',

@@ -114,7 +114,7 @@ export default function ReviewScreen() {
               background: '#fff',
               borderRadius: 20,
               padding: '20px 24px',
-              boxShadow: '0 2px 8px rgba(0,44,71,0.08)',
+              boxShadow: '0 1px 2px rgba(22,21,20,0.06)',
               minWidth: 180,
             }}
           >
@@ -153,7 +153,7 @@ export default function ReviewScreen() {
           background: '#fff',
           borderRadius: 20,
           padding: 24,
-          boxShadow: '0 2px 8px rgba(0,44,71,0.08)',
+          boxShadow: '0 1px 2px rgba(22,21,20,0.06)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -179,8 +179,8 @@ function ApproveButton({ label, onClick }: { label: string; onClick: () => void 
       onClick={onClick}
       style={{
         border: 'none',
-        background: 'var(--mint)',
-        color: 'var(--navy)',
+        background: 'var(--cta)',
+        color: 'var(--cta-ink)',
         borderRadius: 20,
         padding: '14px 28px',
         fontFamily: 'var(--font-sans)',
@@ -374,7 +374,7 @@ function StyleVisuals() {
 }
 
 function hexOf(value: string): string {
-  return value.match(/#[0-9a-fA-F]{3,8}/)?.[0] ?? '#F0F4F8'
+  return value.match(/#[0-9a-fA-F]{3,8}/)?.[0] ?? '#F3F3F3'
 }
 
 function familyOf(value: string): string {

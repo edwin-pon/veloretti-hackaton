@@ -7,7 +7,7 @@ const CARD: React.CSSProperties = {
   background: '#fff',
   borderRadius: 20,
   padding: 24,
-  boxShadow: '0 2px 8px rgba(0,44,71,0.08)',
+  boxShadow: '0 1px 2px rgba(22,21,20,0.06)',
 }
 
 export default function UploadScreen() {
@@ -103,8 +103,8 @@ export default function UploadScreen() {
               accept(event.dataTransfer.files)
             }}
             style={{
-              border: `2px dashed ${upload || dragging ? 'var(--mint)' : '#C6D2E0'}`,
-              background: dragging ? '#eaf1f8' : 'var(--mist)',
+              border: `2px dashed ${upload || dragging ? 'var(--navy)' : 'var(--hairline)'}`,
+              background: 'var(--mist)',
               borderRadius: 20,
               padding: '48px 24px',
               textAlign: 'center',
@@ -237,8 +237,8 @@ export default function UploadScreen() {
                   onClick={startAnalysis}
                   style={{
                     border: 'none',
-                    background: 'var(--mint)',
-                    color: 'var(--navy)',
+                    background: 'var(--cta)',
+                    color: 'var(--cta-ink)',
                     borderRadius: 20,
                     padding: '14px 28px',
                     fontFamily: 'var(--font-sans)',
@@ -276,7 +276,7 @@ export default function UploadScreen() {
                     width: 8,
                     height: 8,
                     borderRadius: 999,
-                    background: 'var(--mint)',
+                    background: 'var(--navy)',
                     marginTop: 7,
                     flex: 'none',
                   }}
