@@ -98,13 +98,19 @@ export default function Shell({ children }: { children: ReactNode }) {
             >
               Campaigns
             </button>
-            <span
-              aria-hidden
-              style={{ width: 1, height: 22, background: 'var(--border-default)', flex: 'none' }}
-            />
-            <span style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)' }}>
-              {crumb}
-            </span>
+            {/* The campaigns list is the section itself, so naming it twice reads
+                as a stutter. Every other screen is a page inside a section. */}
+            {crumb !== 'Campaigns' && (
+              <>
+                <span
+                  aria-hidden
+                  style={{ width: 1, height: 22, background: 'var(--border-default)', flex: 'none' }}
+                />
+                <span style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)' }}>
+                  {crumb}
+                </span>
+              </>
+            )}
             <span
               aria-hidden
               style={{ width: 1, height: 22, background: 'var(--border-default)', flex: 'none' }}
