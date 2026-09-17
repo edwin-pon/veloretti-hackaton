@@ -1,4236 +1,2469 @@
-/* @ds-bundle: {"format":4,"namespace":"DatalabDesignSystem_adceb3","components":[{"name":"Accordion","sourcePath":"components/data/Accordion.jsx"},{"name":"Avatar","sourcePath":"components/data/Avatar.jsx"},{"name":"DataTable","sourcePath":"components/data/DataTable.jsx"},{"name":"EmptyState","sourcePath":"components/data/EmptyState.jsx"},{"name":"AlertBanner","sourcePath":"components/feedback/AlertBanner.jsx"},{"name":"Badge","sourcePath":"components/feedback/Badge.jsx"},{"name":"ModalDialog","sourcePath":"components/feedback/ModalDialog.jsx"},{"name":"ProgressBar","sourcePath":"components/feedback/ProgressBar.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Tooltip","sourcePath":"components/feedback/Tooltip.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"Field","sourcePath":"components/forms/Field.jsx"},{"name":"RadioGroup","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"SearchBar","sourcePath":"components/forms/SearchBar.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"SliderInput","sourcePath":"components/forms/SliderInput.jsx"},{"name":"TextInput","sourcePath":"components/forms/TextInput.jsx"},{"name":"Toggle","sourcePath":"components/forms/Toggle.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/layout/Drawer.jsx"},{"name":"Stack","sourcePath":"components/layout/Stack.jsx"},{"name":"Breadcrumbs","sourcePath":"components/navigation/Breadcrumbs.jsx"},{"name":"MenuDropdown","sourcePath":"components/navigation/MenuDropdown.jsx"},{"name":"Pagination","sourcePath":"components/navigation/Pagination.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"ProductHero","sourcePath":"ui_kits/product-page/ProductHero.jsx"},{"name":"ResultsPreview","sourcePath":"ui_kits/product-page/ResultsPreview.jsx"},{"name":"CTASection","sourcePath":"ui_kits/website/CTASection.jsx"},{"name":"ContactModal","sourcePath":"ui_kits/website/ContactModal.jsx"},{"name":"DocsPage","sourcePath":"ui_kits/website/DocsPage.jsx"},{"name":"FocusAreas","sourcePath":"ui_kits/website/FocusAreas.jsx"},{"name":"Header","sourcePath":"ui_kits/website/Header.jsx"},{"name":"Hero","sourcePath":"ui_kits/website/Hero.jsx"},{"name":"StatBand","sourcePath":"ui_kits/website/StatBand.jsx"}],"sourceHashes":{"components/data/Accordion.jsx":"0ba22f9e377b","components/data/Avatar.jsx":"5b19f991fd4a","components/data/DataTable.jsx":"6a2c3216711d","components/data/EmptyState.jsx":"329a60fcf13e","components/feedback/AlertBanner.jsx":"7551284f378f","components/feedback/Badge.jsx":"a55c8178a84d","components/feedback/ModalDialog.jsx":"6a46166a81f8","components/feedback/ProgressBar.jsx":"6a4af7d58683","components/feedback/Skeleton.jsx":"5ed97750ef60","components/feedback/Spinner.jsx":"ecc2e1105f72","components/feedback/Toast.jsx":"a1e22ed35e5d","components/feedback/Tooltip.jsx":"49daca970ecb","components/forms/Checkbox.jsx":"9cf59808e196","components/forms/Field.jsx":"c67e52ee5073","components/forms/RadioGroup.jsx":"542922178986","components/forms/SearchBar.jsx":"94326a879f6f","components/forms/Select.jsx":"c84d2a76ba01","components/forms/SliderInput.jsx":"6570b6154977","components/forms/TextInput.jsx":"51c5f09a6673","components/forms/Toggle.jsx":"d251496d2baf","components/layout/Divider.jsx":"55723602b2f2","components/layout/Drawer.jsx":"df2efb37fa06","components/layout/Stack.jsx":"27d75c692998","components/navigation/Breadcrumbs.jsx":"a819a2e575a4","components/navigation/MenuDropdown.jsx":"c500090fb3f1","components/navigation/Pagination.jsx":"5ea874381247","components/navigation/Stepper.jsx":"5cb96dddf6cb","components/navigation/Tabs.jsx":"041114ad80a3","ui_kits/product-page/ProductHero.jsx":"3bb3c53e7593","ui_kits/product-page/ResultsPreview.jsx":"d9c1ac768514","ui_kits/product-page/primitives.jsx":"38a8e72b5742","ui_kits/website/CTASection.jsx":"cec1d38de12c","ui_kits/website/ContactModal.jsx":"7e6b20260298","ui_kits/website/DocsPage.jsx":"6233a16204aa","ui_kits/website/FocusAreas.jsx":"e6bd4f216e42","ui_kits/website/Header.jsx":"443e766e4dfd","ui_kits/website/Hero.jsx":"cd17979a1c42","ui_kits/website/StatBand.jsx":"c370259a6fd7","ui_kits/website/primitives.jsx":"cf1cdf7414ff"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"VelorettiDesignSystem_ff4e7e","components":[{"name":"CategoryCard","sourcePath":"components/commerce/CategoryCard.jsx"},{"name":"ProductCard","sourcePath":"components/commerce/ProductCard.jsx"},{"name":"SwatchPicker","sourcePath":"components/commerce/SwatchPicker.jsx"},{"name":"Badge","sourcePath":"components/core/Badge.jsx"},{"name":"Button","sourcePath":"components/core/Button.jsx"},{"name":"Input","sourcePath":"components/core/Input.jsx"},{"name":"OptionCard","sourcePath":"components/core/OptionCard.jsx"},{"name":"SegmentedControl","sourcePath":"components/core/SegmentedControl.jsx"},{"name":"Select","sourcePath":"components/core/Select.jsx"},{"name":"FAQ","sourcePath":"components/feedback/FAQ.jsx"}],"sourceHashes":{"components/commerce/CategoryCard.jsx":"09caf5ca08c7","components/commerce/ProductCard.jsx":"3bb650c9f232","components/commerce/SwatchPicker.jsx":"98dd7cec64a1","components/core/Badge.jsx":"02a34eaeee5e","components/core/Button.jsx":"5dafa17c812c","components/core/Input.jsx":"d543340be841","components/core/OptionCard.jsx":"23e17bd57c00","components/core/SegmentedControl.jsx":"b23dc0d42a08","components/core/Select.jsx":"63b672b0c3c3","components/feedback/FAQ.jsx":"0dcb565eb6f1","ui_kits/website/App.jsx":"1aa4c9b0541e","ui_kits/website/Cart.jsx":"146b31e81c54","ui_kits/website/Chrome.jsx":"7677aa18f987","ui_kits/website/Configurator.jsx":"b5ab74abb052","ui_kits/website/Home.jsx":"4789c7213264","ui_kits/website/ProductDetail.jsx":"fbd558143f2c","ui_kits/website/Shop.jsx":"584499b91b6f"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
-const __ds_ns = (window.DatalabDesignSystem_adceb3 = window.DatalabDesignSystem_adceb3 || {});
+const __ds_ns = (window.VelorettiDesignSystem_ff4e7e = window.VelorettiDesignSystem_ff4e7e || {});
 
 const __ds_scope = {};
 
 (__ds_ns.__errors = __ds_ns.__errors || []);
 
-// components/data/Accordion.jsx
+// components/commerce/CategoryCard.jsx
 try { (() => {
-// Accordion.jsx — collapsible sections
-function Accordion({
-  items = [],
-  single = true,
-  defaultOpen = []
+/**
+ * Veloretti CategoryCard — bike photo on a light-grey tile with pagination dots,
+ * then a title, short description and an "Explore ›" link below (no border).
+ */
+function CategoryCard({
+  title,
+  description,
+  image,
+  cta = "Explore",
+  dots = 0,
+  activeDot = 0,
+  onClick,
+  style
 }) {
-  const [open, setOpen] = React.useState(defaultOpen);
-  const toggle = i => setOpen(open.includes(i) ? open.filter(x => x !== i) : single ? [i] : [...open, i]);
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      fontFamily: '"PT Sans", sans-serif'
-    }
-  }, items.map((it, i) => {
-    const is = open.includes(i);
-    return /*#__PURE__*/React.createElement("div", {
-      key: i,
-      style: {
-        borderBottom: "1px solid #D1DDE8"
-      }
-    }, /*#__PURE__*/React.createElement("button", {
-      onClick: () => toggle(i),
-      "aria-expanded": is,
-      style: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        width: "100%",
-        background: "none",
-        border: "none",
-        cursor: "pointer",
-        padding: "16px 4px",
-        fontFamily: '"PT Sans", sans-serif',
-        fontWeight: 700,
-        fontSize: 16,
-        color: "#002C47",
-        textAlign: "left",
-        gap: 16
-      }
-    }, it.title, /*#__PURE__*/React.createElement("span", {
-      "aria-hidden": "true",
-      style: {
-        fontSize: 12,
-        color: "#5C7185",
-        transform: is ? "rotate(180deg)" : "none",
-        transition: "transform 150ms"
-      }
-    }, "\u25BC")), is && /*#__PURE__*/React.createElement("div", {
-      style: {
-        padding: "0 4px 18px",
-        fontSize: 15,
-        lineHeight: 1.6,
-        color: "#5C7185"
-      }
-    }, it.content));
-  }));
-}
-Object.assign(__ds_scope, { Accordion });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Accordion.jsx", error: String((e && e.message) || e) }); }
-
-// components/data/Avatar.jsx
-try { (() => {
-// Avatar.jsx — image or initials on a brand-tinted circle
-const avatarTones = {
-  sky: "#DAE7FE",
-  purple: "#B399FF",
-  mint: "#52E9C0",
-  navy: "#002C47"
-};
-function Avatar({
-  name = "",
-  src,
-  size = 40,
-  tone = "sky"
-}) {
-  const initials = name.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join("");
-  const bg = avatarTones[tone] || avatarTones.sky;
-  return src ? /*#__PURE__*/React.createElement("img", {
-    src: src,
-    alt: name,
-    style: {
-      width: size,
-      height: size,
-      borderRadius: "50%",
-      objectFit: "cover",
-      flex: "none"
-    }
-  }) : /*#__PURE__*/React.createElement("span", {
-    "aria-label": name,
-    style: {
-      width: size,
-      height: size,
-      borderRadius: "50%",
-      flex: "none",
-      display: "inline-flex",
-      alignItems: "center",
-      justifyContent: "center",
-      background: bg,
-      color: tone === "navy" ? "#FFFFFF" : "#002C47",
-      fontFamily: '"PT Sans", sans-serif',
-      fontWeight: 700,
-      fontSize: Math.round(size * 0.38)
-    }
-  }, initials || "?");
-}
-Object.assign(__ds_scope, { Avatar });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Avatar.jsx", error: String((e && e.message) || e) }); }
-
-// components/data/DataTable.jsx
-try { (() => {
-// DataTable.jsx — sortable table with optional built-in pagination
-function DataTable({
-  columns = [],
-  rows = [],
-  pageSize = 0,
-  initialSort = null
-}) {
-  const [sort, setSort] = React.useState(initialSort); // { key, dir: "asc"|"desc" }
-  const [page, setPage] = React.useState(1);
-  const sorted = React.useMemo(() => {
-    if (!sort) return rows;
-    const copy = [...rows];
-    copy.sort((a, b) => {
-      const x = a[sort.key],
-        y = b[sort.key];
-      const cmp = typeof x === "number" && typeof y === "number" ? x - y : String(x).localeCompare(String(y));
-      return sort.dir === "asc" ? cmp : -cmp;
-    });
-    return copy;
-  }, [rows, sort]);
-  const pageCount = pageSize ? Math.max(1, Math.ceil(sorted.length / pageSize)) : 1;
-  const visible = pageSize ? sorted.slice((page - 1) * pageSize, page * pageSize) : sorted;
-  const toggleSort = col => {
-    if (!col.sortable) return;
-    setPage(1);
-    setSort(sort && sort.key === col.key && sort.dir === "asc" ? {
-      key: col.key,
-      dir: "desc"
-    } : {
-      key: col.key,
-      dir: "asc"
-    });
+  const [hover, setHover] = React.useState(false);
+  const wrap = {
+    display: "flex",
+    flexDirection: "column",
+    fontFamily: "var(--font-sans)",
+    cursor: "pointer",
+    ...style
+  };
+  const tile = {
+    position: "relative",
+    aspectRatio: "1/1",
+    background: "var(--vr-surface-2)",
+    borderRadius: "var(--radius-md)",
+    overflow: "hidden",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  };
+  const img = {
+    width: "82%",
+    height: "82%",
+    objectFit: "contain",
+    transition: "transform var(--dur-slow) var(--ease-out)",
+    transform: hover ? "scale(1.03)" : "none"
   };
   return /*#__PURE__*/React.createElement("div", {
+    style: wrap,
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false),
+    onClick: onClick
+  }, /*#__PURE__*/React.createElement("div", {
+    style: tile
+  }, image ? /*#__PURE__*/React.createElement("img", {
+    src: image,
+    alt: title,
+    style: img
+  }) : /*#__PURE__*/React.createElement("span", {
     style: {
-      fontFamily: '"PT Sans", sans-serif',
-      width: "100%"
+      color: "var(--vr-gray-300)",
+      fontSize: "0.8125rem",
+      letterSpacing: "0.14em",
+      textTransform: "uppercase"
     }
-  }, /*#__PURE__*/React.createElement("table", {
+  }, title), dots > 1 && /*#__PURE__*/React.createElement("div", {
     style: {
-      width: "100%",
-      borderCollapse: "collapse",
-      fontSize: 15
+      position: "absolute",
+      bottom: 16,
+      left: 0,
+      right: 0,
+      display: "flex",
+      justifyContent: "center",
+      gap: 8
     }
-  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, columns.map(c => /*#__PURE__*/React.createElement("th", {
-    key: c.key,
-    onClick: () => toggleSort(c),
-    style: {
-      textAlign: c.align || "left",
-      padding: "12px 14px",
-      fontSize: 14,
-      fontWeight: 700,
-      color: "#002C47",
-      borderBottom: "2px solid #D1DDE8",
-      cursor: c.sortable ? "pointer" : "default",
-      userSelect: "none",
-      whiteSpace: "nowrap"
-    }
-  }, c.label, c.sortable && /*#__PURE__*/React.createElement("span", {
-    style: {
-      marginLeft: 6,
-      fontSize: 11,
-      color: sort && sort.key === c.key ? "#002C47" : "#D1DDE8"
-    }
-  }, sort && sort.key === c.key ? sort.dir === "asc" ? "▲" : "▼" : "▲"))))), /*#__PURE__*/React.createElement("tbody", null, visible.map((r, i) => /*#__PURE__*/React.createElement("tr", {
+  }, Array.from({
+    length: dots
+  }).map((_, i) => /*#__PURE__*/React.createElement("span", {
     key: i,
     style: {
-      background: i % 2 ? "#F0F4F8" : "transparent"
+      width: 7,
+      height: 7,
+      borderRadius: "50%",
+      background: i === activeDot ? "var(--vr-ink)" : "var(--vr-gray-300)"
     }
-  }, columns.map(c => /*#__PURE__*/React.createElement("td", {
-    key: c.key,
+  })))), /*#__PURE__*/React.createElement("div", {
     style: {
-      padding: "12px 14px",
-      textAlign: c.align || "left",
-      color: "#5C7185",
-      borderBottom: "1px solid #D1DDE8"
+      padding: "20px 2px 0",
+      display: "flex",
+      flexDirection: "column",
+      gap: 10
     }
-  }, r[c.key])))))), pageSize > 0 && pageCount > 1 && /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontWeight: 500,
+      fontSize: "1.5rem",
+      letterSpacing: "-0.015em",
+      color: "var(--vr-ink)"
+    }
+  }, title), description && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: "1rem",
+      color: "var(--vr-gray-500)"
+    }
+  }, description), /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 8,
+      fontSize: "0.9375rem",
+      color: "var(--vr-ink)"
+    }
+  }, cta, /*#__PURE__*/React.createElement("svg", {
+    width: "14",
+    height: "14",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.6",
+    strokeLinecap: "round",
+    style: {
+      transform: hover ? "translateX(3px)" : "none",
+      transition: "transform var(--dur-fast) var(--ease-out)"
+    }
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M9 6l6 6-6 6"
+  })))));
+}
+Object.assign(__ds_scope, { CategoryCard });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/commerce/CategoryCard.jsx", error: String((e && e.message) || e) }); }
+
+// components/commerce/SwatchPicker.jsx
+try { (() => {
+/**
+ * Veloretti SwatchPicker — row of circular colour swatches with a selected ring
+ * and the active colour's name beside them (e.g. "Matte Black").
+ */
+function SwatchPicker({
+  swatches = [],
+  value,
+  onChange,
+  size = 24,
+  showLabel = true,
+  style
+}) {
+  const idx = Math.max(0, swatches.findIndex(s => s.name === value));
+  const active = swatches[idx];
+  const row = {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 14,
+    fontFamily: "var(--font-sans)",
+    ...style
+  };
+  const dots = {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 10
+  };
+  const ring = on => ({
+    width: size + 10,
+    height: size + 10,
+    borderRadius: "50%",
+    padding: 0,
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    background: "transparent",
+    cursor: "pointer",
+    border: `1.5px solid ${on ? "var(--vr-ink)" : "transparent"}`,
+    transition: "border-color var(--dur-fast) var(--ease-standard)"
+  });
+  const dot = hex => ({
+    width: size,
+    height: size,
+    borderRadius: "50%",
+    background: hex,
+    border: "1px solid rgba(0,0,0,0.12)",
+    boxSizing: "border-box"
+  });
+  return /*#__PURE__*/React.createElement("div", {
+    style: row
+  }, /*#__PURE__*/React.createElement("div", {
+    style: dots
+  }, swatches.map(s => /*#__PURE__*/React.createElement("button", {
+    key: s.name,
+    title: s.name,
+    "aria-label": s.name,
+    "aria-pressed": s.name === value,
+    style: ring(s.name === value),
+    onClick: () => onChange && onChange(s.name)
+  }, /*#__PURE__*/React.createElement("span", {
+    style: dot(s.hex)
+  })))), showLabel && active && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: "0.9375rem",
+      color: "var(--vr-ink)"
+    }
+  }, active.name));
+}
+Object.assign(__ds_scope, { SwatchPicker });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/commerce/SwatchPicker.jsx", error: String((e && e.message) || e) }); }
+
+// components/core/Badge.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/** Veloretti Badge — small status/label chip. */
+function Badge({
+  children,
+  variant = "neutral",
+  pill = false,
+  ...rest
+}) {
+  const palettes = {
+    neutral: {
+      bg: "var(--vr-gray-100)",
+      fg: "var(--vr-gray-700)",
+      bd: "transparent"
+    },
+    ink: {
+      bg: "var(--vr-black)",
+      fg: "var(--vr-white)",
+      bd: "transparent"
+    },
+    outline: {
+      bg: "transparent",
+      fg: "var(--vr-ink)",
+      bd: "var(--vr-gray-300)"
+    },
+    accent: {
+      bg: "var(--vr-orange)",
+      fg: "var(--vr-white)",
+      bd: "transparent"
+    }
+  };
+  const p = palettes[variant] || palettes.neutral;
+  const style = {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "6px",
+    height: "24px",
+    padding: "0 10px",
+    fontFamily: "var(--font-sans)",
+    fontWeight: 500,
+    fontSize: "0.6875rem",
+    letterSpacing: "0.12em",
+    textTransform: "uppercase",
+    lineHeight: 1,
+    color: p.fg,
+    background: p.bg,
+    border: `1px solid ${p.bd}`,
+    borderRadius: pill ? "var(--radius-pill)" : "var(--radius-sm)",
+    whiteSpace: "nowrap",
+    boxSizing: "border-box",
+    ...rest.style
+  };
+  return /*#__PURE__*/React.createElement("span", _extends({}, rest, {
+    style: style
+  }), children);
+}
+Object.assign(__ds_scope, { Badge });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/Badge.jsx", error: String((e && e.message) || e) }); }
+
+// components/commerce/ProductCard.jsx
+try { (() => {
+/**
+ * Veloretti ProductCard — bike photo on a light-grey tile, with the name and
+ * price BELOW the tile (no border, no shadow). Matches the shop/explore grid.
+ */
+function ProductCard({
+  name,
+  tagline,
+  price,
+  priceNote,
+  image,
+  badge,
+  badgeVariant = "ink",
+  colors = [],
+  dots = 0,
+  activeDot = 0,
+  onClick,
+  style
+}) {
+  const [hover, setHover] = React.useState(false);
+  const wrap = {
+    display: "flex",
+    flexDirection: "column",
+    fontFamily: "var(--font-sans)",
+    background: "transparent",
+    cursor: "pointer",
+    ...style
+  };
+  const tile = {
+    position: "relative",
+    aspectRatio: "1/1",
+    background: "var(--vr-surface-2)",
+    borderRadius: "var(--radius-md)",
+    overflow: "hidden",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  };
+  const img = {
+    width: "82%",
+    height: "82%",
+    objectFit: "contain",
+    transition: "transform var(--dur-slow) var(--ease-out)",
+    transform: hover ? "scale(1.03)" : "none"
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    style: wrap,
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false),
+    onClick: onClick
+  }, /*#__PURE__*/React.createElement("div", {
+    style: tile
+  }, badge && /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "absolute",
+      top: 16,
+      left: 16,
+      zIndex: 2
+    }
+  }, /*#__PURE__*/React.createElement(__ds_scope.Badge, {
+    variant: badgeVariant
+  }, badge)), image ? /*#__PURE__*/React.createElement("img", {
+    src: image,
+    alt: name,
+    style: img
+  }) : /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: "var(--vr-gray-300)",
+      fontSize: "0.8125rem",
+      letterSpacing: "0.14em",
+      textTransform: "uppercase"
+    }
+  }, name), dots > 1 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "absolute",
+      bottom: 16,
+      left: 0,
+      right: 0,
+      display: "flex",
+      justifyContent: "center",
+      gap: 8
+    }
+  }, Array.from({
+    length: dots
+  }).map((_, i) => /*#__PURE__*/React.createElement("span", {
+    key: i,
+    style: {
+      width: 7,
+      height: 7,
+      borderRadius: "50%",
+      background: i === activeDot ? "var(--vr-ink)" : "var(--vr-gray-300)"
+    }
+  })))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "18px 2px 0",
+      display: "flex",
+      flexDirection: "column",
+      gap: 6
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontWeight: 500,
+      fontSize: "1.25rem",
+      letterSpacing: "-0.01em",
+      color: "var(--vr-ink)"
+    }
+  }, name), tagline && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: "0.9375rem",
+      color: "var(--vr-gray-500)"
+    }
+  }, tagline), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: "1rem",
+      color: "var(--vr-ink)"
+    }
+  }, price, priceNote && /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: "var(--vr-gray-500)"
+    }
+  }, " \xB7 ", priceNote)), colors.length > 0 && /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
-      justifyContent: "flex-end",
-      alignItems: "center",
-      gap: 12,
-      marginTop: 14,
-      fontSize: 14,
-      color: "#5C7185"
+      gap: 8,
+      marginTop: 6
     }
-  }, /*#__PURE__*/React.createElement("span", null, "Page ", page, " of ", pageCount), /*#__PURE__*/React.createElement("button", {
-    onClick: () => setPage(Math.max(1, page - 1)),
-    disabled: page <= 1,
+  }, colors.map((c, i) => /*#__PURE__*/React.createElement("span", {
+    key: i,
+    title: c.name,
     style: {
-      width: 36,
-      height: 36,
+      width: 15,
+      height: 15,
       borderRadius: "50%",
-      border: "none",
-      background: "#F0F4F8",
-      color: "#002C47",
-      cursor: "pointer",
-      opacity: page <= 1 ? 0.35 : 1
+      background: c.hex,
+      border: "1px solid rgba(0,0,0,0.12)",
+      boxSizing: "border-box"
     }
-  }, "\u2190"), /*#__PURE__*/React.createElement("button", {
-    onClick: () => setPage(Math.min(pageCount, page + 1)),
-    disabled: page >= pageCount,
-    style: {
-      width: 36,
-      height: 36,
-      borderRadius: "50%",
-      border: "none",
-      background: "#F0F4F8",
-      color: "#002C47",
-      cursor: "pointer",
-      opacity: page >= pageCount ? 0.35 : 1
-    }
-  }, "\u2192")));
+  })))));
 }
-Object.assign(__ds_scope, { DataTable });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/DataTable.jsx", error: String((e && e.message) || e) }); }
+Object.assign(__ds_scope, { ProductCard });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/commerce/ProductCard.jsx", error: String((e && e.message) || e) }); }
 
-// components/data/EmptyState.jsx
+// components/core/Button.jsx
 try { (() => {
-// EmptyState.jsx — reusable empty/error/loading-state pattern
-function EmptyState({
-  glyph = "○",
-  title = "Nothing here yet",
-  description,
-  action
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/**
+ * Veloretti Button — flat, near-square, uppercase-optional label.
+ * Variants: primary (ink fill), secondary (outline), ghost, accent (signal red).
+ */
+function Button({
+  children,
+  variant = "primary",
+  size = "md",
+  full = false,
+  uppercase = false,
+  disabled = false,
+  as = "button",
+  style: styleOverride,
+  ...rest
 }) {
+  const heights = {
+    sm: "var(--control-h-sm)",
+    md: "var(--control-h-md)",
+    lg: "var(--control-h-lg)"
+  };
+  const pads = {
+    sm: "0 18px",
+    md: "0 26px",
+    lg: "0 34px"
+  };
+  const fontSizes = {
+    sm: "0.8125rem",
+    md: "0.9375rem",
+    lg: "1rem"
+  };
+  const palettes = {
+    primary: {
+      bg: "var(--vr-black)",
+      fg: "var(--vr-white)",
+      bd: "var(--vr-black)",
+      hbg: "var(--vr-gray-900)"
+    },
+    secondary: {
+      bg: "transparent",
+      fg: "var(--vr-ink)",
+      bd: "var(--vr-black)",
+      hbg: "var(--vr-black)",
+      hfg: "var(--vr-white)"
+    },
+    ghost: {
+      bg: "transparent",
+      fg: "var(--vr-ink)",
+      bd: "transparent",
+      hbg: "var(--vr-gray-100)"
+    },
+    accent: {
+      bg: "var(--vr-orange)",
+      fg: "var(--vr-white)",
+      bd: "var(--vr-orange)",
+      hbg: "var(--vr-orange-ink)"
+    }
+  };
+  const p = palettes[variant] || palettes.primary;
+  const [hover, setHover] = React.useState(false);
+  const style = {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "10px",
+    height: heights[size],
+    padding: pads[size],
+    width: full ? "100%" : "auto",
+    fontFamily: "var(--font-sans)",
+    fontWeight: 500,
+    fontSize: fontSizes[size],
+    letterSpacing: uppercase ? "0.12em" : "-0.005em",
+    textTransform: uppercase ? "uppercase" : "none",
+    lineHeight: 1,
+    textDecoration: "none",
+    whiteSpace: "nowrap",
+    color: hover && !disabled ? p.hfg || p.fg : p.fg,
+    background: hover && !disabled ? p.hbg : p.bg,
+    border: `1.5px solid ${p.bd === "transparent" ? "transparent" : hover && p.hfg ? "var(--vr-black)" : p.bd}`,
+    borderRadius: "var(--radius-pill)",
+    cursor: disabled ? "not-allowed" : "pointer",
+    opacity: disabled ? 0.4 : 1,
+    transition: "var(--transition-control)",
+    boxSizing: "border-box",
+    appearance: "none",
+    outline: "none",
+    ...styleOverride
+  };
+  const Tag = as;
+  return /*#__PURE__*/React.createElement(Tag, _extends({
+    style: style,
+    disabled: as === "button" ? disabled : undefined,
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false)
+  }, rest), children);
+}
+Object.assign(__ds_scope, { Button });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/Button.jsx", error: String((e && e.message) || e) }); }
+
+// components/core/Input.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/** Veloretti Input — underlined-to-boxed field with uppercase label. */
+function Input({
+  label,
+  hint,
+  error,
+  id,
+  style,
+  ...rest
+}) {
+  const [focus, setFocus] = React.useState(false);
+  const inputId = id || (label ? "in-" + label.replace(/\s+/g, "-").toLowerCase() : undefined);
+  const wrap = {
+    display: "flex",
+    flexDirection: "column",
+    gap: "7px",
+    fontFamily: "var(--font-sans)",
+    ...style
+  };
+  const lab = {
+    fontSize: "0.6875rem",
+    fontWeight: 500,
+    letterSpacing: "0.14em",
+    textTransform: "uppercase",
+    color: "var(--vr-gray-700)"
+  };
+  const field = {
+    height: "var(--control-h-md)",
+    padding: "0 14px",
+    fontFamily: "var(--font-sans)",
+    fontSize: "0.9375rem",
+    color: "var(--vr-ink)",
+    background: "var(--vr-white)",
+    border: `1.5px solid ${error ? "var(--vr-orange)" : focus ? "var(--vr-black)" : "var(--vr-gray-200)"}`,
+    borderRadius: "var(--radius-pill)",
+    outline: "none",
+    boxSizing: "border-box",
+    transition: "border-color var(--dur-fast) var(--ease-standard)",
+    width: "100%"
+  };
+  const sub = {
+    fontSize: "0.75rem",
+    color: error ? "var(--vr-orange-ink)" : "var(--vr-gray-500)"
+  };
+  return /*#__PURE__*/React.createElement("label", {
+    htmlFor: inputId,
+    style: wrap
+  }, label && /*#__PURE__*/React.createElement("span", {
+    style: lab
+  }, label), /*#__PURE__*/React.createElement("input", _extends({
+    id: inputId,
+    style: field,
+    onFocus: () => setFocus(true),
+    onBlur: () => setFocus(false)
+  }, rest)), (hint || error) && /*#__PURE__*/React.createElement("span", {
+    style: sub
+  }, error || hint));
+}
+Object.assign(__ds_scope, { Input });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/Input.jsx", error: String((e && e.message) || e) }); }
+
+// components/core/OptionCard.jsx
+try { (() => {
+/** Veloretti OptionCard — selectable bordered row (configurator: gear, size, etc.). */
+function OptionCard({
+  label,
+  note,
+  selected = false,
+  disabled = false,
+  onClick,
+  style
+}) {
+  const [hover, setHover] = React.useState(false);
+  const s = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 12,
+    width: "100%",
+    minHeight: 54,
+    padding: "0 20px",
+    textAlign: "left",
+    fontFamily: "var(--font-sans)",
+    fontSize: "0.9375rem",
+    color: "var(--vr-ink)",
+    background: "var(--vr-white)",
+    cursor: disabled ? "not-allowed" : "pointer",
+    border: `1.5px solid ${selected ? "var(--vr-black)" : hover && !disabled ? "var(--vr-gray-300)" : "var(--vr-gray-200)"}`,
+    borderRadius: "var(--radius-lg)",
+    opacity: disabled ? 0.4 : 1,
+    transition: "border-color var(--dur-fast) var(--ease-standard)",
+    boxSizing: "border-box",
+    ...style
+  };
+  return /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    style: s,
+    disabled: disabled,
+    onClick: onClick,
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false)
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontWeight: selected ? 500 : 400
+    }
+  }, label), note && /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: "var(--vr-gray-500)",
+      fontSize: "0.875rem"
+    }
+  }, note));
+}
+Object.assign(__ds_scope, { OptionCard });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/OptionCard.jsx", error: String((e && e.message) || e) }); }
+
+// components/core/SegmentedControl.jsx
+try { (() => {
+/**
+ * Veloretti SegmentedControl — pill toggle with a sliding thumb (e.g. Lite / Pro).
+ * Controlled: pass `value` (one of options) and `onChange`.
+ */
+function SegmentedControl({
+  options = [],
+  value,
+  onChange,
+  size = "md",
+  style
+}) {
+  const idx = Math.max(0, options.findIndex(o => (o.value ?? o) === value));
+  const heights = {
+    sm: 40,
+    md: 52,
+    lg: 60
+  };
+  const h = heights[size] || heights.md;
+  const pad = 5;
+  const track = {
+    position: "relative",
+    display: "inline-flex",
+    padding: pad,
+    gap: 0,
+    background: "var(--vr-white)",
+    border: "1px solid var(--vr-gray-100)",
+    borderRadius: "var(--radius-pill)",
+    boxShadow: "var(--shadow-sm)",
+    fontFamily: "var(--font-sans)",
+    boxSizing: "border-box",
+    ...style
+  };
+  const thumb = {
+    position: "absolute",
+    top: pad,
+    bottom: pad,
+    left: pad,
+    width: `calc((100% - ${pad * 2}px) / ${options.length})`,
+    transform: `translateX(${idx * 100}%)`,
+    background: "var(--vr-surface-3)",
+    borderRadius: "var(--radius-pill)",
+    transition: "transform var(--dur-med) var(--ease-out)",
+    zIndex: 0
+  };
+  const seg = active => ({
+    position: "relative",
+    zIndex: 1,
+    minWidth: 96,
+    height: h - pad * 2,
+    padding: "0 26px",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    background: "transparent",
+    border: "none",
+    cursor: "pointer",
+    fontFamily: "var(--font-sans)",
+    fontSize: size === "sm" ? "0.875rem" : "0.9375rem",
+    fontWeight: active ? 500 : 400,
+    color: active ? "var(--vr-ink)" : "var(--vr-gray-500)",
+    transition: "color var(--dur-fast) var(--ease-standard)",
+    whiteSpace: "nowrap"
+  });
+  return /*#__PURE__*/React.createElement("div", {
+    style: track,
+    role: "tablist"
+  }, options.length > 0 && /*#__PURE__*/React.createElement("span", {
+    style: thumb,
+    "aria-hidden": "true"
+  }), options.map((o, i) => {
+    const val = o.value ?? o,
+      label = o.label ?? o;
+    return /*#__PURE__*/React.createElement("button", {
+      key: val,
+      role: "tab",
+      "aria-selected": i === idx,
+      style: seg(i === idx),
+      onClick: () => onChange && onChange(val)
+    }, label);
+  }));
+}
+Object.assign(__ds_scope, { SegmentedControl });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/SegmentedControl.jsx", error: String((e && e.message) || e) }); }
+
+// components/core/Select.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/** Veloretti Select — matches Input styling, custom chevron. */
+function Select({
+  label,
+  hint,
+  id,
+  children,
+  style,
+  ...rest
+}) {
+  const [focus, setFocus] = React.useState(false);
+  const selId = id || (label ? "sel-" + label.replace(/\s+/g, "-").toLowerCase() : undefined);
+  const wrap = {
+    display: "flex",
+    flexDirection: "column",
+    gap: "7px",
+    fontFamily: "var(--font-sans)",
+    ...style
+  };
+  const lab = {
+    fontSize: "0.6875rem",
+    fontWeight: 500,
+    letterSpacing: "0.14em",
+    textTransform: "uppercase",
+    color: "var(--vr-gray-700)"
+  };
+  const field = {
+    height: "var(--control-h-md)",
+    padding: "0 40px 0 14px",
+    fontFamily: "var(--font-sans)",
+    fontSize: "0.9375rem",
+    color: "var(--vr-ink)",
+    background: "var(--vr-white)",
+    border: `1.5px solid ${focus ? "var(--vr-black)" : "var(--vr-gray-200)"}`,
+    borderRadius: "var(--radius-pill)",
+    outline: "none",
+    boxSizing: "border-box",
+    width: "100%",
+    appearance: "none",
+    WebkitAppearance: "none",
+    backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23211F1D' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E\")",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "right 14px center",
+    transition: "border-color var(--dur-fast) var(--ease-standard)",
+    cursor: "pointer"
+  };
+  const sub = {
+    fontSize: "0.75rem",
+    color: "var(--vr-gray-500)"
+  };
+  return /*#__PURE__*/React.createElement("label", {
+    htmlFor: selId,
+    style: wrap
+  }, label && /*#__PURE__*/React.createElement("span", {
+    style: lab
+  }, label), /*#__PURE__*/React.createElement("select", _extends({
+    id: selId,
+    style: field,
+    onFocus: () => setFocus(true),
+    onBlur: () => setFocus(false)
+  }, rest), children), hint && /*#__PURE__*/React.createElement("span", {
+    style: sub
+  }, hint));
+}
+Object.assign(__ds_scope, { Select });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/Select.jsx", error: String((e && e.message) || e) }); }
+
+// components/feedback/FAQ.jsx
+try { (() => {
+/**
+ * Veloretti FAQ — accordion list with a circular +/- toggle per row and hairline
+ * dividers. Optional left-column title. One row open at a time by default.
+ */
+function FAQ({
+  items = [],
+  title = "FAQ",
+  defaultOpen = 0,
+  allowMultiple = false,
+  style
+}) {
+  const [open, setOpen] = React.useState(() => defaultOpen === null ? [] : [defaultOpen]);
+  const isOpen = i => open.includes(i);
+  const toggle = i => {
+    setOpen(cur => allowMultiple ? cur.includes(i) ? cur.filter(x => x !== i) : [...cur, i] : cur.includes(i) ? [] : [i]);
+  };
+  const wrap = {
+    display: "grid",
+    gridTemplateColumns: "minmax(0,220px) minmax(0,1fr)",
+    gap: "clamp(24px,6vw,120px)",
+    fontFamily: "var(--font-sans)",
+    color: "var(--vr-ink)",
+    ...style
+  };
+  const h = {
+    fontSize: "clamp(2rem,4vw,2.75rem)",
+    fontWeight: 500,
+    letterSpacing: "-0.02em",
+    margin: 0
+  };
+  const list = {
+    borderTop: "1px solid var(--vr-gray-200)"
+  };
+  const rowBtn = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 20,
+    width: "100%",
+    padding: "26px 0",
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    textAlign: "left",
+    fontFamily: "var(--font-sans)"
+  };
+  const q = {
+    fontSize: "1.0625rem",
+    color: "var(--vr-ink)",
+    lineHeight: 1.4
+  };
+  const toggleBtn = on => ({
+    flexShrink: 0,
+    width: 30,
+    height: 30,
+    borderRadius: "50%",
+    background: "var(--vr-surface-3)",
+    color: "var(--vr-ink)",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "1.125rem",
+    lineHeight: 1,
+    fontWeight: 400
+  });
+  const ansWrap = on => ({
+    display: "grid",
+    gridTemplateRows: on ? "1fr" : "0fr",
+    transition: "grid-template-rows var(--dur-med) var(--ease-out)"
+  });
+  const ans = {
+    overflow: "hidden"
+  };
+  const ansInner = {
+    paddingBottom: 28,
+    maxWidth: "60ch",
+    fontSize: "1rem",
+    lineHeight: 1.6,
+    color: "var(--vr-gray-700)"
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    style: wrap
+  }, title && /*#__PURE__*/React.createElement("h2", {
+    style: h
+  }, title), /*#__PURE__*/React.createElement("div", {
+    style: list
+  }, items.map((it, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      borderBottom: "1px solid var(--vr-gray-200)"
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    style: rowBtn,
+    onClick: () => toggle(i),
+    "aria-expanded": isOpen(i)
+  }, /*#__PURE__*/React.createElement("span", {
+    style: q
+  }, it.q), /*#__PURE__*/React.createElement("span", {
+    style: toggleBtn(isOpen(i)),
+    "aria-hidden": "true"
+  }, isOpen(i) ? "\u2013" : "+")), /*#__PURE__*/React.createElement("div", {
+    style: ansWrap(isOpen(i))
+  }, /*#__PURE__*/React.createElement("div", {
+    style: ans
+  }, /*#__PURE__*/React.createElement("div", {
+    style: ansInner
+  }, it.a)))))));
+}
+Object.assign(__ds_scope, { FAQ });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/FAQ.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/website/App.jsx
+try { (() => {
+// App shell — routing + product data + cart state for the Veloretti website kit.
+const black = {
+    name: "Jet Black",
+    hex: "#1A1A1A"
+  },
+  cream = {
+    name: "Off-White",
+    hex: "#EFE9DE"
+  },
+  sage = {
+    name: "Sage Green",
+    hex: "#9BA893"
+  },
+  navy = {
+    name: "Midnight",
+    hex: "#23303B"
+  };
+const PRODUCTS = [{
+  id: "ace-two",
+  name: "Ace Two",
+  tagline: "Electric · Gates belt drive",
+  price: "€2,599",
+  priceNum: 2599,
+  priceNote: "or €72/mo",
+  category: "ebike",
+  image: "../../assets/photography/escalator.jpg",
+  badge: "New",
+  colors: [black, cream, sage],
+  specs: [["Range", "Up to 100 km"], ["Motor", "250W rear hub"], ["Drive", "Gates carbon belt"], ["Weight", "22 kg"], ["Frame", "Aluminium, 3 sizes"]]
+}, {
+  id: "ivy",
+  name: "Ivy",
+  tagline: "Electric · Step-through",
+  price: "€2,499",
+  priceNum: 2499,
+  priceNote: "or €69/mo",
+  category: "ebike",
+  image: "../../assets/photography/shelter.jpg",
+  badge: "E-bike",
+  colors: [cream, black, navy],
+  specs: [["Range", "Up to 90 km"], ["Motor", "250W rear hub"], ["Drive", "Gates carbon belt"], ["Weight", "23 kg"], ["Frame", "Step-through, 2 sizes"]]
+}, {
+  id: "caferacer",
+  name: "Caféracer",
+  tagline: "City · step-through",
+  price: "€ 549",
+  priceNum: 549,
+  priceNote: "or € 15/mo",
+  category: "city",
+  image: "../../assets/photography/white-shirt.jpg",
+  colors: [black, cream, sage],
+  specs: [["Gears", "Shimano 7-speed"], ["Brakes", "Hydraulic disc"], ["Weight", "14 kg"], ["Frame", "Steel, 3 sizes"]]
+}, {
+  id: "attmnt",
+  name: "Attaché Mount",
+  tagline: "Accessory · Front rack",
+  price: "€89",
+  priceNum: 89,
+  category: "city",
+  image: "../../assets/photography/riders-mural.jpg",
+  colors: [black],
+  specs: [["Material", "Powder-coated steel"], ["Load", "Up to 15 kg"], ["Fits", "Ace Two, Ivy"]]
+}];
+function App() {
+  const [view, setView] = React.useState("home");
+  const [current, setCurrent] = React.useState(PRODUCTS[0]);
+  const [cart, setCart] = React.useState([]);
+  const go = (v, payload) => {
+    if (v === "product" && payload) setCurrent(payload);
+    setView(v);
+    window.scrollTo(0, 0);
+  };
+  const addToCart = (p, color) => setCart(c => [...c, {
+    name: p.name,
+    price: p.price,
+    priceNum: p.priceNum,
+    image: p.image,
+    colorName: color && color.name || "Matte Black"
+  }]);
+  const removeItem = idx => setCart(c => c.filter((_, i) => i !== idx));
+  const bikesView = view === "accessories" || view === "business" || view === "about" ? "bikes" : view;
   return /*#__PURE__*/React.createElement("div", {
     style: {
+      background: "var(--surface-page)",
+      minHeight: "100vh"
+    }
+  }, /*#__PURE__*/React.createElement(Header, {
+    view: view,
+    go: go,
+    cartCount: cart.length
+  }), bikesView === "home" && /*#__PURE__*/React.createElement(Home, {
+    products: PRODUCTS,
+    go: go
+  }), bikesView === "bikes" && /*#__PURE__*/React.createElement(Shop, {
+    products: PRODUCTS,
+    go: go
+  }), bikesView === "product" && /*#__PURE__*/React.createElement(ProductDetail, {
+    product: current,
+    go: go,
+    addToCart: addToCart
+  }), bikesView === "cart" && /*#__PURE__*/React.createElement(Cart, {
+    items: cart,
+    go: go,
+    removeItem: removeItem
+  }), /*#__PURE__*/React.createElement(Footer, {
+    go: go
+  }));
+}
+ReactDOM.createRoot(document.getElementById("root")).render(/*#__PURE__*/React.createElement(App, null));
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/App.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/website/Cart.jsx
+try { (() => {
+// Cart / bag screen.
+function Cart({
+  items,
+  go,
+  removeItem
+}) {
+  const {
+    Button,
+    Badge
+  } = window.VR;
+  const total = items.reduce((s, i) => s + i.priceNum, 0);
+  const fmt = n => "€" + n.toLocaleString("nl-NL");
+  const wrap = {
+    maxWidth: 900,
+    margin: "0 auto",
+    padding: "var(--space-8) var(--container-gutter) var(--space-9)",
+    fontFamily: "var(--font-sans)"
+  };
+  return /*#__PURE__*/React.createElement("section", {
+    style: wrap
+  }, /*#__PURE__*/React.createElement("h1", {
+    style: {
+      fontSize: "clamp(1.75rem,3.5vw,2.75rem)",
+      fontWeight: 500,
+      letterSpacing: "-0.02em",
+      margin: "0 0 28px",
+      color: "var(--vr-ink)"
+    }
+  }, "Your bag"), items.length === 0 ? /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "60px 0",
+      textAlign: "center",
+      color: "var(--vr-gray-500)"
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: "1.0625rem",
+      marginBottom: 20
+    }
+  }, "Your bag is empty."), /*#__PURE__*/React.createElement(Button, {
+    onClick: () => go("bikes")
+  }, "Explore bikes")) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      borderTop: "1px solid var(--vr-gray-200)"
+    }
+  }, items.map((i, idx) => /*#__PURE__*/React.createElement("div", {
+    key: idx,
+    style: {
+      display: "flex",
+      gap: 18,
+      alignItems: "center",
+      padding: "18px 0",
+      borderBottom: "1px solid var(--vr-gray-100)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 88,
+      height: 70,
+      background: "var(--vr-surface-2)",
+      borderRadius: "var(--radius-md)",
+      overflow: "hidden",
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: i.image,
+    alt: "",
+    style: {
+      width: "100%",
+      height: "100%",
+      objectFit: "cover"
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 500,
+      fontSize: "1.0625rem",
+      color: "var(--vr-ink)"
+    }
+  }, i.name), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: "0.875rem",
+      color: "var(--vr-gray-500)"
+    }
+  }, i.colorName, " \xB7 Medium")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 500,
+      color: "var(--vr-ink)"
+    }
+  }, i.price), /*#__PURE__*/React.createElement("button", {
+    onClick: () => removeItem(idx),
+    style: {
+      background: "none",
+      border: "none",
+      cursor: "pointer",
+      color: "var(--vr-gray-500)",
+      fontSize: "0.8125rem",
+      textDecoration: "underline"
+    }
+  }, "Remove")))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginTop: 28,
+      flexWrap: "wrap",
+      gap: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: "0.8125rem",
+      color: "var(--vr-gray-500)"
+    }
+  }, "Subtotal \xB7 free delivery"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: "1.5rem",
+      fontWeight: 500,
+      color: "var(--vr-ink)"
+    }
+  }, fmt(total))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 12
+    }
+  }, /*#__PURE__*/React.createElement(Button, {
+    variant: "secondary",
+    onClick: () => go("bikes")
+  }, "Keep shopping"), /*#__PURE__*/React.createElement(Button, {
+    variant: "primary",
+    size: "lg"
+  }, "Checkout")))));
+}
+Object.assign(window, {
+  Cart
+});
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/Cart.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/website/Chrome.jsx
+try { (() => {
+// Shared header + footer chrome for the Veloretti website kit.
+const VR = window.VelorettiDesignSystem_ff4e7e;
+function Header({
+  view,
+  go,
+  cartCount
+}) {
+  const links = [["bikes", "Electric"], ["bikes", "City"], ["bikes", "Kids"], ["business", "Lease"], ["bikes", "Stores"], ["bikes", "Outlet"]];
+  const wrap = {
+    position: "sticky",
+    top: 0,
+    zIndex: 50,
+    background: "rgba(246,243,236,0.92)",
+    backdropFilter: "blur(10px)",
+    borderBottom: "1px solid var(--vr-gray-100)",
+    fontFamily: "var(--font-sans)"
+  };
+  const util = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    height: 34,
+    padding: "0 var(--container-gutter)",
+    fontSize: "0.75rem",
+    color: "var(--vr-gray-500)",
+    borderBottom: "1px solid var(--vr-gray-100)"
+  };
+  const utilLinks = {
+    display: "flex",
+    gap: 22
+  };
+  const ul = {
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    color: "var(--vr-gray-700)",
+    fontSize: "0.75rem",
+    fontFamily: "var(--font-sans)"
+  };
+  const inner = {
+    position: "relative",
+    height: 66,
+    padding: "0 var(--container-gutter)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 24
+  };
+  const nav = {
+    display: "flex",
+    gap: 26
+  };
+  const linkS = {
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    fontFamily: "var(--font-sans)",
+    fontSize: "0.875rem",
+    fontWeight: 400,
+    color: "var(--vr-ink)",
+    padding: "6px 0"
+  };
+  const logo = {
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%,-50%)",
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    padding: 0
+  };
+  const icons = {
+    display: "flex",
+    alignItems: "center",
+    gap: 16
+  };
+  const ib = {
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    color: "var(--vr-ink)",
+    display: "flex",
+    position: "relative",
+    padding: 4
+  };
+  const testride = {
+    height: 40,
+    padding: "0 20px",
+    borderRadius: "var(--radius-pill)",
+    background: "var(--vr-black)",
+    color: "#fff",
+    border: "none",
+    cursor: "pointer",
+    fontFamily: "var(--font-sans)",
+    fontSize: "0.8125rem",
+    fontWeight: 500
+  };
+  return /*#__PURE__*/React.createElement("header", {
+    style: wrap
+  }, /*#__PURE__*/React.createElement("div", {
+    style: util
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "flex",
+      gap: 6,
+      alignItems: "center"
+    }
+  }, "Part of ", /*#__PURE__*/React.createElement("b", {
+    style: {
+      color: "var(--vr-gray-700)",
+      letterSpacing: "0.02em"
+    }
+  }, "PON")), /*#__PURE__*/React.createElement("span", {
+    style: {
+      letterSpacing: "0.02em"
+    }
+  }, "Forever forward."), /*#__PURE__*/React.createElement("div", {
+    style: utilLinks
+  }, /*#__PURE__*/React.createElement("button", {
+    style: ul,
+    onClick: () => go("bikes")
+  }, "Accessories"), /*#__PURE__*/React.createElement("button", {
+    style: ul,
+    onClick: () => go("about")
+  }, "About us"), /*#__PURE__*/React.createElement("button", {
+    style: ul,
+    onClick: () => go("about")
+  }, "Journal"), /*#__PURE__*/React.createElement("button", {
+    style: ul,
+    onClick: () => go("about")
+  }, "Help center"))), /*#__PURE__*/React.createElement("div", {
+    style: inner
+  }, /*#__PURE__*/React.createElement("nav", {
+    style: nav
+  }, links.map(([k, l]) => /*#__PURE__*/React.createElement("button", {
+    key: l,
+    style: linkS,
+    onClick: () => go(k)
+  }, l))), /*#__PURE__*/React.createElement("button", {
+    style: logo,
+    onClick: () => go("home"),
+    "aria-label": "Veloretti home"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "../../assets/logo/veloretti-wordmark-black.svg",
+    alt: "Veloretti",
+    style: {
+      height: 17,
+      display: "block"
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    style: icons
+  }, /*#__PURE__*/React.createElement("button", {
+    style: testride,
+    onClick: () => go("bikes")
+  }, "Book a test ride"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: "0.8125rem",
+      color: "var(--vr-ink)"
+    }
+  }, "EN"), /*#__PURE__*/React.createElement("button", {
+    style: ib,
+    title: "Account"
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "user"
+  })), /*#__PURE__*/React.createElement("button", {
+    style: ib,
+    title: "Cart",
+    onClick: () => go("cart")
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "bag"
+  }), cartCount > 0 && /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: "absolute",
+      top: -4,
+      right: -6,
+      background: "var(--vr-orange)",
+      color: "#fff",
+      fontSize: "0.625rem",
+      fontWeight: 500,
+      minWidth: 16,
+      height: 16,
+      borderRadius: 999,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "0 4px"
+    }
+  }, cartCount)))));
+}
+function Icon({
+  name,
+  size = 20
+}) {
+  const p = {
+    width: size,
+    height: size,
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.6,
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  };
+  const paths = {
+    search: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("circle", {
+      cx: "11",
+      cy: "11",
+      r: "7"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: "M21 21l-4.3-4.3"
+    })),
+    user: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("circle", {
+      cx: "12",
+      cy: "8",
+      r: "4"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: "M4 21c0-4 4-6 8-6s8 2 8 6"
+    })),
+    bag: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("path", {
+      d: "M6 8h12l-1 12H7L6 8z"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: "M9 8a3 3 0 0 1 6 0"
+    })),
+    arrow: /*#__PURE__*/React.createElement("path", {
+      d: "M5 12h14M13 6l6 6-6 6"
+    }),
+    check: /*#__PURE__*/React.createElement("path", {
+      d: "M4 12l5 5L20 6"
+    }),
+    bolt: /*#__PURE__*/React.createElement("path", {
+      d: "M13 3L5 13h6l-1 8 8-11h-6l1-7z"
+    }),
+    shield: /*#__PURE__*/React.createElement("path", {
+      d: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"
+    }),
+    leaf: /*#__PURE__*/React.createElement("path", {
+      d: "M5 19c0-8 6-14 14-14 0 8-6 14-14 14zM5 19c3-3 6-5 10-7"
+    })
+  };
+  return /*#__PURE__*/React.createElement("svg", {
+    viewBox: "0 0 24 24",
+    style: p
+  }, paths[name]);
+}
+function Footer({
+  go
+}) {
+  const wrap = {
+    background: "var(--vr-black)",
+    color: "var(--vr-gray-300)",
+    fontFamily: "var(--font-sans)",
+    padding: "64px var(--container-gutter) 40px"
+  };
+  const inner = {
+    maxWidth: "var(--container-max)",
+    margin: "0 auto"
+  };
+  const cols = {
+    display: "grid",
+    gridTemplateColumns: "1.4fr repeat(3,1fr)",
+    gap: 40,
+    paddingBottom: 48,
+    borderBottom: "1px solid rgba(255,255,255,0.12)"
+  };
+  const h = {
+    fontSize: "0.6875rem",
+    letterSpacing: "0.14em",
+    textTransform: "uppercase",
+    color: "#fff",
+    marginBottom: 16
+  };
+  const li = {
+    display: "block",
+    background: "none",
+    border: "none",
+    color: "var(--vr-gray-300)",
+    fontSize: "0.875rem",
+    padding: "5px 0",
+    cursor: "pointer",
+    textAlign: "left"
+  };
+  const col = (t, items) => /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
+    style: h
+  }, t), items.map(x => /*#__PURE__*/React.createElement("button", {
+    key: x,
+    style: li,
+    onClick: () => go("bikes")
+  }, x)));
+  return /*#__PURE__*/React.createElement("footer", {
+    style: wrap
+  }, /*#__PURE__*/React.createElement("div", {
+    style: inner
+  }, /*#__PURE__*/React.createElement("div", {
+    style: cols
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("img", {
+    src: "../../assets/logo/veloretti-wordmark-white.svg",
+    alt: "Veloretti",
+    style: {
+      height: 22,
+      display: "block",
+      marginBottom: 16
+    }
+  }), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: "0.875rem",
+      lineHeight: 1.6,
+      maxWidth: "32ch",
+      margin: 0
+    }
+  }, "Designed in Amsterdam, handmade in Europe. Bikes built to make your daily rides a pleasure.")), col("Shop", ["Electric bikes", "City bikes", "Kids' bikes", "Accessories"]), col("Support", ["Test rides", "Service & repair", "Warranty", "Contact"]), col("Company", ["About us", "Sustainability", "Business leasing", "Careers"])), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      paddingTop: 24,
+      fontSize: "0.75rem",
+      flexWrap: "wrap",
+      gap: 12
+    }
+  }, /*#__PURE__*/React.createElement("span", null, "\xA9 2025 Veloretti \xB7 Part of the Pon.Bike family"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      letterSpacing: "0.1em"
+    }
+  }, "AMSTERDAM \xB7 NL"))));
+}
+Object.assign(window, {
+  Header,
+  Footer,
+  Icon,
+  VR
+});
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/Chrome.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/website/Configurator.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+// Ivy Two Pro configurator hero — studio product stage with trim + colour pickers.
+(function () {
+  const VR = window.VR || window.VelorettiDesignSystem_ff4e7e;
+  const {
+    Button,
+    SegmentedControl,
+    SwatchPicker
+  } = VR;
+  const SWATCHES = [{
+    name: "Matte Black",
+    hex: "#1A1A1A"
+  }, {
+    name: "Off-White",
+    hex: "#E9E3D7"
+  }, {
+    name: "Burgundy",
+    hex: "#5C2B2B"
+  }, {
+    name: "Sand",
+    hex: "#D8CFBE"
+  }];
+  // feature hotspots positioned over the product stage (x%, y%)
+  const HOTSPOTS = [{
+    x: 64,
+    y: 30
+  }, {
+    x: 33,
+    y: 52
+  }, {
+    x: 47,
+    y: 64
+  }, {
+    x: 55,
+    y: 60
+  }, {
+    x: 72,
+    y: 60
+  }];
+  function Hotspot({
+    x,
+    y
+  }) {
+    const [hover, setHover] = React.useState(false);
+    return /*#__PURE__*/React.createElement("button", {
+      onMouseEnter: () => setHover(true),
+      onMouseLeave: () => setHover(false),
+      style: {
+        position: "absolute",
+        left: x + "%",
+        top: y + "%",
+        transform: `translate(-50%,-50%) scale(${hover ? 1.08 : 1})`,
+        width: 52,
+        height: 52,
+        borderRadius: 14,
+        background: "var(--vr-white)",
+        border: "none",
+        boxShadow: "var(--shadow-md)",
+        cursor: "pointer",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        transition: "transform var(--dur-fast) var(--ease-out)",
+        zIndex: 3
+      },
+      "aria-label": "Feature"
+    }, /*#__PURE__*/React.createElement("svg", {
+      width: "18",
+      height: "18",
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "var(--vr-ink)",
+      strokeWidth: "1.6",
+      strokeLinecap: "round"
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M12 5v14M5 12h14"
+    })));
+  }
+  function Configurator({
+    productImage
+  }) {
+    const [trim, setTrim] = React.useState("pro");
+    const [color, setColor] = React.useState("Matte Black");
+    const wrap = {
+      background: "#C9C4BD",
+      padding: "clamp(40px,6vw,72px) var(--container-gutter) clamp(32px,5vw,56px)",
+      fontFamily: "var(--font-sans)",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
       textAlign: "center",
-      gap: 12,
-      padding: "48px 32px",
-      fontFamily: '"PT Sans", sans-serif'
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    "aria-hidden": "true",
-    style: {
-      width: 64,
-      height: 64,
-      borderRadius: "50%",
-      background: "#DAE7FE",
-      display: "inline-flex",
-      alignItems: "center",
-      justifyContent: "center",
-      fontSize: 26,
-      color: "#002C47"
-    }
-  }, glyph), /*#__PURE__*/React.createElement("h3", {
-    style: {
-      margin: 0,
-      fontFamily: '"PT Serif", serif',
-      fontWeight: 700,
-      fontSize: 22,
-      color: "#002C47"
-    }
-  }, title), description && /*#__PURE__*/React.createElement("p", {
-    style: {
-      margin: 0,
-      fontSize: 15,
-      lineHeight: 1.6,
-      color: "#5C7185",
-      maxWidth: 380
-    }
-  }, description), action && /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginTop: 8
-    }
-  }, action));
-}
-Object.assign(__ds_scope, { EmptyState });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/EmptyState.jsx", error: String((e && e.message) || e) }); }
-
-// components/feedback/AlertBanner.jsx
-try { (() => {
-// AlertBanner.jsx — inline alert, light-surface variant
-const alertTones = {
-  info: {
-    border: "#B399FF",
-    bg: "#F5F1FF",
-    fg: "#002C47",
-    icon: "ℹ"
-  },
-  success: {
-    border: "#52E9C0",
-    bg: "#EAFBF5",
-    fg: "#002C47",
-    icon: "✓"
-  },
-  warning: {
-    border: "#F59E0B",
-    bg: "#FFF7E8",
-    fg: "#7A4E00",
-    icon: "!"
-  },
-  error: {
-    border: "#EF4444",
-    bg: "#FDEDED",
-    fg: "#8C1C1C",
-    icon: "✕"
+      color: "var(--vr-ink)"
+    };
+    const title = {
+      fontSize: "clamp(3rem,7vw,5rem)",
+      fontWeight: 500,
+      letterSpacing: "-0.02em",
+      lineHeight: 0.98,
+      margin: 0
+    };
+    return /*#__PURE__*/React.createElement("section", {
+      style: wrap
+    }, /*#__PURE__*/React.createElement("h1", {
+      style: title
+    }, "Ivy Two", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: "rgba(26,26,26,0.32)"
+      }
+    }, trim === "pro" ? "Pro" : "Lite")), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        alignItems: "center",
+        gap: 20,
+        marginTop: 28
+      }
+    }, /*#__PURE__*/React.createElement(Button, {
+      variant: "primary"
+    }, "Buy"), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: "1.0625rem",
+        color: "var(--vr-gray-700)"
+      }
+    }, "from \u20AC ", trim === "pro" ? "3.299,00" : "2.799,00")), /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 30
+      }
+    }, /*#__PURE__*/React.createElement(SwatchPicker, {
+      swatches: SWATCHES,
+      value: color,
+      onChange: setColor
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: "relative",
+        width: "100%",
+        maxWidth: 1040,
+        aspectRatio: "16/10",
+        margin: "12px auto 0"
+      }
+    }, productImage ? /*#__PURE__*/React.createElement("img", {
+      src: productImage,
+      alt: "Ivy Two " + trim,
+      style: {
+        width: "100%",
+        height: "100%",
+        objectFit: "contain"
+      }
+    }) : /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: "absolute",
+        inset: "18% 8%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "rgba(26,26,26,0.28)",
+        fontSize: "0.8125rem",
+        letterSpacing: "0.14em",
+        textTransform: "uppercase"
+      }
+    }, "Ivy Two Pro \xB7 product render"), HOTSPOTS.map((h, i) => /*#__PURE__*/React.createElement(Hotspot, _extends({
+      key: i
+    }, h)))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 8
+      }
+    }, /*#__PURE__*/React.createElement(SegmentedControl, {
+      options: [{
+        value: "lite",
+        label: "Lite"
+      }, {
+        value: "pro",
+        label: "Pro"
+      }],
+      value: trim,
+      onChange: setTrim
+    })));
   }
-};
-function AlertBanner({
-  variant = "info",
-  title,
-  children,
-  onClose
-}) {
-  const t = alertTones[variant] || alertTones.info;
-  return /*#__PURE__*/React.createElement("div", {
-    role: "alert",
-    style: {
-      display: "flex",
-      gap: 12,
-      alignItems: "flex-start",
-      padding: "14px 16px",
-      background: t.bg,
-      borderLeft: `4px solid ${t.border}`,
-      borderRadius: 12,
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 15,
-      lineHeight: 1.5,
-      color: t.fg
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    "aria-hidden": "true",
-    style: {
-      width: 22,
-      height: 22,
-      borderRadius: "50%",
-      flex: "none",
-      fontSize: 12,
-      fontWeight: 700,
-      background: t.border,
-      color: "#002C47",
-      display: "inline-flex",
-      alignItems: "center",
-      justifyContent: "center"
-    }
-  }, t.icon), /*#__PURE__*/React.createElement("span", {
-    style: {
-      flex: 1
-    }
-  }, title && /*#__PURE__*/React.createElement("strong", {
-    style: {
-      display: "block",
-      marginBottom: children ? 2 : 0
-    }
-  }, title), children), onClose && /*#__PURE__*/React.createElement("button", {
-    onClick: onClose,
-    "aria-label": "Dismiss",
-    style: {
-      border: "none",
-      background: "none",
-      cursor: "pointer",
-      color: t.fg,
-      fontSize: 16,
-      lineHeight: 1,
-      padding: 2
-    }
-  }, "\xD7"));
-}
-Object.assign(__ds_scope, { AlertBanner });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/AlertBanner.jsx", error: String((e && e.message) || e) }); }
+  window.Configurator = Configurator;
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/Configurator.jsx", error: String((e && e.message) || e) }); }
 
-// components/feedback/Badge.jsx
+// ui_kits/website/Home.jsx
 try { (() => {
-// Badge.jsx — small status/label tag (8px radius per brand spec)
-const badgeTones = {
-  navy: {
-    bg: "#002C47",
-    fg: "#FFFFFF"
-  },
-  mint: {
-    bg: "#52E9C0",
-    fg: "#002C47"
-  },
-  purple: {
-    bg: "#B399FF",
-    fg: "#002C47"
-  },
-  sky: {
-    bg: "#DAE7FE",
-    fg: "#002C47"
-  },
-  neutral: {
-    bg: "#F0F4F8",
-    fg: "#5C7185"
-  },
-  error: {
-    bg: "#FDEDED",
-    fg: "#B91C1C"
-  },
-  warning: {
-    bg: "#FFF7E8",
-    fg: "#B45309"
-  }
-};
-function Badge({
-  children,
-  tone = "sky",
-  style = {}
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+// Home screen — hero, product grid, editorial split, feature strip, newsletter.
+const {
+  Button,
+  Badge,
+  ProductCard
+} = window.VR;
+function Hero({
+  go
 }) {
-  const t = badgeTones[tone] || badgeTones.sky;
-  return /*#__PURE__*/React.createElement("span", {
-    style: {
-      display: "inline-block",
-      background: t.bg,
-      color: t.fg,
-      fontFamily: '"PT Sans", sans-serif',
-      fontWeight: 700,
-      fontSize: 13,
-      letterSpacing: "0.5px",
-      borderRadius: 8,
-      padding: "4px 10px",
-      whiteSpace: "nowrap",
-      ...style
-    }
-  }, children);
-}
-Object.assign(__ds_scope, { Badge });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Badge.jsx", error: String((e && e.message) || e) }); }
-
-// components/feedback/ModalDialog.jsx
-try { (() => {
-// ModalDialog.jsx — generic modal with backdrop; also covers confirmation dialogs via actions
-function ModalDialog({
-  open,
-  onClose,
-  title,
-  children,
-  actions,
-  width = 480,
-  inline = false
-}) {
-  if (!open) return null;
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: inline ? "relative" : "fixed",
-      inset: inline ? "auto" : 0,
-      zIndex: 150,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      padding: 24
-    }
-  }, !inline && /*#__PURE__*/React.createElement("div", {
-    onClick: onClose,
-    style: {
-      position: "absolute",
-      inset: 0,
-      background: "rgba(0,44,71,0.45)"
-    }
+  const wrap = {
+    position: "relative",
+    minHeight: "78vh",
+    display: "flex",
+    alignItems: "flex-end",
+    color: "#fff",
+    fontFamily: "var(--font-sans)",
+    overflow: "hidden"
+  };
+  const bg = {
+    position: "absolute",
+    inset: 0,
+    backgroundImage: "url(../../assets/photography/riders-mural.jpg)",
+    backgroundSize: "cover",
+    backgroundPosition: "center 30%"
+  };
+  const scrim = {
+    position: "absolute",
+    inset: 0,
+    background: "linear-gradient(to top, rgba(22,21,20,0.55), rgba(22,21,20,0.05) 45%, rgba(22,21,20,0.15))"
+  };
+  const inner = {
+    position: "relative",
+    maxWidth: "var(--container-max)",
+    margin: "0 auto",
+    width: "100%",
+    padding: "0 var(--container-gutter) 56px"
+  };
+  return /*#__PURE__*/React.createElement("section", {
+    style: wrap
+  }, /*#__PURE__*/React.createElement("div", {
+    style: bg
   }), /*#__PURE__*/React.createElement("div", {
-    role: "dialog",
-    "aria-modal": "true",
+    style: scrim
+  }), /*#__PURE__*/React.createElement("div", {
+    style: inner
+  }, /*#__PURE__*/React.createElement("span", {
     style: {
-      position: "relative",
-      background: "#FFFFFF",
-      borderRadius: 20,
-      padding: 32,
-      width,
-      maxWidth: "100%",
-      boxShadow: "0 8px 32px rgba(0,44,71,0.22)",
-      boxSizing: "border-box"
+      fontSize: "0.75rem",
+      fontWeight: 500,
+      letterSpacing: "0.14em",
+      textTransform: "uppercase",
+      opacity: 0.9
     }
+  }, "New \xB7 Ace Two"), /*#__PURE__*/React.createElement("h1", {
+    style: {
+      fontSize: "clamp(2.75rem,6vw,5.5rem)",
+      fontWeight: 500,
+      letterSpacing: "-0.02em",
+      lineHeight: 1.0,
+      margin: "14px 0 20px",
+      maxWidth: "16ch"
+    }
+  }, "Ride into the city"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: "1.125rem",
+      lineHeight: 1.5,
+      maxWidth: "46ch",
+      margin: "0 0 28px",
+      opacity: 0.92
+    }
+  }, "An electric bike designed in Amsterdam \u2014 timeless, quiet, and built to make your daily rides a pleasure."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 12,
+      flexWrap: "wrap"
+    }
+  }, /*#__PURE__*/React.createElement(Button, {
+    variant: "accent",
+    size: "lg",
+    onClick: () => go("product")
+  }, "Shop the Ace Two"), /*#__PURE__*/React.createElement(Button, {
+    size: "lg",
+    onClick: () => go("bikes"),
+    style: {
+      background: "rgba(255,255,255,0.12)",
+      borderColor: "rgba(255,255,255,0.6)",
+      color: "#fff"
+    }
+  }, "Book a test ride"))));
+}
+function FeatureStrip() {
+  const items = [["bolt", "Up to 100 km", "on a single charge"], ["shield", "5-year warranty", "frame & battery"], ["leaf", "Handmade in Europe", "built to last"], ["arrow", "Free delivery", "assembled to your door"]];
+  const wrap = {
+    background: "var(--vr-black)",
+    color: "#fff",
+    fontFamily: "var(--font-sans)"
+  };
+  const inner = {
+    maxWidth: "var(--container-max)",
+    margin: "0 auto",
+    padding: "22px var(--container-gutter)",
+    display: "grid",
+    gridTemplateColumns: "repeat(4,1fr)",
+    gap: 24
+  };
+  return /*#__PURE__*/React.createElement("section", {
+    style: wrap
+  }, /*#__PURE__*/React.createElement("div", {
+    style: inner
+  }, items.map(([ic, t, s]) => /*#__PURE__*/React.createElement("div", {
+    key: t,
+    style: {
+      display: "flex",
+      gap: 12,
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: ic,
+    size: 22
+  }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: "0.9375rem",
+      fontWeight: 500
+    }
+  }, t), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: "0.8125rem",
+      color: "var(--vr-gray-300)"
+    }
+  }, s))))));
+}
+function ProductGrid({
+  products,
+  go,
+  title = "The collection",
+  note
+}) {
+  const wrap = {
+    maxWidth: "var(--container-max)",
+    margin: "0 auto",
+    padding: "var(--space-9) var(--container-gutter)",
+    fontFamily: "var(--font-sans)"
+  };
+  return /*#__PURE__*/React.createElement("section", {
+    style: wrap
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
-      alignItems: "flex-start",
       justifyContent: "space-between",
-      gap: 16,
-      marginBottom: 12
+      alignItems: "flex-end",
+      marginBottom: 28,
+      flexWrap: "wrap",
+      gap: 12
     }
   }, /*#__PURE__*/React.createElement("h2", {
     style: {
+      fontSize: "clamp(1.75rem,3vw,2.5rem)",
+      fontWeight: 500,
+      letterSpacing: "-0.02em",
       margin: 0,
-      fontFamily: '"PT Serif", serif',
-      fontWeight: 700,
-      fontSize: 26,
-      lineHeight: 1.25,
-      color: "#002C47"
+      color: "var(--vr-ink)"
     }
-  }, title), onClose && /*#__PURE__*/React.createElement("button", {
-    onClick: onClose,
-    "aria-label": "Close",
+  }, title), note && /*#__PURE__*/React.createElement("span", {
     style: {
-      width: 40,
-      height: 40,
-      borderRadius: "50%",
-      border: "none",
-      cursor: "pointer",
-      flex: "none",
-      background: "#F0F4F8",
-      color: "#002C47",
-      fontSize: 18,
-      lineHeight: 1
+      fontSize: "0.8125rem",
+      letterSpacing: "0.06em",
+      color: "var(--vr-gray-500)"
     }
-  }, "\xD7")), /*#__PURE__*/React.createElement("div", {
+  }, note)), /*#__PURE__*/React.createElement("div", {
     style: {
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 16,
-      lineHeight: 1.6,
-      color: "#5C7185"
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fill,minmax(260px,1fr))",
+      gap: 24
     }
-  }, children), actions && /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      gap: 12,
-      justifyContent: "flex-end",
-      marginTop: 24
-    }
-  }, actions)));
+  }, products.map(p => /*#__PURE__*/React.createElement(ProductCard, _extends({
+    key: p.id
+  }, p, {
+    onClick: () => go("product", p)
+  })))));
 }
-Object.assign(__ds_scope, { ModalDialog });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/ModalDialog.jsx", error: String((e && e.message) || e) }); }
-
-// components/feedback/ProgressBar.jsx
-try { (() => {
-// ProgressBar.jsx — determinate progress
-function ProgressBar({
-  value = 0,
-  max = 100,
-  label,
-  showValue = true
+function EditorialSplit({
+  go
 }) {
-  const pct = Math.min(100, Math.max(0, value / max * 100));
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 8,
-      width: "100%",
-      fontFamily: '"PT Sans", sans-serif'
-    }
-  }, (label || showValue) && /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      justifyContent: "space-between",
-      fontSize: 14
-    }
+  const wrap = {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    alignItems: "stretch",
+    background: "var(--vr-surface-2)",
+    fontFamily: "var(--font-sans)"
+  };
+  const img = {
+    backgroundImage: "url(../../assets/photography/white-shirt.jpg)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    minHeight: 460
+  };
+  const body = {
+    padding: "clamp(32px,6vw,88px)",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center"
+  };
+  return /*#__PURE__*/React.createElement("section", {
+    style: wrap
+  }, /*#__PURE__*/React.createElement("div", {
+    style: img
+  }), /*#__PURE__*/React.createElement("div", {
+    style: body
   }, /*#__PURE__*/React.createElement("span", {
     style: {
-      fontWeight: 700,
-      color: "#002C47"
+      fontSize: "0.75rem",
+      fontWeight: 500,
+      letterSpacing: "0.14em",
+      textTransform: "uppercase",
+      color: "var(--vr-orange-ink)",
+      marginBottom: 16
     }
-  }, label), showValue && /*#__PURE__*/React.createElement("span", {
+  }, "Our philosophy"), /*#__PURE__*/React.createElement("h2", {
     style: {
-      color: "#5C7185"
+      fontSize: "clamp(1.75rem,3vw,2.75rem)",
+      fontWeight: 500,
+      letterSpacing: "-0.02em",
+      lineHeight: 1.08,
+      margin: "0 0 18px",
+      color: "var(--vr-ink)"
     }
-  }, Math.round(pct), "%")), /*#__PURE__*/React.createElement("div", {
-    role: "progressbar",
-    "aria-valuenow": value,
-    "aria-valuemin": 0,
-    "aria-valuemax": max,
+  }, "Designed to disappear into your day"), /*#__PURE__*/React.createElement("p", {
     style: {
-      height: 8,
-      borderRadius: 999,
-      background: "#F0F4F8",
-      overflow: "hidden"
+      fontSize: "1.0625rem",
+      lineHeight: 1.6,
+      color: "var(--vr-gray-700)",
+      maxWidth: "42ch",
+      margin: "0 0 28px"
+    }
+  }, "No cables to trip over, no maintenance to think about. Just a bike that starts when you do and keeps its looks for years. That's the Veloretti difference."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Button, {
+    variant: "secondary",
+    onClick: () => go("about")
+  }, "Read our story"))));
+}
+function Newsletter() {
+  const {
+    Input
+  } = window.VR;
+  const [done, setDone] = React.useState(false);
+  const wrap = {
+    background: "var(--vr-black)",
+    color: "#fff",
+    fontFamily: "var(--font-sans)"
+  };
+  const inner = {
+    maxWidth: 820,
+    margin: "0 auto",
+    padding: "var(--space-9) var(--container-gutter)",
+    textAlign: "center"
+  };
+  return /*#__PURE__*/React.createElement("section", {
+    style: wrap
+  }, /*#__PURE__*/React.createElement("div", {
+    style: inner
+  }, /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: "clamp(1.75rem,3vw,2.5rem)",
+      fontWeight: 500,
+      letterSpacing: "-0.02em",
+      margin: "0 0 12px"
+    }
+  }, "Join the ride"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: "1.0625rem",
+      color: "var(--vr-gray-300)",
+      margin: "0 0 28px"
+    }
+  }, "Test-ride invites, new drops, and city stories. No noise."), done ? /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: "1.0625rem"
+    }
+  }, "Thanks \u2014 check your inbox.") : /*#__PURE__*/React.createElement("form", {
+    onSubmit: e => {
+      e.preventDefault();
+      setDone(true);
+    },
+    style: {
+      display: "flex",
+      gap: 10,
+      maxWidth: 460,
+      margin: "0 auto"
+    }
+  }, /*#__PURE__*/React.createElement("input", {
+    placeholder: "Email address",
+    required: true,
+    type: "email",
+    style: {
+      flex: 1,
+      height: "var(--control-h-md)",
+      padding: "0 18px",
+      border: "1.5px solid rgba(255,255,255,0.3)",
+      background: "transparent",
+      color: "#fff",
+      borderRadius: "var(--radius-pill)",
+      fontFamily: "var(--font-sans)",
+      fontSize: "0.9375rem",
+      outline: "none"
+    }
+  }), /*#__PURE__*/React.createElement(Button, {
+    variant: "accent",
+    as: "button"
+  }, "Sign up"))));
+}
+function FAQSection() {
+  const {
+    FAQ
+  } = window.VR;
+  const items = [{
+    q: "Where can I test ride a Veloretti outside Amsterdam?",
+    a: /*#__PURE__*/React.createElement(React.Fragment, null, "You can test ride the Electric Two at more than 100 partner stores across the Netherlands. Search by city or postcode to find your nearest location in Utrecht, Rotterdam or elsewhere in the country. ", /*#__PURE__*/React.createElement("a", {
+      href: "#",
+      style: {
+        textDecoration: "underline"
+      }
+    }, "Find a store."))
+  }, {
+    q: "How is my Veloretti delivered and assembled?",
+    a: "Your bike arrives ready to ride \u2014 delivered and assembled to your door, with free delivery across the Netherlands."
+  }, {
+    q: "Where can I have my Veloretti serviced or repaired?",
+    a: "At any of our partner service points, or book a pick-up. Every bike comes with a 5-year warranty on frame and battery."
+  }, {
+    q: "Is the Electric Two suitable for longer commutes?",
+    a: "Yes \u2014 up to 100 km on a single charge, with a quiet belt drive built for daily city and inter-city rides."
+  }, {
+    q: "Can I lease a Veloretti through my employer outside Amsterdam?",
+    a: "Many employers across the Netherlands offer Veloretti through bike-lease schemes. Ask your HR team, or contact us and we'll help set it up."
+  }];
+  return /*#__PURE__*/React.createElement("section", {
+    style: {
+      background: "var(--surface-page)",
+      padding: "var(--space-9) var(--container-gutter)"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      width: pct + "%",
-      height: "100%",
-      borderRadius: 999,
-      background: "#52E9C0",
-      transition: "width 300ms ease-out"
+      maxWidth: "var(--container-max)",
+      margin: "0 auto"
     }
+  }, /*#__PURE__*/React.createElement(FAQ, {
+    items: items
   })));
 }
-Object.assign(__ds_scope, { ProgressBar });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/ProgressBar.jsx", error: String((e && e.message) || e) }); }
-
-// components/feedback/Skeleton.jsx
-try { (() => {
-// Skeleton.jsx — loading placeholder; lines>1 renders a text block
-function Skeleton({
-  width = "100%",
-  height = 16,
-  circle = false,
-  lines = 1,
-  style = {}
+function Categories({
+  go
 }) {
-  const pulse = "@keyframes dl-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.45; } }";
-  const bar = (w, key) => /*#__PURE__*/React.createElement("span", {
-    key: key,
+  const {
+    CategoryCard
+  } = window.VR;
+  const cats = [{
+    title: "Electric bikes",
+    description: "Effortless power, built for city life.",
+    image: "../../assets/photography/escalator.jpg",
+    dots: 2,
+    activeDot: 0
+  }, {
+    title: "City bikes",
+    description: "Minimal design. Maximum ease.",
+    image: "../../assets/photography/shelter.jpg",
+    dots: 5,
+    activeDot: 0
+  }, {
+    title: "Kids bikes",
+    description: "First rides, lasting adventures.",
+    image: "../../assets/photography/white-shirt.jpg",
+    dots: 2,
+    activeDot: 0
+  }, {
+    title: "Balance bikes",
+    description: "A confident start for young riders.",
+    image: "../../assets/photography/riders-mural.jpg",
+    dots: 2,
+    activeDot: 0
+  }];
+  return /*#__PURE__*/React.createElement("section", {
     style: {
-      display: "block",
-      width: w,
-      height: circle ? width : height,
-      borderRadius: circle ? "50%" : 8,
-      background: "#DAE7FE",
-      animation: "dl-pulse 1.4s ease-in-out infinite",
-      ...style
+      maxWidth: "var(--container-max)",
+      margin: "0 auto",
+      padding: "var(--space-9) var(--container-gutter)",
+      fontFamily: "var(--font-sans)"
     }
+  }, /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: "clamp(1.75rem,3vw,2.5rem)",
+      fontWeight: 500,
+      letterSpacing: "-0.02em",
+      margin: "0 0 28px",
+      color: "var(--vr-ink)"
+    }
+  }, "Explore our bikes"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fill,minmax(240px,1fr))",
+      gap: 28
+    }
+  }, cats.map(c => /*#__PURE__*/React.createElement(CategoryCard, _extends({
+    key: c.title
+  }, c, {
+    onClick: () => go("bikes")
+  })))));
+}
+function Home({
+  products,
+  go
+}) {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Hero, {
+    go: go
+  }), /*#__PURE__*/React.createElement(FeatureStrip, null), /*#__PURE__*/React.createElement(Categories, {
+    go: go
+  }), /*#__PURE__*/React.createElement(EditorialSplit, {
+    go: go
+  }), /*#__PURE__*/React.createElement(ProductGrid, {
+    products: products.filter(p => p.category === "ebike"),
+    go: go,
+    title: "Electric bikes",
+    note: "Designed in Amsterdam"
+  }), /*#__PURE__*/React.createElement(FAQSection, null), /*#__PURE__*/React.createElement(Newsletter, null));
+}
+Object.assign(window, {
+  Home,
+  ProductGrid
+});
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/Home.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/website/ProductDetail.jsx
+try { (() => {
+// Product detail screen — gallery, buy box, spec list.
+function ProductDetail({
+  product,
+  go,
+  addToCart
+}) {
+  const {
+    Button,
+    Badge,
+    OptionCard
+  } = window.VR;
+  const p = product;
+  const [color, setColor] = React.useState(p.colors && p.colors[0] || {
+    name: "Jet Black",
+    hex: "#1A1A1A"
   });
-  if (lines <= 1) return /*#__PURE__*/React.createElement("span", {
-    "aria-hidden": "true"
-  }, /*#__PURE__*/React.createElement("style", null, pulse), bar(width));
-  return /*#__PURE__*/React.createElement("span", {
-    "aria-hidden": "true",
+  const [gear, setGear] = React.useState("three");
+  const [size, setSize] = React.useState("M");
+  const [added, setAdded] = React.useState(false);
+  const wrap = {
+    maxWidth: "var(--container-max)",
+    margin: "0 auto",
+    padding: "var(--space-7) var(--container-gutter) var(--space-9)",
+    fontFamily: "var(--font-sans)"
+  };
+  const grid = {
+    display: "grid",
+    gridTemplateColumns: "1.35fr 1fr",
+    gap: "clamp(28px,5vw,72px)",
+    alignItems: "start"
+  };
+  const media = {
+    background: "var(--vr-surface-2)",
+    borderRadius: "var(--radius-lg)",
+    overflow: "hidden",
+    aspectRatio: "4/5"
+  };
+  const specs = p.specs || [["Range", "Up to 100 km"], ["Motor", "250W rear hub"], ["Drive", "Gates carbon belt"], ["Weight", "22 kg"], ["Frame", "Aluminium, 3 sizes"]];
+  return /*#__PURE__*/React.createElement("section", {
+    style: wrap
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => go("bikes"),
+    style: {
+      background: "none",
+      border: "none",
+      cursor: "pointer",
+      color: "var(--vr-gray-500)",
+      fontSize: "0.8125rem",
+      letterSpacing: "0.06em",
+      marginBottom: 22,
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      fontFamily: "var(--font-sans)"
+    }
+  }, "\u2190 Back to bikes"), /*#__PURE__*/React.createElement("div", {
+    style: grid
+  }, /*#__PURE__*/React.createElement("div", {
+    style: media
+  }, /*#__PURE__*/React.createElement("img", {
+    src: p.image,
+    alt: p.name,
+    style: {
+      width: "100%",
+      height: "100%",
+      objectFit: "cover"
+    }
+  })), /*#__PURE__*/React.createElement("div", null, p.badge && /*#__PURE__*/React.createElement(Badge, {
+    variant: "ink"
+  }, p.badge), /*#__PURE__*/React.createElement("h1", {
+    style: {
+      fontSize: "clamp(2rem,4vw,3rem)",
+      fontWeight: 500,
+      letterSpacing: "-0.02em",
+      margin: "14px 0 6px",
+      color: "var(--vr-ink)"
+    }
+  }, p.name), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: "1.0625rem",
+      color: "var(--vr-gray-700)",
+      margin: "0 0 18px"
+    }
+  }, p.tagline), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "baseline",
+      gap: 12,
+      marginBottom: 26
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: "1.75rem",
+      fontWeight: 500,
+      color: "var(--vr-ink)"
+    }
+  }, p.price), p.priceNote && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: "0.9375rem",
+      color: "var(--vr-gray-500)"
+    }
+  }, p.priceNote)), p.colors && /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: 24
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "baseline",
+      marginBottom: 12
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: "1.125rem",
+      fontWeight: 500,
+      color: "var(--vr-ink)"
+    }
+  }, "Colour"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: "0.875rem",
+      color: "var(--vr-gray-500)"
+    }
+  }, color.name)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 10
+    }
+  }, p.colors.map(c => /*#__PURE__*/React.createElement("button", {
+    key: c.name,
+    title: c.name,
+    onClick: () => setColor(c),
+    style: {
+      width: 52,
+      height: 52,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "var(--vr-white)",
+      cursor: "pointer",
+      border: `1.5px solid ${color.name === c.name ? "var(--vr-black)" : "var(--vr-gray-200)"}`,
+      borderRadius: "var(--radius-md)",
+      boxSizing: "border-box"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 30,
+      height: 30,
+      borderRadius: "50%",
+      background: c.hex,
+      border: "1px solid rgba(0,0,0,0.08)",
+      boxSizing: "border-box"
+    }
+  }))))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: 24
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: "1.125rem",
+      fontWeight: 500,
+      color: "var(--vr-ink)",
+      marginBottom: 12
+    }
+  }, "Gear"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       flexDirection: "column",
       gap: 10
     }
-  }, /*#__PURE__*/React.createElement("style", null, pulse), Array.from({
-    length: lines
-  }, (_, i) => bar(i === lines - 1 ? "60%" : width, i)));
-}
-Object.assign(__ds_scope, { Skeleton });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Skeleton.jsx", error: String((e && e.message) || e) }); }
-
-// components/feedback/Spinner.jsx
-try { (() => {
-// Spinner.jsx — indeterminate loading indicator
-function Spinner({
-  size = 24,
-  onDark = false
-}) {
-  return /*#__PURE__*/React.createElement("span", {
-    role: "status",
-    "aria-label": "Loading",
-    style: {
-      display: "inline-block",
-      width: size,
-      height: size
-    }
-  }, /*#__PURE__*/React.createElement("style", null, "@keyframes dl-spin { to { transform: rotate(360deg); } }"), /*#__PURE__*/React.createElement("span", {
-    style: {
-      display: "block",
-      width: size,
-      height: size,
-      boxSizing: "border-box",
-      border: `${Math.max(2, size / 8)}px solid ${onDark ? "rgba(255,255,255,0.2)" : "#DAE7FE"}`,
-      borderTopColor: onDark ? "#52E9C0" : "#002C47",
-      borderRadius: "50%",
-      animation: "dl-spin 700ms linear infinite"
-    }
-  }));
-}
-Object.assign(__ds_scope, { Spinner });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Spinner.jsx", error: String((e && e.message) || e) }); }
-
-// components/feedback/Toast.jsx
-try { (() => {
-// Toast.jsx — transient snackbar, bottom-centered; auto-dismiss optional
-function Toast({
-  open,
-  message,
-  variant = "info",
-  onClose,
-  duration = 4000,
-  inline = false
-}) {
-  React.useEffect(() => {
-    if (!open || !duration || !onClose) return;
-    const id = setTimeout(onClose, duration);
-    return () => clearTimeout(id);
-  }, [open, duration, onClose]);
-  if (!open) return null;
-  const accent = {
-    info: "#B399FF",
-    success: "#52E9C0",
-    warning: "#F59E0B",
-    error: "#EF4444"
-  }[variant] || "#B399FF";
-  return /*#__PURE__*/React.createElement("div", {
-    role: "status",
-    style: {
-      position: inline ? "static" : "fixed",
-      left: inline ? "auto" : "50%",
-      bottom: inline ? "auto" : 24,
-      transform: inline ? "none" : "translateX(-50%)",
-      zIndex: 200,
-      display: "inline-flex",
-      alignItems: "center",
-      gap: 12,
-      background: "#002C47",
-      color: "#FFFFFF",
-      borderRadius: 20,
-      padding: "14px 20px",
-      boxShadow: "0 8px 32px rgba(0,44,71,0.35)",
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 15
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    "aria-hidden": "true",
-    style: {
-      width: 8,
-      height: 8,
-      borderRadius: "50%",
-      background: accent,
-      flex: "none"
-    }
-  }), message, onClose && /*#__PURE__*/React.createElement("button", {
-    onClick: onClose,
-    "aria-label": "Dismiss",
-    style: {
-      border: "none",
-      background: "none",
-      cursor: "pointer",
-      color: "rgba(255,255,255,0.7)",
-      fontSize: 16,
-      lineHeight: 1,
-      padding: 0
-    }
-  }, "\xD7"));
-}
-Object.assign(__ds_scope, { Toast });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Toast.jsx", error: String((e && e.message) || e) }); }
-
-// components/feedback/Tooltip.jsx
-try { (() => {
-// Tooltip.jsx — hover/focus tooltip
-function Tooltip({
-  label,
-  side = "top",
-  children
-}) {
-  const [show, setShow] = React.useState(false);
-  const pos = {
-    top: {
-      bottom: "calc(100% + 8px)",
-      left: "50%",
-      transform: "translateX(-50%)"
-    },
-    bottom: {
-      top: "calc(100% + 8px)",
-      left: "50%",
-      transform: "translateX(-50%)"
-    },
-    left: {
-      right: "calc(100% + 8px)",
-      top: "50%",
-      transform: "translateY(-50%)"
-    },
-    right: {
-      left: "calc(100% + 8px)",
-      top: "50%",
-      transform: "translateY(-50%)"
-    }
-  }[side];
-  return /*#__PURE__*/React.createElement("span", {
-    style: {
-      position: "relative",
-      display: "inline-block"
-    },
-    onMouseEnter: () => setShow(true),
-    onMouseLeave: () => setShow(false),
-    onFocus: () => setShow(true),
-    onBlur: () => setShow(false)
-  }, children, show && /*#__PURE__*/React.createElement("span", {
-    role: "tooltip",
-    style: {
-      position: "absolute",
-      ...pos,
-      zIndex: 120,
-      whiteSpace: "nowrap",
-      background: "#002C47",
-      color: "#FFFFFF",
-      borderRadius: 8,
-      padding: "7px 12px",
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 13,
-      boxShadow: "0 8px 32px rgba(0,44,71,0.22)"
-    }
-  }, label));
-}
-Object.assign(__ds_scope, { Tooltip });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Tooltip.jsx", error: String((e && e.message) || e) }); }
-
-// components/forms/Checkbox.jsx
-try { (() => {
-// Checkbox.jsx — custom checkbox with label
-function Checkbox({
-  checked = false,
-  onChange,
-  label,
-  disabled = false
-}) {
-  return /*#__PURE__*/React.createElement("label", {
-    style: {
-      display: "inline-flex",
-      alignItems: "center",
-      gap: 10,
-      cursor: disabled ? "not-allowed" : "pointer",
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 16,
-      color: disabled ? "#5C7185" : "#002C47",
-      opacity: disabled ? 0.6 : 1
-    }
-  }, /*#__PURE__*/React.createElement("input", {
-    type: "checkbox",
-    checked: checked,
-    disabled: disabled,
-    onChange: e => onChange && onChange(e.target.checked),
-    style: {
-      position: "absolute",
-      opacity: 0,
-      width: 0,
-      height: 0
-    }
-  }), /*#__PURE__*/React.createElement("span", {
-    "aria-hidden": "true",
-    style: {
-      width: 22,
-      height: 22,
-      borderRadius: 8,
-      flex: "none",
-      boxSizing: "border-box",
-      border: checked ? "none" : "2px solid #5C7185",
-      background: checked ? "#002C47" : "#FFFFFF",
-      display: "inline-flex",
-      alignItems: "center",
-      justifyContent: "center",
-      transition: "background 150ms"
-    }
-  }, checked && /*#__PURE__*/React.createElement("svg", {
-    width: "12",
-    height: "10",
-    viewBox: "0 0 12 10",
-    fill: "none"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M1 5.5L4.2 8.5L11 1.5",
-    stroke: "#52E9C0",
-    strokeWidth: "2.4",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
-  }))), label);
-}
-Object.assign(__ds_scope, { Checkbox });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Checkbox.jsx", error: String((e && e.message) || e) }); }
-
-// components/forms/Field.jsx
-try { (() => {
-// Field.jsx — form field wrapper: label, helper text, error message
-function Field({
-  label,
-  helper,
-  error,
-  required = false,
-  children
-}) {
-  return /*#__PURE__*/React.createElement("label", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 8,
-      fontFamily: '"PT Sans", sans-serif'
-    }
-  }, label && /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontWeight: 700,
-      fontSize: 16,
-      color: "#002C47"
-    }
-  }, label, required && /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "#EF4444"
-    }
-  }, " *")), children, error ? /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 14,
-      color: "#EF4444"
-    }
-  }, error) : helper && /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 14,
-      color: "#5C7185"
-    }
-  }, helper));
-}
-Object.assign(__ds_scope, { Field });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Field.jsx", error: String((e && e.message) || e) }); }
-
-// components/forms/RadioGroup.jsx
-try { (() => {
-// RadioGroup.jsx — radio button set
-function RadioGroup({
-  value,
-  onChange,
-  options = [],
-  name,
-  direction = "column"
-}) {
-  return /*#__PURE__*/React.createElement("div", {
-    role: "radiogroup",
-    style: {
-      display: "flex",
-      flexDirection: direction,
-      gap: direction === "row" ? 24 : 12
-    }
-  }, options.map(o => {
-    const opt = typeof o === "string" ? {
-      value: o,
-      label: o
-    } : o;
-    const active = value === opt.value;
-    return /*#__PURE__*/React.createElement("label", {
-      key: opt.value,
-      style: {
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 10,
-        cursor: "pointer",
-        fontFamily: '"PT Sans", sans-serif',
-        fontSize: 16,
-        color: "#002C47"
-      }
-    }, /*#__PURE__*/React.createElement("input", {
-      type: "radio",
-      name: name,
-      checked: active,
-      value: opt.value,
-      onChange: () => onChange && onChange(opt.value),
-      style: {
-        position: "absolute",
-        opacity: 0,
-        width: 0,
-        height: 0
-      }
-    }), /*#__PURE__*/React.createElement("span", {
-      "aria-hidden": "true",
-      style: {
-        width: 22,
-        height: 22,
-        borderRadius: "50%",
-        flex: "none",
-        boxSizing: "border-box",
-        border: active ? "7px solid #002C47" : "2px solid #5C7185",
-        background: "#FFFFFF",
-        transition: "border 150ms"
-      }
-    }), opt.label);
-  }));
-}
-Object.assign(__ds_scope, { RadioGroup });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/RadioGroup.jsx", error: String((e && e.message) || e) }); }
-
-// components/forms/SearchBar.jsx
-try { (() => {
-// SearchBar.jsx — sky-tinted search field per brand spec (20px radius, magnifier left)
-function SearchBar({
-  value,
-  onChange,
-  onSubmit,
-  placeholder = "Search…",
-  style = {}
-}) {
-  const [focus, setFocus] = React.useState(false);
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 10,
-      height: 48,
-      padding: "0 20px",
-      background: "#DAE7FE",
-      borderRadius: 20,
-      boxSizing: "border-box",
-      width: "100%",
-      border: focus ? "2px solid #002C47" : "2px solid transparent",
-      transition: "border 150ms",
-      ...style
-    }
-  }, /*#__PURE__*/React.createElement("svg", {
-    width: "18",
-    height: "18",
-    viewBox: "0 0 18 18",
-    fill: "none",
-    "aria-hidden": "true",
-    style: {
-      flex: "none"
-    }
-  }, /*#__PURE__*/React.createElement("circle", {
-    cx: "8",
-    cy: "8",
-    r: "6",
-    stroke: "#002C47",
-    strokeWidth: "2"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M12.5 12.5L16.5 16.5",
-    stroke: "#002C47",
-    strokeWidth: "2",
-    strokeLinecap: "round"
-  })), /*#__PURE__*/React.createElement("input", {
-    value: value,
-    placeholder: placeholder,
-    onChange: e => onChange && onChange(e.target.value),
-    onKeyDown: e => {
-      if (e.key === "Enter" && onSubmit) onSubmit(e.target.value);
-    },
-    onFocus: () => setFocus(true),
-    onBlur: () => setFocus(false),
-    style: {
-      flex: 1,
-      minWidth: 0,
-      border: "none",
-      outline: "none",
-      background: "transparent",
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 16,
-      color: "#002C47"
-    }
-  }));
-}
-Object.assign(__ds_scope, { SearchBar });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/SearchBar.jsx", error: String((e && e.message) || e) }); }
-
-// components/forms/Select.jsx
-try { (() => {
-// Select.jsx — styled native select
-function Select({
-  value,
-  onChange,
-  options = [],
-  placeholder,
-  error = false,
-  disabled = false,
-  style = {}
-}) {
-  const [focus, setFocus] = React.useState(false);
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "relative",
-      width: "100%",
-      ...style
-    }
-  }, /*#__PURE__*/React.createElement("select", {
-    value: value ?? "",
-    disabled: disabled,
-    onChange: e => onChange && onChange(e.target.value),
-    onFocus: () => setFocus(true),
-    onBlur: () => setFocus(false),
-    style: {
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 16,
-      color: value ? "#002C47" : "#5C7185",
-      background: disabled ? "#F0F4F8" : "#FFFFFF",
-      appearance: "none",
-      WebkitAppearance: "none",
-      border: error ? "2px solid #EF4444" : focus ? "2px solid #002C47" : "1.5px solid #D1DDE8",
-      borderRadius: 12,
-      padding: "0 44px 0 16px",
-      height: 48,
-      outline: "none",
-      boxShadow: focus && !error ? "0 0 0 4px rgba(0,44,71,0.12)" : "none",
-      width: "100%",
-      boxSizing: "border-box",
-      cursor: disabled ? "not-allowed" : "pointer",
-      transition: "border-color 150ms, box-shadow 150ms"
-    }
-  }, placeholder && /*#__PURE__*/React.createElement("option", {
-    value: "",
-    disabled: true
-  }, placeholder), options.map(o => {
-    const opt = typeof o === "string" ? {
-      value: o,
-      label: o
-    } : o;
-    return /*#__PURE__*/React.createElement("option", {
-      key: opt.value,
-      value: opt.value
-    }, opt.label);
-  })), /*#__PURE__*/React.createElement("span", {
-    "aria-hidden": "true",
-    style: {
-      position: "absolute",
-      right: 16,
-      top: "50%",
-      transform: "translateY(-50%)",
-      pointerEvents: "none",
-      color: "#002C47",
-      fontSize: 12
-    }
-  }, "\u25BE"));
-}
-Object.assign(__ds_scope, { Select });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Select.jsx", error: String((e && e.message) || e) }); }
-
-// components/forms/SliderInput.jsx
-try { (() => {
-// SliderInput.jsx — range slider with optional value readout
-function SliderInput({
-  value = 50,
-  onChange,
-  min = 0,
-  max = 100,
-  step = 1,
-  label,
-  showValue = true,
-  unit = ""
-}) {
-  const pct = (value - min) / (max - min) * 100;
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 10,
-      fontFamily: '"PT Sans", sans-serif',
-      width: "100%"
-    }
-  }, (label || showValue) && /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      justifyContent: "space-between",
-      fontSize: 14
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontWeight: 700,
-      color: "#002C47"
-    }
-  }, label), showValue && /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "#5C7185"
-    }
-  }, value, unit)), /*#__PURE__*/React.createElement("input", {
-    type: "range",
-    min: min,
-    max: max,
-    step: step,
-    value: value,
-    onChange: e => onChange && onChange(Number(e.target.value)),
-    style: {
-      WebkitAppearance: "none",
-      appearance: "none",
-      width: "100%",
-      height: 6,
-      borderRadius: 999,
-      background: `linear-gradient(to right, #52E9C0 ${pct}%, #D1DDE8 ${pct}%)`,
-      outline: "none",
-      cursor: "pointer",
-      accentColor: "#002C47"
-    }
-  }));
-}
-Object.assign(__ds_scope, { SliderInput });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/SliderInput.jsx", error: String((e && e.message) || e) }); }
-
-// components/forms/TextInput.jsx
-try { (() => {
-function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
-// TextInput.jsx — text input / textarea (multiline). type supports "date" etc.
-function TextInput({
-  value,
-  onChange,
-  placeholder,
-  type = "text",
-  multiline = false,
-  rows = 4,
-  error = false,
-  disabled = false,
-  style = {}
-}) {
-  const [focus, setFocus] = React.useState(false);
-  const base = {
-    fontFamily: '"PT Sans", sans-serif',
-    fontSize: 16,
-    color: "#002C47",
-    background: disabled ? "#F0F4F8" : "#FFFFFF",
-    border: error ? "2px solid #EF4444" : focus ? "2px solid #002C47" : "1.5px solid #D1DDE8",
-    borderRadius: 12,
-    padding: multiline ? "12px 16px" : "0 16px",
-    height: multiline ? "auto" : 48,
-    outline: "none",
-    boxSizing: "border-box",
-    width: "100%",
-    boxShadow: focus && !error ? "0 0 0 4px rgba(0,44,71,0.12)" : "none",
-    transition: "border-color 150ms, box-shadow 150ms",
-    resize: "vertical",
-    cursor: disabled ? "not-allowed" : "text",
-    ...style
-  };
-  const props = {
-    value,
-    placeholder,
-    disabled,
-    onChange: e => onChange && onChange(e.target.value),
-    onFocus: () => setFocus(true),
-    onBlur: () => setFocus(false),
-    style: base
-  };
-  return multiline ? /*#__PURE__*/React.createElement("textarea", _extends({
-    rows: rows
-  }, props)) : /*#__PURE__*/React.createElement("input", _extends({
-    type: type
-  }, props));
-}
-Object.assign(__ds_scope, { TextInput });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/TextInput.jsx", error: String((e && e.message) || e) }); }
-
-// components/forms/Toggle.jsx
-try { (() => {
-// Toggle.jsx — switch
-function Toggle({
-  checked = false,
-  onChange,
-  label,
-  disabled = false
-}) {
-  return /*#__PURE__*/React.createElement("label", {
-    style: {
-      display: "inline-flex",
-      alignItems: "center",
-      gap: 12,
-      cursor: disabled ? "not-allowed" : "pointer",
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 16,
-      color: "#002C47",
-      opacity: disabled ? 0.6 : 1
-    }
-  }, /*#__PURE__*/React.createElement("input", {
-    type: "checkbox",
-    role: "switch",
-    checked: checked,
-    disabled: disabled,
-    onChange: e => onChange && onChange(e.target.checked),
-    style: {
-      position: "absolute",
-      opacity: 0,
-      width: 0,
-      height: 0
-    }
-  }), /*#__PURE__*/React.createElement("span", {
-    "aria-hidden": "true",
-    style: {
-      width: 48,
-      height: 28,
-      borderRadius: 999,
-      flex: "none",
-      position: "relative",
-      background: checked ? "#52E9C0" : "#D1DDE8",
-      transition: "background 150ms"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      position: "absolute",
-      top: 3,
-      left: checked ? 23 : 3,
-      width: 22,
-      height: 22,
-      borderRadius: "50%",
-      background: checked ? "#002C47" : "#FFFFFF",
-      boxShadow: "0 1px 3px rgba(0,44,71,0.3)",
-      transition: "left 150ms, background 150ms"
-    }
-  })), label);
-}
-Object.assign(__ds_scope, { Toggle });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Toggle.jsx", error: String((e && e.message) || e) }); }
-
-// components/layout/Divider.jsx
-try { (() => {
-// Divider.jsx — hairline separator
-function Divider({
-  vertical = false,
-  spacing = 16,
-  style = {}
-}) {
-  return vertical ? /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: 1,
-      alignSelf: "stretch",
-      background: "#D1DDE8",
-      margin: `0 ${spacing}px`,
-      ...style
-    }
-  }) : /*#__PURE__*/React.createElement("div", {
-    style: {
-      height: 1,
-      width: "100%",
-      background: "#D1DDE8",
-      margin: `${spacing}px 0`,
-      ...style
-    }
-  });
-}
-Object.assign(__ds_scope, { Divider });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/layout/Divider.jsx", error: String((e && e.message) || e) }); }
-
-// components/layout/Drawer.jsx
-try { (() => {
-// Drawer.jsx — side panel over a backdrop
-function Drawer({
-  open,
-  onClose,
-  side = "right",
-  width = 400,
-  title,
-  children
-}) {
-  if (!open) return null;
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "fixed",
-      inset: 0,
-      zIndex: 100
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    onClick: onClose,
-    style: {
-      position: "absolute",
-      inset: 0,
-      background: "rgba(0,44,71,0.45)"
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "absolute",
-      top: 0,
-      bottom: 0,
-      [side]: 0,
-      width,
-      maxWidth: "90vw",
-      background: "#FFFFFF",
-      boxShadow: "0 8px 32px rgba(0,44,71,0.22)",
-      display: "flex",
-      flexDirection: "column",
-      padding: 24,
-      boxSizing: "border-box",
-      borderRadius: side === "right" ? "20px 0 0 20px" : "0 20px 20px 0"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      marginBottom: 16
-    }
-  }, /*#__PURE__*/React.createElement("h2", {
-    style: {
-      margin: 0,
-      fontFamily: '"PT Serif", serif',
-      fontWeight: 700,
-      fontSize: 24,
-      color: "#002C47"
-    }
-  }, title), /*#__PURE__*/React.createElement("button", {
-    onClick: onClose,
-    "aria-label": "Close",
-    style: {
-      width: 40,
-      height: 40,
-      borderRadius: "50%",
-      border: "none",
-      cursor: "pointer",
-      background: "#F0F4F8",
-      color: "#002C47",
-      fontSize: 18,
-      lineHeight: 1
-    }
-  }, "\xD7")), /*#__PURE__*/React.createElement("div", {
-    style: {
-      overflowY: "auto",
-      flex: 1,
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 16,
-      lineHeight: 1.6,
-      color: "#5C7185"
-    }
-  }, children)));
-}
-Object.assign(__ds_scope, { Drawer });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/layout/Drawer.jsx", error: String((e && e.message) || e) }); }
-
-// components/layout/Stack.jsx
-try { (() => {
-// Stack.jsx — flex layout primitive with token-based gap
-function Stack({
-  direction = "column",
-  gap = 16,
-  align,
-  justify,
-  wrap = false,
-  style = {},
-  children
-}) {
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: direction,
-      gap,
-      alignItems: align,
-      justifyContent: justify,
-      flexWrap: wrap ? "wrap" : "nowrap",
-      ...style
-    }
-  }, children);
-}
-Object.assign(__ds_scope, { Stack });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/layout/Stack.jsx", error: String((e && e.message) || e) }); }
-
-// components/navigation/Breadcrumbs.jsx
-try { (() => {
-// Breadcrumbs.jsx
-function Breadcrumbs({
-  items = [],
-  onNavigate
-}) {
-  return /*#__PURE__*/React.createElement("nav", {
-    "aria-label": "Breadcrumb",
-    style: {
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 14,
-      display: "flex",
-      alignItems: "center",
-      gap: 8,
-      flexWrap: "wrap"
-    }
-  }, items.map((it, i) => {
-    const item = typeof it === "string" ? {
-      label: it
-    } : it;
-    const last = i === items.length - 1;
-    return /*#__PURE__*/React.createElement(React.Fragment, {
-      key: item.label + i
-    }, last ? /*#__PURE__*/React.createElement("span", {
-      "aria-current": "page",
-      style: {
-        color: "#002C47",
-        fontWeight: 700
-      }
-    }, item.label) : /*#__PURE__*/React.createElement("a", {
-      href: item.href || "#",
-      onClick: e => {
-        if (onNavigate) {
-          e.preventDefault();
-          onNavigate(item, i);
-        }
-      },
-      style: {
-        color: "#5C7185",
-        textDecoration: "none"
-      }
-    }, item.label), !last && /*#__PURE__*/React.createElement("span", {
-      "aria-hidden": "true",
-      style: {
-        color: "#D1DDE8"
-      }
-    }, "/"));
-  }));
-}
-Object.assign(__ds_scope, { Breadcrumbs });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Breadcrumbs.jsx", error: String((e && e.message) || e) }); }
-
-// components/navigation/MenuDropdown.jsx
-try { (() => {
-// MenuDropdown.jsx — button-triggered dropdown menu with outside-click close
-function MenuDropdown({
-  label = "Menu",
-  items = [],
-  align = "left"
-}) {
-  const [open, setOpen] = React.useState(false);
-  const ref = React.useRef(null);
-  React.useEffect(() => {
-    if (!open) return;
-    const close = e => {
-      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
-    };
-    document.addEventListener("mousedown", close);
-    return () => document.removeEventListener("mousedown", close);
-  }, [open]);
-  return /*#__PURE__*/React.createElement("div", {
-    ref: ref,
-    style: {
-      position: "relative",
-      display: "inline-block"
-    }
-  }, /*#__PURE__*/React.createElement("button", {
-    onClick: () => setOpen(!open),
-    "aria-haspopup": "menu",
-    "aria-expanded": open,
-    style: {
-      fontFamily: '"PT Sans", sans-serif',
-      fontWeight: 700,
-      fontSize: 15,
-      letterSpacing: "0.5px",
-      background: open ? "#013A5E" : "#002C47",
-      color: "#FFFFFF",
-      border: "none",
-      borderRadius: 20,
-      padding: "13px 24px",
-      cursor: "pointer",
-      display: "inline-flex",
-      alignItems: "center",
-      gap: 8
-    }
-  }, label, " ", /*#__PURE__*/React.createElement("span", {
-    "aria-hidden": "true",
-    style: {
-      fontSize: 11
-    }
-  }, "\u25BE")), open && /*#__PURE__*/React.createElement("div", {
-    role: "menu",
-    style: {
-      position: "absolute",
-      top: "calc(100% + 8px)",
-      [align]: 0,
-      minWidth: 200,
-      zIndex: 50,
-      background: "#FFFFFF",
-      borderRadius: 12,
-      padding: 8,
-      boxShadow: "0 8px 32px rgba(0,44,71,0.22)"
-    }
-  }, items.map((it, i) => it === "-" ? /*#__PURE__*/React.createElement("div", {
-    key: "d" + i,
-    style: {
-      height: 1,
-      background: "#D1DDE8",
-      margin: "6px 8px"
-    }
-  }) : /*#__PURE__*/React.createElement("button", {
-    key: it.label,
-    role: "menuitem",
-    onClick: () => {
-      setOpen(false);
-      it.onClick && it.onClick();
-    },
-    style: {
-      display: "block",
-      width: "100%",
-      textAlign: "left",
-      border: "none",
-      cursor: "pointer",
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 15,
-      color: it.destructive ? "#EF4444" : "#002C47",
-      background: "transparent",
-      borderRadius: 8,
-      padding: "10px 12px"
-    },
-    onMouseEnter: e => e.currentTarget.style.background = "#F0F4F8",
-    onMouseLeave: e => e.currentTarget.style.background = "transparent"
-  }, it.label))));
-}
-Object.assign(__ds_scope, { MenuDropdown });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/MenuDropdown.jsx", error: String((e && e.message) || e) }); }
-
-// components/navigation/Pagination.jsx
-try { (() => {
-// Pagination.jsx
-function Pagination({
-  page = 1,
-  pageCount = 1,
-  onChange
-}) {
-  const go = p => {
-    if (p >= 1 && p <= pageCount && onChange) onChange(p);
-  };
-  const pages = [];
-  for (let p = 1; p <= pageCount; p++) {
-    if (p === 1 || p === pageCount || Math.abs(p - page) <= 1) pages.push(p);else if (pages[pages.length - 1] !== "…") pages.push("…");
-  }
-  const btn = active => ({
-    minWidth: 40,
-    height: 40,
-    borderRadius: "50%",
-    border: "none",
-    cursor: "pointer",
-    fontFamily: '"PT Sans", sans-serif',
-    fontWeight: 700,
-    fontSize: 14,
-    background: active ? "#002C47" : "transparent",
-    color: active ? "#FFFFFF" : "#002C47",
-    transition: "background 150ms"
-  });
-  return /*#__PURE__*/React.createElement("nav", {
-    "aria-label": "Pagination",
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 4
-    }
-  }, /*#__PURE__*/React.createElement("button", {
-    "aria-label": "Previous page",
-    onClick: () => go(page - 1),
-    disabled: page <= 1,
-    style: {
-      ...btn(false),
-      opacity: page <= 1 ? 0.35 : 1,
-      background: "#F0F4F8"
-    }
-  }, "\u2190"), pages.map((p, i) => p === "…" ? /*#__PURE__*/React.createElement("span", {
-    key: "e" + i,
-    style: {
-      padding: "0 6px",
-      color: "#5C7185",
-      fontFamily: '"PT Sans", sans-serif'
-    }
-  }, "\u2026") : /*#__PURE__*/React.createElement("button", {
-    key: p,
-    "aria-current": p === page ? "page" : undefined,
-    onClick: () => go(p),
-    style: btn(p === page)
-  }, p)), /*#__PURE__*/React.createElement("button", {
-    "aria-label": "Next page",
-    onClick: () => go(page + 1),
-    disabled: page >= pageCount,
-    style: {
-      ...btn(false),
-      opacity: page >= pageCount ? 0.35 : 1,
-      background: "#F0F4F8"
-    }
-  }, "\u2192"));
-}
-Object.assign(__ds_scope, { Pagination });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Pagination.jsx", error: String((e && e.message) || e) }); }
-
-// components/navigation/Stepper.jsx
-try { (() => {
-// Stepper.jsx — wizard progress steps
-function Stepper({
-  steps = [],
-  current = 0
-}) {
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "flex-start",
-      width: "100%"
-    }
-  }, steps.map((s, i) => {
-    const done = i < current,
-      active = i === current,
-      last = i === steps.length - 1;
-    return /*#__PURE__*/React.createElement("div", {
-      key: s,
-      style: {
-        display: "flex",
-        alignItems: "flex-start",
-        flex: last ? "none" : 1,
-        minWidth: 0
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: 8
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      "aria-current": active ? "step" : undefined,
-      style: {
-        width: 36,
-        height: 36,
-        borderRadius: "50%",
-        boxSizing: "border-box",
-        flex: "none",
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: '"PT Sans", sans-serif',
-        fontWeight: 700,
-        fontSize: 15,
-        background: done ? "#52E9C0" : active ? "#002C47" : "#FFFFFF",
-        color: done ? "#002C47" : active ? "#FFFFFF" : "#5C7185",
-        border: done || active ? "none" : "2px solid #D1DDE8"
-      }
-    }, done ? "✓" : i + 1), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontFamily: '"PT Sans", sans-serif',
-        fontSize: 13,
-        textAlign: "center",
-        maxWidth: 110,
-        fontWeight: active ? 700 : 400,
-        color: active ? "#002C47" : "#5C7185"
-      }
-    }, s)), !last && /*#__PURE__*/React.createElement("div", {
-      style: {
-        flex: 1,
-        height: 2,
-        background: done ? "#52E9C0" : "#D1DDE8",
-        margin: "17px 8px 0",
-        borderRadius: 1
-      }
-    }));
-  }));
-}
-Object.assign(__ds_scope, { Stepper });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Stepper.jsx", error: String((e && e.message) || e) }); }
-
-// components/navigation/Tabs.jsx
-try { (() => {
-// Tabs.jsx — mint underline active indicator per brand spec
-function Tabs({
-  tabs = [],
-  active,
-  onChange
-}) {
-  return /*#__PURE__*/React.createElement("div", {
-    role: "tablist",
-    style: {
-      display: "flex",
-      gap: 28,
-      borderBottom: "1px solid #D1DDE8"
-    }
-  }, tabs.map(t => {
-    const tab = typeof t === "string" ? {
-      id: t,
-      label: t
-    } : t;
-    const is = active === tab.id;
-    return /*#__PURE__*/React.createElement("button", {
-      key: tab.id,
-      role: "tab",
-      "aria-selected": is,
-      onClick: () => onChange && onChange(tab.id),
-      style: {
-        fontFamily: '"PT Sans", sans-serif',
-        fontWeight: 700,
-        fontSize: 16,
-        color: is ? "#002C47" : "#5C7185",
-        background: "none",
-        border: "none",
-        padding: "12px 2px",
-        cursor: "pointer",
-        borderBottom: is ? "2px solid #52E9C0" : "2px solid transparent",
-        marginBottom: -1,
-        transition: "color 150ms, border-color 150ms"
-      }
-    }, tab.label);
-  }));
-}
-Object.assign(__ds_scope, { Tabs });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Tabs.jsx", error: String((e && e.message) || e) }); }
-
-// ui_kits/product-page/ProductHero.jsx
-try { (() => {
-// ProductHero.jsx — reusable dark hero for a technical/developer product page.
-// Adapts the Datalab marketing hero (navy surface, mint accent, scattered
-// geometric shapes) for a product where the primary action is a single input
-// + CTA (a "paste-and-go" command bar), not a marketing CTA.
-// Reuses Button, Chip, Eyebrow from primitives.jsx.
-// All copy below is placeholder — override every prop for a real project.
-
-function InputBar({
-  onSubmit,
-  placeholder,
-  ctaLabel
-}) {
-  const [value, setValue] = React.useState("");
-  const submit = () => onSubmit && onSubmit(value);
-  return /*#__PURE__*/React.createElement("div", {
-    className: "ph-inputbar",
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 6,
-      background: "#FFFFFF",
-      borderRadius: 999,
-      padding: 6,
-      width: "100%",
-      maxWidth: 660,
-      boxShadow: "0 8px 32px rgba(0,0,0,0.25)"
-    }
-  }, /*#__PURE__*/React.createElement("input", {
-    className: "ph-input",
-    value: value,
-    onChange: e => setValue(e.target.value),
-    onKeyDown: e => {
-      if (e.key === "Enter") submit();
-    },
-    placeholder: placeholder,
-    "aria-label": placeholder,
-    style: {
-      flex: 1,
-      minWidth: 0,
-      border: "none",
-      outline: "none",
-      background: "transparent",
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 16,
-      color: "#002C47",
-      padding: "14px 20px"
-    }
-  }), /*#__PURE__*/React.createElement(Button, {
-    variant: "primary",
-    size: "md",
-    onClick: submit,
-    style: {
-      flex: "none"
-    }
-  }, ctaLabel, " ", /*#__PURE__*/React.createElement("span", {
-    className: "ph-arrow",
-    style: {
-      display: "inline-block",
-      transition: "transform 150ms"
-    }
-  }, "\u2192")));
-}
-function FeaturePill({
-  children
-}) {
-  return /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: "var(--font-mono)",
-      fontSize: 12,
-      fontWeight: 700,
-      letterSpacing: "0.5px",
-      textTransform: "uppercase",
-      color: "rgba(255,255,255,0.85)",
-      border: "1px solid rgba(255,255,255,0.15)",
-      background: "transparent",
-      borderRadius: 6,
-      padding: "6px 12px",
-      whiteSpace: "nowrap"
-    }
-  }, children);
-}
-function Reveal({
-  delay = 0,
-  mounted,
-  reduce,
-  children,
-  style = {}
-}) {
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      opacity: 1,
-      transform: mounted || reduce ? "none" : "translateY(8px)",
-      transition: "transform 260ms ease-out",
-      transitionDelay: (mounted ? delay : 0) + "ms",
-      willChange: "transform",
-      ...style
-    }
-  }, children);
-}
-function ProductHero({
-  eyebrow = "A product by Pon Datalab",
-  headline = "Your product, explained in one line.",
-  subhead = "One or two sentences on the core value — lead with the outcome your customer gets, not the feature list.",
-  placeholder = "you@company.com",
-  ctaLabel = "Get started",
-  onSubmit,
-  onExample,
-  examples = ["Example A", "Example B", "Example C"],
-  highlightsLabel = "Highlights",
-  highlights = ["Feature one", "Feature two", "Feature three", "Feature four"]
-}) {
-  const [mounted, setMounted] = React.useState(false);
-  const reduce = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  React.useEffect(() => {
-    const id = setTimeout(() => setMounted(true), 30);
-    return () => clearTimeout(id);
-  }, []);
-  return /*#__PURE__*/React.createElement("section", {
-    className: "ph-hero"
-  }, /*#__PURE__*/React.createElement(HeroStyles, null), /*#__PURE__*/React.createElement("div", {
-    className: "ph-shapes",
-    "aria-hidden": "true"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "sh sh-sky-circle"
-  }), /*#__PURE__*/React.createElement("span", {
-    className: "sh sh-purple-square"
-  }), /*#__PURE__*/React.createElement("span", {
-    className: "sh sh-mint-circle"
-  }), /*#__PURE__*/React.createElement("span", {
-    className: "sh sh-sky-square"
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "ph-hero-inner"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "ph-content"
-  }, /*#__PURE__*/React.createElement(Reveal, {
-    delay: 0,
-    mounted: mounted,
-    reduce: reduce
-  }, /*#__PURE__*/React.createElement(Eyebrow, {
-    onDark: true
-  }, eyebrow)), /*#__PURE__*/React.createElement(Reveal, {
-    delay: 60,
-    mounted: mounted,
-    reduce: reduce
-  }, /*#__PURE__*/React.createElement("h1", {
-    className: "ph-h1"
-  }, headline)), /*#__PURE__*/React.createElement(Reveal, {
-    delay: 120,
-    mounted: mounted,
-    reduce: reduce
-  }, /*#__PURE__*/React.createElement("p", {
-    className: "ph-subhead"
-  }, subhead)), /*#__PURE__*/React.createElement(Reveal, {
-    delay: 180,
-    mounted: mounted,
-    reduce: reduce,
-    style: {
-      marginTop: 16
-    }
-  }, /*#__PURE__*/React.createElement(InputBar, {
-    onSubmit: onSubmit,
-    placeholder: placeholder,
-    ctaLabel: ctaLabel
-  })), examples && examples.length > 0 && /*#__PURE__*/React.createElement(Reveal, {
-    delay: 240,
-    mounted: mounted,
-    reduce: reduce,
-    style: {
-      marginTop: -4
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "ph-examples"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "ph-examples-lead"
-  }, "Or try:"), examples.map(ex => /*#__PURE__*/React.createElement("span", {
-    key: ex,
-    onClick: () => onExample && onExample(ex)
-  }, /*#__PURE__*/React.createElement(Chip, null, ex))))), highlights && highlights.length > 0 && /*#__PURE__*/React.createElement(Reveal, {
-    delay: 300,
-    mounted: mounted,
-    reduce: reduce,
-    style: {
-      marginTop: 8
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "ph-highlights"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "ph-highlights-label"
-  }, highlightsLabel), /*#__PURE__*/React.createElement("div", {
-    className: "ph-pills"
-  }, highlights.map(d => /*#__PURE__*/React.createElement(FeaturePill, {
-    key: d
-  }, d))))))));
-}
-function HeroStyles() {
-  return /*#__PURE__*/React.createElement("style", {
-    dangerouslySetInnerHTML: {
-      __html: `
-      .ph-hero {
-        position: relative; overflow: hidden;
-        background: var(--navy, #002C47);
-        min-height: 640px; display: flex; align-items: center;
-        padding: 120px 32px 96px; box-sizing: border-box;
-      }
-      .ph-hero-inner { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; width: 100%; }
-      .ph-content { max-width: 720px; display: flex; flex-direction: column; gap: 24px; }
-      .ph-h1 {
-        margin: 0; font-family: "PT Serif", serif; font-weight: 700;
-        font-size: 64px; line-height: 1.1; letter-spacing: -0.5px; color: #FFFFFF;
-        max-width: 720px;
-      }
-      .ph-subhead {
-        margin: 0; font-family: "PT Sans", sans-serif; font-weight: 400;
-        font-size: 20px; line-height: 1.6; color: rgba(255,255,255,0.75); max-width: 620px;
-      }
-
-      /* Input bar interactions */
-      .ph-inputbar { transition: box-shadow 150ms ease-out; }
-      .ph-inputbar:focus-within { box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 0 0 2px var(--mint, #52E9C0); }
-      .ph-input::placeholder { color: #94A3B8; }
-      .ph-inputbar button:hover .ph-arrow { transform: translateX(4px); }
-
-      /* Examples */
-      .ph-examples { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: -4px; }
-      .ph-examples-lead { font-family: "PT Sans", sans-serif; font-size: 14px; color: rgba(255,255,255,0.6); margin-right: 4px; }
-      .ph-examples span > span { transition: background 150ms; }
-      .ph-examples span:hover > span { background: #E8F0FF !important; }
-
-      /* Highlights */
-      .ph-highlights { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
-      .ph-highlights-label {
-        font-family: "PT Sans", sans-serif; font-weight: 700; font-size: 11px;
-        letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.4);
-      }
-      .ph-pills { display: flex; gap: 8px; flex-wrap: wrap; }
-
-      /* Decorative shapes */
-      .ph-shapes { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-      .ph-shapes .sh { position: absolute; display: block; }
-      .sh-sky-circle    { top: 30px;  right: 9%;  width: 400px; height: 400px; border-radius: 50%; background: #DAE7FE; opacity: 0.15; }
-      .sh-purple-square { top: 250px; right: 9%;  width: 200px; height: 200px; border-radius: 32px; background: #B399FF; opacity: 0.20; transform: rotate(-25deg); }
-      .sh-mint-circle   { top: 60px;  right: 13%; width: 140px; height: 140px; border-radius: 50%; background: #52E9C0; opacity: 0.20; }
-      .sh-sky-square    { top: 280px; left: -60px; width: 300px; height: 300px; border-radius: 40px; background: #DAE7FE; opacity: 0.08; transform: rotate(15deg); }
-
-      @media (max-width: 1100px) {
-        .sh-mint-circle, .sh-purple-square { display: none; }
-        .sh-sky-circle { right: -80px; width: 320px; height: 320px; }
-      }
-      @media (max-width: 880px) {
-        .ph-hero { padding: 64px 24px 48px; min-height: 0; }
-        .ph-h1 { font-size: 40px; }
-        .ph-subhead { font-size: 18px; }
-        .ph-inputbar { max-width: 100%; }
-        .sh-sky-circle { display: none; }
-        .ph-shapes .sh-sky-square { display: block; left: -120px; top: auto; bottom: -120px; }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .ph-inputbar button:hover .ph-arrow { transform: none; }
-      }
-    `
-    }
-  });
-}
-Object.assign(window, {
-  ProductHero,
-  InputBar,
-  FeaturePill
-});
-Object.assign(__ds_scope, { ProductHero });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/product-page/ProductHero.jsx", error: String((e && e.message) || e) }); }
-
-// ui_kits/product-page/ResultsPreview.jsx
-try { (() => {
-// ResultsPreview.jsx — generic dark "results/detail" page below a ProductHero.
-// Demonstrates the tech-mode components (surfaces, code blocks, status pills,
-// score ring) on the same navy dark canvas. Content is a placeholder example —
-// swap in real product output for a live project.
-
-function ScoreRing({
-  score = 82
-}) {
-  const deg = Math.round(score / 100 * 360);
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "relative",
-      width: 132,
-      height: 132,
-      flex: "none"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: 132,
-      height: 132,
-      borderRadius: "50%",
-      background: `conic-gradient(var(--mint) ${deg}deg, rgba(255,255,255,0.10) ${deg}deg)`
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "absolute",
-      inset: 12,
-      borderRadius: "50%",
-      background: "var(--surface-1)",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: 0
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: "var(--font-display)",
-      fontWeight: 700,
-      fontSize: 38,
-      color: "var(--fg-strong)",
-      lineHeight: 1
-    }
-  }, score), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: "var(--font-mono)",
-      fontSize: 11,
-      color: "var(--fg-muted)",
-      letterSpacing: "0.5px"
-    }
-  }, "/ 100")));
-}
-function Panel({
-  title,
-  badge,
-  children
-}) {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "dl-surface",
-    style: {
-      padding: 0,
-      overflow: "hidden"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      padding: "14px 18px",
-      borderBottom: "1px solid var(--border)"
-    }
-  }, /*#__PURE__*/React.createElement("h3", {
-    style: {
-      margin: 0,
-      fontFamily: "var(--font-sans)",
-      fontWeight: 700,
-      fontSize: 14,
-      color: "var(--fg-strong)"
-    }
-  }, title), badge), /*#__PURE__*/React.createElement("div", {
-    style: {
-      padding: 18
-    }
-  }, children));
-}
-function ResultsPreview({
-  subject = "example.com",
-  scoreLabel = "Score"
-}) {
-  return /*#__PURE__*/React.createElement("section", {
-    id: "product-results",
-    style: {
-      background: "var(--bg-page-tech)",
-      padding: "0 32px 96px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      maxWidth: 1200,
-      margin: "0 auto"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 12,
-      padding: "8px 0 28px",
-      flexWrap: "wrap"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "dl-status dl-status-success"
-  }, "Analysis complete"), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: "var(--font-mono)",
-      fontSize: 14,
-      color: "var(--fg-muted)"
-    }
-  }, subject)), /*#__PURE__*/React.createElement("div", {
-    className: "ph-results-top",
-    style: {
-      display: "grid",
-      gridTemplateColumns: "320px 1fr",
-      gap: 20,
-      marginBottom: 20
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "dl-surface",
-    style: {
-      padding: 24,
-      display: "flex",
-      alignItems: "center",
-      gap: 20
-    }
-  }, /*#__PURE__*/React.createElement(ScoreRing, {
-    score: 82
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 6
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: "var(--font-sans)",
-      fontWeight: 700,
-      fontSize: 11,
-      letterSpacing: "1px",
-      textTransform: "uppercase",
-      color: "var(--fg-muted)"
-    }
-  }, scoreLabel), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: "var(--font-display)",
-      fontWeight: 700,
-      fontSize: 22,
-      color: "var(--fg-strong)",
-      lineHeight: 1.2
-    }
-  }, "Strong"), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: "var(--font-sans)",
-      fontSize: 13,
-      color: "var(--fg-muted)",
-      lineHeight: 1.5
-    }
-  }, "Most checks are passing."))), /*#__PURE__*/React.createElement("div", {
-    className: "dl-surface",
-    style: {
-      padding: 24,
-      display: "grid",
-      gridTemplateColumns: "repeat(3, 1fr)",
-      gap: 16
-    }
-  }, [{
-    dot: "success",
-    label: "Metric A",
-    value: "Passing",
-    note: "no issues"
-  }, {
-    dot: "success",
-    label: "Metric B",
-    value: "Passing",
-    note: "no issues"
-  }, {
-    dot: "warning",
-    label: "Metric C",
-    value: "Needs review",
-    note: "1 field missing"
-  }].map(s => /*#__PURE__*/React.createElement("div", {
-    key: s.label,
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 6
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      display: "inline-flex",
-      alignItems: "center",
-      gap: 8,
-      fontFamily: "var(--font-sans)",
-      fontSize: 13,
-      color: "var(--fg-muted)"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "dl-dot dl-dot-" + s.dot
-  }), s.label), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: "var(--font-display)",
-      fontWeight: 700,
-      fontSize: 26,
-      color: "var(--fg-strong)",
-      lineHeight: 1.1
-    }
-  }, s.value), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: "var(--font-mono)",
-      fontSize: 11,
-      color: "var(--fg-faint)"
-    }
-  }, s.note))))), /*#__PURE__*/React.createElement("div", {
-    className: "dl-alert dl-alert-warning",
-    style: {
-      marginBottom: 20
-    }
-  }, /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, "One fix to raise your score."), "\xA0Add the missing field so downstream checks pass \u2014 see ", /*#__PURE__*/React.createElement("code", {
-    className: "dl-code-inline"
-  }, "metric_c"), " above.")), /*#__PURE__*/React.createElement("div", {
-    className: "ph-results-bottom",
-    style: {
-      display: "grid",
-      gridTemplateColumns: "1fr 1fr",
-      gap: 20
-    }
-  }, /*#__PURE__*/React.createElement(Panel, {
-    title: "Sample payload",
-    badge: /*#__PURE__*/React.createElement("span", {
-      className: "dl-status dl-status-info"
-    }, "application/json")
-  }, /*#__PURE__*/React.createElement("pre", {
-    className: "dl-code",
-    style: {
-      fontSize: 12
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-punctuation)"
-    }
-  }, "{"), "\n", "  ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-attribute)"
-    }
-  }, "\"id\""), ": ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-string)"
-    }
-  }, "\"REC-1042\""), ",", "\n", "  ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-attribute)"
-    }
-  }, "\"status\""), ": ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-string)"
-    }
-  }, "\"active\""), ",", "\n", "  ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-attribute)"
-    }
-  }, "\"type\""), ": ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-string)"
-    }
-  }, "\"sample\""), ",", "\n", "  ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-attribute)"
-    }
-  }, "\"owner\""), ": ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-string)"
-    }
-  }, "\"Acme Co\""), ",", "\n", "  ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-attribute)"
-    }
-  }, "\"meta\""), ": ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-punctuation)"
-    }
-  }, "{"), " ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-attribute)"
-    }
-  }, "\"region\""), ": ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-string)"
-    }
-  }, "\"EU\""), " ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-punctuation)"
-    }
-  }, "}"), "\n", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-punctuation)"
-    }
-  }, "}"))), /*#__PURE__*/React.createElement(Panel, {
-    title: "Detail table",
-    badge: /*#__PURE__*/React.createElement("span", {
-      className: "dl-status dl-status-neutral"
-    }, "4 rows")
-  }, /*#__PURE__*/React.createElement("table", {
-    className: "dl-param-table"
-  }, /*#__PURE__*/React.createElement("tbody", null, [{
-    t: "Category one",
-    n: "12 items"
-  }, {
-    t: "Category two",
-    n: "1 item"
-  }, {
-    t: "Category three",
-    n: "1 item"
-  }, {
-    t: "Category four",
-    n: "1 item"
-  }].map(r => /*#__PURE__*/React.createElement("tr", {
-    key: r.t
-  }, /*#__PURE__*/React.createElement("td", {
-    style: {
-      padding: "10px 0"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "dl-param-name"
-  }, r.t)), /*#__PURE__*/React.createElement("td", {
-    style: {
-      padding: "10px 0",
-      textAlign: "right"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "dl-param-type"
-  }, r.n))))))))));
-}
-Object.assign(window, {
-  ResultsPreview,
-  ScoreRing
-});
-Object.assign(__ds_scope, { ResultsPreview });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/product-page/ResultsPreview.jsx", error: String((e && e.message) || e) }); }
-
-// ui_kits/product-page/primitives.jsx
-try { (() => {
-// primitives.jsx — Datalab UI kit shared building blocks
-// Button (primary/secondary/tertiary), IconWell, Card, Chip, Container, Eyebrow, LearnMore
-// Self-contained copy so this kit stays portable to other Datalab projects.
-
-const DL = {
-  navy: "#002C47",
-  mint: "#52E9C0",
-  mint600: "#2FCBA1",
-  purple: "#B399FF",
-  sky: "#DAE7FE",
-  mist: "#F0F4F8",
-  slate: "#5C7185",
-  white: "#FFFFFF",
-  hairline: "#E2E8F0",
-  navy700: "#013A5E",
-  navy900: "#001E32"
-};
-function Button({
-  variant = "primary",
-  size = "md",
-  children,
-  onClick,
-  type = "button",
-  style = {}
-}) {
-  const [hover, setHover] = React.useState(false);
-  const [down, setDown] = React.useState(false);
-  const sizing = size === "sm" ? {
-    fontSize: 14,
-    padding: "9px 18px"
-  } : {
-    fontSize: 15,
-    padding: "14px 28px"
-  };
-  const base = {
-    fontFamily: '"PT Sans", sans-serif',
-    fontWeight: 700,
-    letterSpacing: "0.5px",
-    borderRadius: 20,
-    ...sizing,
-    border: "2px solid transparent",
-    cursor: "pointer",
-    lineHeight: 1,
-    transition: "background 150ms ease-out, transform 120ms ease-out, box-shadow 150ms ease-out, color 150ms",
-    transform: down ? "scale(0.97)" : "scale(1)",
-    whiteSpace: "nowrap"
-  };
-  const skin = {
-    primary: {
-      background: hover ? DL.mint600 : DL.mint,
-      color: DL.navy,
-      boxShadow: hover ? "0 8px 24px rgba(0,44,71,0.12)" : "none"
-    },
-    secondary: {
-      background: hover ? DL.navy700 : DL.navy,
-      color: DL.white
-    },
-    tertiary: {
-      background: hover ? "rgba(0,44,71,0.04)" : "transparent",
-      color: DL.navy,
-      borderColor: DL.navy
-    }
-  }[variant];
-  return /*#__PURE__*/React.createElement("button", {
-    type: type,
-    onClick: onClick,
-    onMouseEnter: () => setHover(true),
-    onMouseLeave: () => {
-      setHover(false);
-      setDown(false);
-    },
-    onMouseDown: () => setDown(true),
-    onMouseUp: () => setDown(false),
-    style: {
-      ...base,
-      ...skin,
-      ...style
-    }
-  }, children);
-}
-function IconWell({
-  icon,
-  tone = "sky",
-  size = 48
-}) {
-  const bg = {
-    sky: DL.sky,
-    purple: DL.purple,
-    mint: DL.mint
-  }[tone];
-  const iconSize = Math.round(size * 0.5);
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: size,
-      height: size,
-      borderRadius: "50%",
-      background: bg,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      flex: "none"
-    }
-  }, /*#__PURE__*/React.createElement("i", {
-    "data-lucide": icon,
-    style: {
-      width: iconSize,
-      height: iconSize,
-      color: DL.navy,
-      strokeWidth: 2
-    }
-  }));
-}
-function Card({
-  children,
-  hover: hoverable = false,
-  style = {},
-  onClick
-}) {
-  const [hover, setHover] = React.useState(false);
-  return /*#__PURE__*/React.createElement("div", {
-    onClick: onClick,
-    onMouseEnter: () => hoverable && setHover(true),
-    onMouseLeave: () => setHover(false),
-    style: {
-      background: DL.white,
-      borderRadius: 20,
-      padding: 24,
-      boxShadow: hover ? "0 8px 24px rgba(0,44,71,0.12)" : "0 2px 8px rgba(0,44,71,0.08)",
-      transition: "box-shadow 150ms ease-out, transform 150ms ease-out",
-      transform: hover ? "translateY(-3px)" : "none",
-      cursor: onClick ? "pointer" : "default",
-      boxSizing: "border-box",
-      ...style
-    }
-  }, children);
-}
-function Chip({
-  children,
-  active = false
-}) {
-  return /*#__PURE__*/React.createElement("span", {
-    style: {
-      padding: "8px 18px",
-      borderRadius: 20,
-      fontFamily: '"PT Sans", sans-serif',
-      fontWeight: 700,
-      fontSize: 14,
-      color: DL.navy,
-      background: active ? DL.mint : DL.sky,
-      cursor: "pointer",
-      transition: "background 150ms"
-    }
-  }, children);
-}
-function Container({
-  children,
-  style = {}
-}) {
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      maxWidth: 1200,
-      margin: "0 auto",
-      padding: "0 32px",
-      boxSizing: "border-box",
-      ...style
-    }
-  }, children);
-}
-function Eyebrow({
-  children,
-  onDark = false
-}) {
-  return /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: '"PT Sans", sans-serif',
-      fontWeight: 700,
-      fontSize: 14,
-      letterSpacing: "1px",
-      textTransform: "uppercase",
-      color: onDark ? DL.mint : DL.slate
-    }
-  }, children);
-}
-function LearnMore({
-  label = "Learn more",
-  onDark = false
-}) {
-  const [hover, setHover] = React.useState(false);
-  return /*#__PURE__*/React.createElement("span", {
-    onMouseEnter: () => setHover(true),
-    onMouseLeave: () => setHover(false),
-    style: {
-      fontFamily: '"PT Sans", sans-serif',
-      fontWeight: 700,
-      fontSize: 16,
-      color: onDark ? DL.white : DL.navy,
-      cursor: "pointer",
-      display: "inline-flex",
-      gap: 6
-    }
-  }, label, " ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      transition: "transform 150ms",
-      transform: hover ? "translateX(4px)" : "none"
-    }
-  }, "\u2192"));
-}
-Object.assign(window, {
-  DL,
-  Button,
-  IconWell,
-  Card,
-  Chip,
-  Container,
-  Eyebrow,
-  LearnMore
-});
-})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/product-page/primitives.jsx", error: String((e && e.message) || e) }); }
-
-// ui_kits/website/CTASection.jsx
-try { (() => {
-// CTASection.jsx — navy call-to-action band + Footer
-function CTASection({
-  onStart
-}) {
-  return /*#__PURE__*/React.createElement("section", {
-    style: {
-      background: DL.navy,
-      padding: "88px 0"
-    }
-  }, /*#__PURE__*/React.createElement(Container, {
-    style: {
-      position: "relative",
-      overflow: "hidden"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    "aria-hidden": "true",
-    style: {
-      position: "absolute",
-      right: 0,
-      top: -30,
-      width: 160,
-      height: 160,
-      background: "rgba(82,233,192,0.18)",
-      borderRadius: 20
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "relative",
-      display: "flex",
-      flexDirection: "column",
-      gap: 24,
-      maxWidth: 680
-    }
-  }, /*#__PURE__*/React.createElement("h2", {
-    style: {
-      margin: 0,
-      fontFamily: '"PT Serif", serif',
-      fontWeight: 700,
-      fontSize: 44,
-      lineHeight: 1.15,
-      letterSpacing: "-0.5px",
-      color: DL.white
-    }
-  }, "Ready to accelerate?"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      margin: 0,
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 20,
-      lineHeight: 1.6,
-      color: "rgba(255,255,255,0.78)"
-    }
-  }, "Tell us where you're headed. We'll show you the fastest data-driven route to get there."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Button, {
-    variant: "primary",
-    onClick: onStart
-  }, "Get started")))));
-}
-function Footer() {
-  const cols = {
-    "Focus areas": ["Data", "Technology Innovation", "Business Innovation"],
-    "Company": ["About", "Careers", "Insights", "Contact"],
-    "Legal": ["Privacy", "Terms", "Cookies"]
-  };
-  return /*#__PURE__*/React.createElement("footer", {
-    style: {
-      background: DL.navy900,
-      padding: "64px 0 40px"
-    }
-  }, /*#__PURE__*/React.createElement(Container, null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      justifyContent: "space-between",
-      flexWrap: "wrap",
-      gap: 40,
-      paddingBottom: 40,
-      borderBottom: "1px solid rgba(255,255,255,0.12)"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      maxWidth: 280,
-      display: "flex",
-      flexDirection: "column",
-      gap: 16
-    }
-  }, /*#__PURE__*/React.createElement("img", {
-    src: "assets/datalab-logo-navy.svg",
-    alt: "Datalab",
-    style: {
-      height: 26,
-      filter: "brightness(0) invert(1)",
-      alignSelf: "flex-start"
-    }
-  }), /*#__PURE__*/React.createElement("p", {
-    style: {
-      margin: 0,
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 14,
-      lineHeight: 1.6,
-      color: "rgba(255,255,255,0.6)"
-    }
-  }, "Disrupt. Innovate. Accelerate.")), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      gap: 64,
-      flexWrap: "wrap"
-    }
-  }, Object.entries(cols).map(([head, items]) => /*#__PURE__*/React.createElement("div", {
-    key: head,
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 12
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: '"PT Sans", sans-serif',
-      fontWeight: 700,
-      fontSize: 14,
-      color: DL.mint,
-      letterSpacing: "0.5px"
-    }
-  }, head), items.map(i => /*#__PURE__*/React.createElement("a", {
-    key: i,
-    href: "#",
-    onClick: e => e.preventDefault(),
-    style: {
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 14,
-      color: "rgba(255,255,255,0.7)",
-      textDecoration: "none"
-    }
-  }, i)))))), /*#__PURE__*/React.createElement("p", {
-    style: {
-      margin: "24px 0 0",
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 13,
-      color: "rgba(255,255,255,0.45)"
-    }
-  }, "\xA9 2026 Datalab. All rights reserved.")));
-}
-Object.assign(window, {
-  CTASection,
-  Footer
-});
-Object.assign(__ds_scope, { CTASection });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/CTASection.jsx", error: String((e && e.message) || e) }); }
-
-// ui_kits/website/ContactModal.jsx
-try { (() => {
-// ContactModal.jsx — interactive "Get started" / Contact dialog
-function ContactModal({
-  open,
-  onClose
-}) {
-  const [sent, setSent] = React.useState(false);
-  React.useEffect(() => {
-    if (open) setSent(false);
-  }, [open]);
-  if (!open) return null;
-  const field = {
-    fontFamily: '"PT Sans", sans-serif',
-    fontSize: 16,
-    color: DL.navy,
-    padding: "12px 16px",
-    borderRadius: 8,
-    border: `1px solid ${DL.hairline}`,
-    outline: "none",
-    width: "100%",
-    boxSizing: "border-box",
-    background: DL.white
-  };
-  return /*#__PURE__*/React.createElement("div", {
-    onClick: onClose,
-    style: {
-      position: "fixed",
-      inset: 0,
-      zIndex: 100,
-      background: "rgba(0,30,50,0.5)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      padding: 24
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    onClick: e => e.stopPropagation(),
-    style: {
-      background: DL.white,
-      borderRadius: 20,
-      padding: 32,
-      width: 460,
-      maxWidth: "100%",
-      boxShadow: "0 8px 24px rgba(0,44,71,0.12)",
-      position: "relative"
-    }
-  }, /*#__PURE__*/React.createElement("button", {
-    onClick: onClose,
-    "aria-label": "Close",
-    style: {
-      position: "absolute",
-      top: 20,
-      right: 20,
-      background: "none",
-      border: "none",
-      cursor: "pointer",
-      color: DL.slate
-    }
-  }, /*#__PURE__*/React.createElement("i", {
-    "data-lucide": "x",
-    style: {
-      width: 22,
-      height: 22
-    }
-  })), !sent ? /*#__PURE__*/React.createElement("form", {
-    onSubmit: e => {
-      e.preventDefault();
-      setSent(true);
-    },
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 16
-    }
-  }, /*#__PURE__*/React.createElement("h3", {
-    style: {
-      margin: 0,
-      fontFamily: '"PT Serif", serif',
-      fontWeight: 700,
-      fontSize: 28,
-      color: DL.navy
-    }
-  }, "Let's talk"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      margin: 0,
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 16,
-      lineHeight: 1.6,
-      color: DL.slate
-    }
-  }, "Tell us about your project and we'll be in touch within a day."), /*#__PURE__*/React.createElement("input", {
-    style: field,
-    placeholder: "Your name",
-    required: true
-  }), /*#__PURE__*/React.createElement("input", {
-    style: field,
-    type: "email",
-    placeholder: "Work email",
-    required: true
-  }), /*#__PURE__*/React.createElement("textarea", {
-    style: {
-      ...field,
-      minHeight: 90,
-      resize: "vertical"
-    },
-    placeholder: "What are you building?"
-  }), /*#__PURE__*/React.createElement(Button, {
-    variant: "primary",
-    type: "submit",
-    style: {
-      width: "100%",
-      textAlign: "center"
-    }
-  }, "Send message")) : /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 16,
-      alignItems: "flex-start",
-      padding: "8px 0"
-    }
-  }, /*#__PURE__*/React.createElement(IconWell, {
-    icon: "check",
-    tone: "mint"
-  }), /*#__PURE__*/React.createElement("h3", {
-    style: {
-      margin: 0,
-      fontFamily: '"PT Serif", serif',
-      fontWeight: 700,
-      fontSize: 28,
-      color: DL.navy
-    }
-  }, "Message sent"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      margin: 0,
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 16,
-      lineHeight: 1.6,
-      color: DL.slate
-    }
-  }, "Thanks \u2014 a Datalab strategist will reach out shortly."), /*#__PURE__*/React.createElement(Button, {
-    variant: "tertiary",
-    onClick: onClose
-  }, "Close"))));
-}
-Object.assign(window, {
-  ContactModal
-});
-Object.assign(__ds_scope, { ContactModal });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/ContactModal.jsx", error: String((e && e.message) || e) }); }
-
-// ui_kits/website/DocsPage.jsx
-try { (() => {
-// DocsPage.jsx — Developer / API reference surface for the Datalab UI kit.
-// Uses the tech_tokens.css component classes; renders dark by default,
-// with a scoped [data-theme] wrapper and a toggle. onBack returns to the site.
-
-const NAV = [{
-  title: "Getting started",
-  items: [{
-    label: "Authentication"
-  }, {
-    label: "Rate limits"
-  }, {
-    label: "Errors"
-  }]
-}, {
-  title: "Predictions",
-  items: [{
-    label: "Create prediction",
-    method: "post",
-    active: true
-  }, {
-    label: "List predictions",
-    method: "get"
-  }, {
-    label: "Retrieve prediction",
-    method: "get"
-  }, {
-    label: "Cancel prediction",
-    method: "delete"
-  }]
-}, {
-  title: "Datasets",
-  items: [{
-    label: "Upload dataset",
-    method: "post"
-  }, {
-    label: "List datasets",
-    method: "get"
-  }]
-}];
-const PARAMS = [{
-  name: "model",
-  req: true,
-  type: "string",
-  desc: "The Datalab model to run. See the model catalog for available options."
-}, {
-  name: "input",
-  req: true,
-  type: "object",
-  desc: "The feature payload to score. Keys must match the model's input schema."
-}, {
-  name: "webhook_url",
-  req: false,
-  type: "string",
-  desc: "HTTPS endpoint notified when an async prediction completes."
-}, {
-  name: "priority",
-  req: false,
-  type: "string",
-  desc: "Queue priority: standard or realtime. Defaults to standard."
-}, {
-  name: "stream",
-  req: false,
-  type: "boolean",
-  desc: "Stream partial results via server-sent events. Defaults to false."
-}];
-function MethodNav({
-  m
-}) {
-  if (!m) return /*#__PURE__*/React.createElement("span", {
-    style: {
-      width: 38,
-      display: "inline-block"
-    }
-  });
-  const map = {
-    get: "var(--info-fg)",
-    post: "var(--success-fg)",
-    put: "var(--warning-fg)",
-    delete: "var(--danger-fg)"
-  };
-  return /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: "var(--font-mono)",
-      fontSize: 10,
-      fontWeight: 700,
-      minWidth: 38,
-      color: map[m]
-    }
-  }, m === "delete" ? "DEL" : m.toUpperCase());
-}
-function Syntax({
-  children
-}) {
-  return children;
-}
-function DocsPage({
-  onBack
-}) {
-  const [theme, setTheme] = React.useState("dark");
-  const [tab, setTab] = React.useState("cURL");
-  const [active, setActive] = React.useState("Create prediction");
-  React.useEffect(() => {
-    if (window.lucide) window.lucide.createIcons();
-  });
-  const sampleByTab = {
-    "cURL": /*#__PURE__*/React.createElement("pre", {
-      className: "dl-code",
-      style: {
-        fontSize: 12
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: "var(--syntax-keyword)"
-      }
-    }, "curl"), " https://api.datalab.io/v1/predictions \\", "\n", "  -H ", /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: "var(--syntax-string)"
-      }
-    }, "\"x-api-key: $DATALAB_KEY\""), " \\", "\n", "  -H ", /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: "var(--syntax-string)"
-      }
-    }, "\"content-type: application/json\""), " \\", "\n", "  -d ", /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: "var(--syntax-string)"
-      }
-    }, `'{"model":"forecast-v3","input":{...}}'`)),
-    "Python": /*#__PURE__*/React.createElement("pre", {
-      className: "dl-code",
-      style: {
-        fontSize: 12
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: "var(--syntax-keyword)"
-      }
-    }, "from"), " datalab ", /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: "var(--syntax-keyword)"
-      }
-    }, "import"), " Client", "\n", "\n", "client = Client(api_key=", /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: "var(--syntax-string)"
-      }
-    }, "\"$DATALAB_KEY\""), ")", "\n", "client.predictions.create(", "\n", "    model=", /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: "var(--syntax-string)"
-      }
-    }, "\"forecast-v3\""), ",", "\n", "    input={", /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: "var(--syntax-attribute)"
-      }
-    }, "\"region\""), ": ", /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: "var(--syntax-string)"
-      }
-    }, "\"emea\""), "},", "\n", ")"),
-    "TS": /*#__PURE__*/React.createElement("pre", {
-      className: "dl-code",
-      style: {
-        fontSize: 12
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: "var(--syntax-keyword)"
-      }
-    }, "import"), " { Datalab } ", /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: "var(--syntax-keyword)"
-      }
-    }, "from"), " ", /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: "var(--syntax-string)"
-      }
-    }, "\"datalab\""), ";", "\n", "\n", /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: "var(--syntax-keyword)"
-      }
-    }, "const"), " dl = ", /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: "var(--syntax-keyword)"
-      }
-    }, "new"), " Datalab(process.env.KEY);", "\n", /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: "var(--syntax-keyword)"
-      }
-    }, "await"), " dl.predictions.create({", "\n", "  model: ", /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: "var(--syntax-string)"
-      }
-    }, "\"forecast-v3\""), ",", "\n", "  input: { region: ", /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: "var(--syntax-string)"
-      }
-    }, "\"emea\""), " },", "\n", "});")
-  };
-  return /*#__PURE__*/React.createElement("div", {
-    "data-theme": theme,
-    style: {
-      fontFamily: "var(--font-sans)",
-      background: "var(--bg-page-tech)",
-      color: "var(--fg-default)",
-      minHeight: "100vh",
-      transition: "background 200ms, color 200ms"
-    }
-  }, /*#__PURE__*/React.createElement("header", {
-    style: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      padding: "14px 24px",
-      background: "var(--surface-1)",
-      borderBottom: "1px solid var(--border)",
-      position: "sticky",
-      top: 0,
-      zIndex: 10
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 14
-    }
-  }, /*#__PURE__*/React.createElement("button", {
-    onClick: onBack,
-    style: {
-      display: "inline-flex",
-      alignItems: "center",
-      gap: 6,
-      background: "transparent",
-      border: "none",
-      color: "var(--fg-muted)",
-      cursor: "pointer",
-      fontFamily: "var(--font-sans)",
-      fontSize: 13,
-      fontWeight: 700
-    }
-  }, /*#__PURE__*/React.createElement("i", {
-    "data-lucide": "arrow-left",
-    style: {
-      width: 16,
-      height: 16
-    }
-  }), " Back to site"), /*#__PURE__*/React.createElement("span", {
-    style: {
-      width: 1,
-      height: 20,
-      background: "var(--border)"
-    }
-  }), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: "var(--font-display)",
-      fontWeight: 700,
-      fontSize: 18,
-      color: "var(--fg-strong)",
-      letterSpacing: "-0.3px"
-    }
-  }, "Datalab API"), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: "var(--font-mono)",
-      fontSize: 11,
-      color: "var(--fg-muted)"
-    }
-  }, "v1.0.0")), /*#__PURE__*/React.createElement("button", {
-    onClick: () => setTheme(theme === "dark" ? "light" : "dark"),
-    style: {
-      display: "inline-flex",
-      alignItems: "center",
-      gap: 8,
-      fontFamily: "var(--font-sans)",
-      fontWeight: 700,
-      fontSize: 13,
-      color: "var(--fg-strong)",
-      background: "var(--surface-2)",
-      border: "1px solid var(--border)",
-      borderRadius: 999,
-      padding: "6px 14px",
-      cursor: "pointer"
-    }
-  }, /*#__PURE__*/React.createElement("i", {
-    "data-lucide": theme === "dark" ? "sun" : "moon",
-    style: {
-      width: 15,
-      height: 15
-    }
-  }), theme === "dark" ? "Light" : "Dark")), /*#__PURE__*/React.createElement("div", {
-    className: "dl-docs-layout",
-    style: {
-      display: "grid",
-      gridTemplateColumns: "240px 1fr 360px",
-      maxWidth: 1400,
-      margin: "0 auto",
-      minHeight: "calc(100vh - 53px)"
-    }
-  }, /*#__PURE__*/React.createElement("aside", {
-    className: "dl-docs-aside",
-    style: {
-      borderRight: "1px solid var(--border)",
-      padding: "24px 16px"
-    }
-  }, NAV.map(group => /*#__PURE__*/React.createElement("div", {
-    key: group.title,
+  }, /*#__PURE__*/React.createElement(OptionCard, {
+    label: "Single speed",
+    selected: gear === "single",
+    onClick: () => setGear("single")
+  }), /*#__PURE__*/React.createElement(OptionCard, {
+    label: "Three speed",
+    selected: gear === "three",
+    onClick: () => setGear("three")
+  }), /*#__PURE__*/React.createElement(OptionCard, {
+    label: "Three speed with handbrakes",
+    selected: gear === "three-hb",
+    onClick: () => setGear("three-hb")
+  }))), /*#__PURE__*/React.createElement("div", {
     style: {
       marginBottom: 24
     }
-  }, /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 11,
-      fontWeight: 700,
-      letterSpacing: "1px",
-      textTransform: "uppercase",
-      color: "var(--fg-muted)",
-      padding: "0 12px",
-      margin: "0 0 8px"
-    }
-  }, group.title), group.items.map(it => {
-    const isActive = it.label === active;
-    return /*#__PURE__*/React.createElement("div", {
-      key: it.label,
-      onClick: () => setActive(it.label),
-      style: {
-        display: "flex",
-        alignItems: "center",
-        gap: 10,
-        padding: "7px 12px",
-        borderRadius: 6,
-        fontSize: 13,
-        cursor: "pointer",
-        background: isActive ? "var(--surface-2)" : "transparent",
-        color: isActive ? "var(--fg-strong)" : "var(--fg-default)",
-        fontWeight: isActive ? 700 : 400
-      }
-    }, /*#__PURE__*/React.createElement(MethodNav, {
-      m: it.method
-    }), it.label);
-  })))), /*#__PURE__*/React.createElement("main", {
-    style: {
-      padding: "32px 40px",
-      minWidth: 0
-    }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 12,
-      color: "var(--fg-muted)",
-      marginBottom: 12,
-      fontFamily: "var(--font-mono)"
-    }
-  }, "Predictions ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--fg-faint)",
-      margin: "0 8px"
-    }
-  }, "/"), " Create prediction"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 14,
-      flexWrap: "wrap",
-      marginBottom: 8
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "dl-method dl-method-post"
-  }, "POST"), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: "var(--font-mono)",
-      fontSize: 18,
-      fontWeight: 700,
-      color: "var(--fg-strong)"
-    }
-  }, "/v1/predictions")), /*#__PURE__*/React.createElement("h1", {
-    style: {
-      fontFamily: "var(--font-display)",
-      fontWeight: 700,
-      fontSize: 32,
-      color: "var(--fg-strong)",
-      margin: "16px 0 8px",
-      letterSpacing: "-0.5px"
-    }
-  }, "Create a prediction"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 16,
-      lineHeight: 1.7,
-      color: "var(--fg-muted)",
-      maxWidth: 720,
-      margin: 0
-    }
-  }, "Submit a feature payload to a deployed Datalab model and receive a scored prediction. Supports synchronous responses, streaming, and async delivery via webhook."), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      gap: 8,
-      flexWrap: "wrap",
-      margin: "16px 0 0"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "dl-status dl-status-info"
-  }, "Requires authentication"), /*#__PURE__*/React.createElement("span", {
-    className: "dl-status dl-status-success"
-  }, "Stable since v1"), /*#__PURE__*/React.createElement("span", {
-    className: "dl-status dl-status-neutral"
-  }, "Idempotent: no")), /*#__PURE__*/React.createElement("div", {
-    className: "dl-alert dl-alert-info",
-    style: {
-      marginTop: 24
-    }
-  }, /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, "Realtime priority."), "\xA0Set ", /*#__PURE__*/React.createElement("code", {
-    className: "dl-code-inline"
-  }, "priority: realtime"), " for sub-100ms scoring on supported models.")), /*#__PURE__*/React.createElement("h2", {
-    style: {
-      fontFamily: "var(--font-display)",
-      fontWeight: 700,
-      fontSize: 22,
-      color: "var(--fg-strong)",
-      margin: "40px 0 16px",
-      letterSpacing: "-0.2px"
-    }
-  }, "Request body"), /*#__PURE__*/React.createElement("table", {
-    className: "dl-param-table"
-  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", {
-    style: {
-      width: "26%"
-    }
-  }, "Name"), /*#__PURE__*/React.createElement("th", {
-    style: {
-      width: "18%"
-    }
-  }, "Type"), /*#__PURE__*/React.createElement("th", null, "Description"))), /*#__PURE__*/React.createElement("tbody", null, PARAMS.map(p => /*#__PURE__*/React.createElement("tr", {
-    key: p.name
-  }, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
-    className: "dl-param-name"
-  }, p.name, p.req && /*#__PURE__*/React.createElement("span", {
-    className: "dl-param-required"
-  }, "*"))), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("span", {
-    className: "dl-param-type"
-  }, p.type)), /*#__PURE__*/React.createElement("td", null, p.desc))))), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 12,
-      color: "var(--fg-faint)",
-      marginTop: 12
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--danger)",
-      fontWeight: 700
-    }
-  }, "*"), " Required field"), /*#__PURE__*/React.createElement("h2", {
-    style: {
-      fontFamily: "var(--font-display)",
-      fontWeight: 700,
-      fontSize: 22,
-      color: "var(--fg-strong)",
-      margin: "40px 0 16px",
-      letterSpacing: "-0.2px"
-    }
-  }, "Responses"), [{
-    code: "200",
-    tone: "success",
-    desc: "Prediction created — scored result returned"
-  }, {
-    code: "400",
-    tone: "warning",
-    desc: "Invalid request — payload does not match the model schema"
-  }, {
-    code: "401",
-    tone: "danger",
-    desc: "Authentication error — missing or invalid API key"
-  }, {
-    code: "429",
-    tone: "danger",
-    desc: "Rate limit exceeded — back off and retry"
-  }].map(r => /*#__PURE__*/React.createElement("div", {
-    key: r.code,
-    style: {
-      border: "1px solid var(--border)",
-      borderRadius: "var(--radius-md)",
-      marginBottom: 12,
-      overflow: "hidden"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 12,
-      padding: "12px 16px",
-      background: "var(--surface-1)"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "dl-method",
-    style: {
-      background: `var(--${r.tone}-bg)`,
-      color: `var(--${r.tone}-fg)`
-    }
-  }, r.code), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 14,
-      color: "var(--fg-muted)"
-    }
-  }, r.desc), /*#__PURE__*/React.createElement("span", {
-    style: {
-      marginLeft: "auto",
-      fontFamily: "var(--font-mono)",
-      fontSize: 11,
-      background: "var(--surface-2)",
-      border: "1px solid var(--border)",
-      color: "var(--fg-muted)",
-      padding: "2px 8px",
-      borderRadius: 4
-    }
-  }, "application/json"))))), /*#__PURE__*/React.createElement("aside", {
-    className: "dl-docs-samples",
-    style: {
-      borderLeft: "1px solid var(--border)",
-      background: "var(--surface-2)",
-      padding: "24px 20px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "dl-tabs",
-    style: {
+      fontSize: "1.125rem",
+      fontWeight: 500,
+      color: "var(--vr-ink)",
       marginBottom: 12
     }
-  }, ["cURL", "Python", "TS"].map(t => /*#__PURE__*/React.createElement("button", {
-    key: t,
-    className: "dl-tab",
-    "aria-selected": tab === t,
-    onClick: () => setTab(t)
-  }, t))), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 11,
-      fontWeight: 700,
-      letterSpacing: "1px",
-      textTransform: "uppercase",
-      color: "var(--fg-muted)",
-      margin: "0 0 8px"
-    }
-  }, "Request"), sampleByTab[tab], /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 11,
-      fontWeight: 700,
-      letterSpacing: "1px",
-      textTransform: "uppercase",
-      color: "var(--fg-muted)",
-      margin: "24px 0 8px"
-    }
-  }, "Response"), /*#__PURE__*/React.createElement("pre", {
-    className: "dl-code",
-    style: {
-      fontSize: 12
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-punctuation)"
-    }
-  }, "{"), "\n", "  ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-attribute)"
-    }
-  }, "\"id\""), ": ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-string)"
-    }
-  }, "\"pred_8Kd02\u2026\""), ",", "\n", "  ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-attribute)"
-    }
-  }, "\"status\""), ": ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-string)"
-    }
-  }, "\"succeeded\""), ",", "\n", "  ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-attribute)"
-    }
-  }, "\"output\""), ": ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-punctuation)"
-    }
-  }, "{"), " ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-attribute)"
-    }
-  }, "\"score\""), ": ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-number)"
-    }
-  }, "0.92"), " ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-punctuation)"
-    }
-  }, "}"), "\n", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--syntax-punctuation)"
-    }
-  }, "}")))));
-}
-Object.assign(window, {
-  DocsPage
-});
-Object.assign(__ds_scope, { DocsPage });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/DocsPage.jsx", error: String((e && e.message) || e) }); }
-
-// ui_kits/website/FocusAreas.jsx
-try { (() => {
-// FocusAreas.jsx — the 3-card focus-area grid (Data / Technology / Business)
-const FOCUS = [{
-  key: "Data",
-  tone: "sky",
-  icon: "database",
-  title: "Data",
-  body: "Data science, analytics, engineering and predictive AI.",
-  tags: ["Data science", "Analytics", "Data engineering", "Predictive AI"]
-}, {
-  key: "Technology",
-  tone: "purple",
-  icon: "cpu",
-  title: "Technology Innovation",
-  body: "Technology innovation, Generative AI & AI agents, Web development, UX & UI.",
-  tags: ["Generative AI", "AI agents", "Web development", "UX & UI"]
-}, {
-  key: "Business",
-  tone: "sky",
-  icon: "trending-up",
-  title: "Business Innovation",
-  body: "Customer experience, AI Maturity scan, Agentic Commerce, Strategy and Digital workforce.",
-  tags: ["Customer experience", "AI Maturity scan", "Agentic Commerce", "Digital workforce"]
-}];
-function FocusCard({
-  item,
-  expanded,
-  onToggle
-}) {
-  return /*#__PURE__*/React.createElement(Card, {
-    hover: true,
-    onClick: onToggle,
+  }, "Size"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       flexDirection: "column",
-      gap: 16,
-      minHeight: 258
+      gap: 10
     }
-  }, /*#__PURE__*/React.createElement(IconWell, {
-    icon: item.icon,
-    tone: item.tone
-  }), /*#__PURE__*/React.createElement("h3", {
-    style: {
-      margin: 0,
-      fontFamily: '"PT Serif", serif',
-      fontWeight: 700,
-      fontSize: 28,
-      lineHeight: 1.3,
-      color: DL.navy
+  }, /*#__PURE__*/React.createElement(OptionCard, {
+    label: "Small",
+    note: "155\u2013170 cm",
+    selected: size === "S",
+    onClick: () => setSize("S")
+  }), /*#__PURE__*/React.createElement(OptionCard, {
+    label: "Medium",
+    note: "170\u2013185 cm",
+    selected: size === "M",
+    onClick: () => setSize("M")
+  }), /*#__PURE__*/React.createElement(OptionCard, {
+    label: "Large",
+    note: "185\u2013200 cm",
+    selected: size === "L",
+    onClick: () => setSize("L")
+  }))), /*#__PURE__*/React.createElement(Button, {
+    variant: "primary",
+    size: "lg",
+    full: true,
+    onClick: () => {
+      addToCart(p, color);
+      setAdded(true);
+      setTimeout(() => setAdded(false), 1600);
     }
-  }, item.title), /*#__PURE__*/React.createElement("p", {
+  }, added ? "Added to bag ✓" : "Add to bag"), /*#__PURE__*/React.createElement("div", {
     style: {
-      margin: 0,
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 16,
-      lineHeight: 1.6,
-      color: DL.slate,
-      flex: 1
-    }
-  }, item.body), expanded && /*#__PURE__*/React.createElement("div", {
-    style: {
+      marginTop: 14,
       display: "flex",
-      flexWrap: "wrap",
       gap: 8,
-      paddingTop: 4
-    }
-  }, item.tags.map(t => /*#__PURE__*/React.createElement(Chip, {
-    key: t
-  }, t))), /*#__PURE__*/React.createElement(LearnMore, {
-    label: expanded ? "Show less" : "Learn more"
-  }));
-}
-function FocusAreas() {
-  const [open, setOpen] = React.useState(null);
-  return /*#__PURE__*/React.createElement("section", {
-    style: {
-      background: DL.white,
-      padding: "80px 0"
-    }
-  }, /*#__PURE__*/React.createElement(Container, null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 12,
-      marginBottom: 40,
-      maxWidth: 640
-    }
-  }, /*#__PURE__*/React.createElement(Eyebrow, null, "What we do"), /*#__PURE__*/React.createElement("h2", {
-    style: {
-      margin: 0,
-      fontFamily: '"PT Serif", serif',
-      fontWeight: 700,
-      fontSize: 36,
-      lineHeight: 1.2,
-      letterSpacing: "-0.5px",
-      color: DL.navy
-    }
-  }, "Three ways we accelerate you")), /*#__PURE__*/React.createElement("div", {
-    className: "dl-grid-3",
-    style: {
-      display: "grid",
-      gridTemplateColumns: "repeat(3, 1fr)",
-      gap: 24
-    }
-  }, FOCUS.map(item => /*#__PURE__*/React.createElement(FocusCard, {
-    key: item.key,
-    item: item,
-    expanded: open === item.key,
-    onToggle: () => setOpen(open === item.key ? null : item.key)
-  })))));
-}
-Object.assign(window, {
-  FocusAreas
-});
-Object.assign(__ds_scope, { FocusAreas });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/FocusAreas.jsx", error: String((e && e.message) || e) }); }
-
-// ui_kits/website/Header.jsx
-try { (() => {
-// Header.jsx — sticky top navigation
-function Header({
-  onContact,
-  onStart,
-  onDocs
-}) {
-  const [open, setOpen] = React.useState(false);
-  const links = ["Data", "Technology", "Business", "Developers", "Insights"];
-  const handleNav = (e, l) => {
-    e.preventDefault();
-    if (l === "Developers" && onDocs) onDocs();
-  };
-  return /*#__PURE__*/React.createElement("header", {
-    style: {
-      position: "sticky",
-      top: 0,
-      zIndex: 50,
-      background: "rgba(255,255,255,0.92)",
-      backdropFilter: "blur(8px)",
-      borderBottom: `1px solid ${DL.hairline}`
-    }
-  }, /*#__PURE__*/React.createElement(Container, {
-    style: {
-      display: "flex",
       alignItems: "center",
+      color: "var(--vr-gray-500)",
+      fontSize: "0.8125rem"
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "check",
+    size: 16
+  }), " Free delivery \xB7 14-day returns \xB7 5-year warranty"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 34,
+      borderTop: "1px solid var(--vr-gray-100)"
+    }
+  }, specs.map(([k, v]) => /*#__PURE__*/React.createElement("div", {
+    key: k,
+    style: {
+      display: "flex",
       justifyContent: "space-between",
-      height: 76
-    }
-  }, /*#__PURE__*/React.createElement("img", {
-    src: "assets/datalab-logo-navy.svg",
-    alt: "Datalab",
-    style: {
-      height: 28
-    }
-  }), /*#__PURE__*/React.createElement("nav", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 32
-    },
-    className: "dl-desktop-nav"
-  }, links.map(l => /*#__PURE__*/React.createElement("a", {
-    key: l,
-    href: "#",
-    onClick: e => handleNav(e, l),
-    style: {
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 16,
-      fontWeight: 400,
-      color: DL.navy,
-      textDecoration: "none"
-    }
-  }, l))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 12
-    },
-    className: "dl-desktop-nav"
-  }, /*#__PURE__*/React.createElement(Button, {
-    variant: "tertiary",
-    size: "sm",
-    onClick: onContact
-  }, "Contact"), /*#__PURE__*/React.createElement(Button, {
-    variant: "primary",
-    size: "sm",
-    onClick: onStart
-  }, "Get started")), /*#__PURE__*/React.createElement("button", {
-    className: "dl-mobile-toggle",
-    onClick: () => setOpen(!open),
-    "aria-label": "Menu",
-    style: {
-      display: "none",
-      background: "none",
-      border: "none",
-      cursor: "pointer",
-      color: DL.navy
-    }
-  }, /*#__PURE__*/React.createElement("i", {
-    "data-lucide": open ? "x" : "menu",
-    style: {
-      width: 28,
-      height: 28
-    }
-  }))), open && /*#__PURE__*/React.createElement("div", {
-    style: {
-      borderTop: `1px solid ${DL.hairline}`,
-      background: DL.white,
-      padding: "16px 32px 24px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 16,
-      marginBottom: 20
-    }
-  }, links.map(l => /*#__PURE__*/React.createElement("a", {
-    key: l,
-    href: "#",
-    onClick: e => {
-      handleNav(e, l);
-      setOpen(false);
-    },
-    style: {
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 18,
-      color: DL.navy,
-      textDecoration: "none"
-    }
-  }, l))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      gap: 12
-    }
-  }, /*#__PURE__*/React.createElement(Button, {
-    variant: "tertiary",
-    onClick: onContact
-  }, "Contact"), /*#__PURE__*/React.createElement(Button, {
-    variant: "primary",
-    onClick: onStart
-  }, "Get started"))));
-}
-Object.assign(window, {
-  Header
-});
-Object.assign(__ds_scope, { Header });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/Header.jsx", error: String((e && e.message) || e) }); }
-
-// ui_kits/website/Hero.jsx
-try { (() => {
-// Hero.jsx — headline + CTA with decorative square motif
-function Hero({
-  onStart
-}) {
-  return /*#__PURE__*/React.createElement("section", {
-    style: {
-      position: "relative",
-      overflow: "hidden",
-      background: DL.white
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    "aria-hidden": "true",
-    style: {
-      position: "absolute",
-      top: -60,
-      right: -40,
-      display: "flex",
-      gap: 16,
-      opacity: 0.7
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: 160,
-      height: 160,
-      background: DL.sky,
-      borderRadius: 20
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: 160,
-      height: 160,
-      background: DL.mist,
-      borderRadius: 20,
-      marginTop: 80
-    }
-  })), /*#__PURE__*/React.createElement(Container, {
-    style: {
-      position: "relative",
-      padding: "96px 32px 80px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      maxWidth: 760,
-      display: "flex",
-      flexDirection: "column",
-      gap: 24
-    }
-  }, /*#__PURE__*/React.createElement(Eyebrow, null, "Data & AI consultancy"), /*#__PURE__*/React.createElement("h1", {
-    style: {
-      margin: 0,
-      fontFamily: '"PT Serif", serif',
-      fontWeight: 700,
-      fontSize: 56,
-      lineHeight: 1.1,
-      letterSpacing: "-0.5px",
-      color: DL.navy
-    }
-  }, "Disrupt. Innovate.", /*#__PURE__*/React.createElement("br", null), "Accelerate."), /*#__PURE__*/React.createElement("p", {
-    style: {
-      margin: 0,
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 20,
-      lineHeight: 1.6,
-      color: DL.slate,
-      maxWidth: 560
-    }
-  }, "We turn data into momentum \u2014 building the platforms, AI agents and strategies that move your business faster than the market."), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      gap: 16,
-      flexWrap: "wrap",
-      marginTop: 8
-    }
-  }, /*#__PURE__*/React.createElement(Button, {
-    variant: "primary",
-    onClick: onStart
-  }, "Get started"), /*#__PURE__*/React.createElement(Button, {
-    variant: "tertiary"
-  }, "See our work")))));
-}
-Object.assign(window, {
-  Hero
-});
-Object.assign(__ds_scope, { Hero });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/Hero.jsx", error: String((e && e.message) || e) }); }
-
-// ui_kits/website/StatBand.jsx
-try { (() => {
-// StatBand.jsx — metric/stat cards on a mist band
-const STATS = [{
-  fig: "5×",
-  cap: "faster insights delivery",
-  label: "Data Platforms"
-}, {
-  fig: "40%",
-  cap: "lower operating cost",
-  label: "AI Automation"
-}, {
-  fig: "12wk",
-  cap: "to production-ready agents",
-  label: "Generative AI"
-}];
-function StatCard({
-  s
-}) {
-  return /*#__PURE__*/React.createElement(Card, {
-    style: {
-      padding: 0,
-      overflow: "hidden",
-      paddingBottom: 22,
-      display: "flex",
-      flexDirection: "column"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      height: 120,
-      background: DL.mist
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      padding: "16px 24px 0",
-      display: "flex",
-      flexDirection: "column",
-      gap: 4
+      padding: "13px 0",
+      borderBottom: "1px solid var(--vr-gray-100)",
+      fontSize: "0.9375rem"
     }
   }, /*#__PURE__*/React.createElement("span", {
     style: {
-      fontFamily: '"PT Serif", serif',
-      fontWeight: 700,
-      fontSize: 44,
-      letterSpacing: "-0.5px",
-      lineHeight: 1.1,
-      color: DL.navy
+      color: "var(--vr-gray-500)"
     }
-  }, s.fig), /*#__PURE__*/React.createElement("span", {
+  }, k), /*#__PURE__*/React.createElement("span", {
     style: {
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 14,
-      color: DL.slate
+      color: "var(--vr-ink)",
+      fontWeight: 500
     }
-  }, s.cap), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: '"PT Sans", sans-serif',
-      fontSize: 16,
-      fontWeight: 700,
-      color: DL.navy,
-      marginTop: 6
-    }
-  }, s.label)));
+  }, v)))))));
 }
-function StatBand() {
+Object.assign(window, {
+  ProductDetail
+});
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/ProductDetail.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/website/Shop.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+// Shop (Bikes) listing screen — filter rail + product grid.
+function Shop({
+  products,
+  go
+}) {
+  const {
+    Badge,
+    ProductCard
+  } = window.VR;
+  const [filter, setFilter] = React.useState("all");
+  const cats = [["all", "All bikes"], ["ebike", "Electric"], ["city", "City"], ["kids", "Kids"]];
+  const shown = filter === "all" ? products : products.filter(p => p.category === filter);
+  const wrap = {
+    maxWidth: "var(--container-max)",
+    margin: "0 auto",
+    padding: "var(--space-8) var(--container-gutter) var(--space-9)",
+    fontFamily: "var(--font-sans)"
+  };
+  const chip = active => ({
+    height: 36,
+    padding: "0 18px",
+    fontFamily: "var(--font-sans)",
+    fontSize: "0.8125rem",
+    fontWeight: 500,
+    letterSpacing: "0.04em",
+    cursor: "pointer",
+    borderRadius: "var(--radius-pill)",
+    border: `1.5px solid ${active ? "var(--vr-black)" : "var(--vr-gray-200)"}`,
+    background: active ? "var(--vr-black)" : "transparent",
+    color: active ? "#fff" : "var(--vr-ink)",
+    transition: "var(--transition-control)"
+  });
   return /*#__PURE__*/React.createElement("section", {
+    style: wrap
+  }, /*#__PURE__*/React.createElement("span", {
     style: {
-      background: DL.mist,
-      padding: "80px 0"
+      fontSize: "0.75rem",
+      fontWeight: 500,
+      letterSpacing: "0.14em",
+      textTransform: "uppercase",
+      color: "var(--vr-gray-500)"
     }
-  }, /*#__PURE__*/React.createElement(Container, null, /*#__PURE__*/React.createElement("div", {
+  }, "Shop"), /*#__PURE__*/React.createElement("h1", {
+    style: {
+      fontSize: "clamp(2rem,4vw,3.25rem)",
+      fontWeight: 500,
+      letterSpacing: "-0.02em",
+      margin: "10px 0 24px",
+      color: "var(--vr-ink)"
+    }
+  }, "Bikes"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
-      flexDirection: "column",
-      gap: 12,
-      marginBottom: 40,
-      maxWidth: 640
+      gap: 10,
+      marginBottom: 32,
+      flexWrap: "wrap"
     }
-  }, /*#__PURE__*/React.createElement(Eyebrow, null, "Proof, not promises"), /*#__PURE__*/React.createElement("h2", {
-    style: {
-      margin: 0,
-      fontFamily: '"PT Serif", serif',
-      fontWeight: 700,
-      fontSize: 36,
-      lineHeight: 1.2,
-      letterSpacing: "-0.5px",
-      color: DL.navy
-    }
-  }, "Outcomes our clients measure")), /*#__PURE__*/React.createElement("div", {
-    className: "dl-grid-3",
+  }, cats.map(([k, l]) => /*#__PURE__*/React.createElement("button", {
+    key: k,
+    style: chip(filter === k),
+    onClick: () => setFilter(k)
+  }, l))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "repeat(3, 1fr)",
+      gridTemplateColumns: "repeat(auto-fill,minmax(260px,1fr))",
       gap: 24
     }
-  }, STATS.map(s => /*#__PURE__*/React.createElement(StatCard, {
-    key: s.label,
-    s: s
+  }, shown.map(p => /*#__PURE__*/React.createElement(ProductCard, _extends({
+    key: p.id
+  }, p, {
+    onClick: () => go("product", p)
   })))));
 }
 Object.assign(window, {
-  StatBand
+  Shop
 });
-Object.assign(__ds_scope, { StatBand });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/StatBand.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/Shop.jsx", error: String((e && e.message) || e) }); }
 
-// ui_kits/website/primitives.jsx
-try { (() => {
-// Primitives.jsx — Datalab UI kit shared building blocks
-// Button (primary/secondary/tertiary pills), IconWell, Card, Chip, Container, Eyebrow
+__ds_ns.CategoryCard = __ds_scope.CategoryCard;
 
-const DL = {
-  navy: "#002C47",
-  mint: "#52E9C0",
-  mint600: "#2FCBA1",
-  purple: "#B399FF",
-  sky: "#DAE7FE",
-  mist: "#F0F4F8",
-  slate: "#5C7185",
-  white: "#FFFFFF",
-  hairline: "#E2E8F0",
-  navy700: "#013A5E",
-  navy900: "#001E32"
-};
-function Button({
-  variant = "primary",
-  size = "md",
-  children,
-  onClick,
-  type = "button",
-  style = {}
-}) {
-  const [hover, setHover] = React.useState(false);
-  const [down, setDown] = React.useState(false);
-  const sizing = size === "sm" ? {
-    fontSize: 14,
-    padding: "9px 18px"
-  } : {
-    fontSize: 15,
-    padding: "14px 28px"
-  };
-  const base = {
-    fontFamily: '"PT Sans", sans-serif',
-    fontWeight: 700,
-    letterSpacing: "0.5px",
-    borderRadius: 20,
-    ...sizing,
-    border: "2px solid transparent",
-    cursor: "pointer",
-    lineHeight: 1,
-    transition: "background 150ms ease-out, transform 120ms ease-out, box-shadow 150ms ease-out, color 150ms",
-    transform: down ? "scale(0.97)" : "scale(1)",
-    whiteSpace: "nowrap"
-  };
-  const skin = {
-    primary: {
-      background: hover ? DL.mint600 : DL.mint,
-      color: DL.navy,
-      boxShadow: hover ? "0 8px 24px rgba(0,44,71,0.12)" : "none"
-    },
-    secondary: {
-      background: hover ? DL.navy700 : DL.navy,
-      color: DL.white
-    },
-    tertiary: {
-      background: hover ? "rgba(0,44,71,0.04)" : "transparent",
-      color: DL.navy,
-      borderColor: DL.navy
-    }
-  }[variant];
-  return /*#__PURE__*/React.createElement("button", {
-    type: type,
-    onClick: onClick,
-    onMouseEnter: () => setHover(true),
-    onMouseLeave: () => {
-      setHover(false);
-      setDown(false);
-    },
-    onMouseDown: () => setDown(true),
-    onMouseUp: () => setDown(false),
-    style: {
-      ...base,
-      ...skin,
-      ...style
-    }
-  }, children);
-}
-function IconWell({
-  icon,
-  tone = "sky",
-  size = 48
-}) {
-  const bg = {
-    sky: DL.sky,
-    purple: DL.purple,
-    mint: DL.mint
-  }[tone];
-  const iconSize = Math.round(size * 0.5);
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: size,
-      height: size,
-      borderRadius: "50%",
-      background: bg,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      flex: "none"
-    }
-  }, /*#__PURE__*/React.createElement("i", {
-    "data-lucide": icon,
-    style: {
-      width: iconSize,
-      height: iconSize,
-      color: DL.navy,
-      strokeWidth: 2
-    }
-  }));
-}
-function Card({
-  children,
-  hover: hoverable = false,
-  style = {},
-  onClick
-}) {
-  const [hover, setHover] = React.useState(false);
-  return /*#__PURE__*/React.createElement("div", {
-    onClick: onClick,
-    onMouseEnter: () => hoverable && setHover(true),
-    onMouseLeave: () => setHover(false),
-    style: {
-      background: DL.white,
-      borderRadius: 20,
-      padding: 24,
-      boxShadow: hover ? "0 8px 24px rgba(0,44,71,0.12)" : "0 2px 8px rgba(0,44,71,0.08)",
-      transition: "box-shadow 150ms ease-out, transform 150ms ease-out",
-      transform: hover ? "translateY(-3px)" : "none",
-      cursor: onClick ? "pointer" : "default",
-      boxSizing: "border-box",
-      ...style
-    }
-  }, children);
-}
-function Chip({
-  children,
-  active = false
-}) {
-  return /*#__PURE__*/React.createElement("span", {
-    style: {
-      padding: "8px 18px",
-      borderRadius: 999,
-      fontFamily: '"PT Sans", sans-serif',
-      fontWeight: 700,
-      fontSize: 14,
-      color: DL.navy,
-      background: active ? DL.mint : DL.sky,
-      cursor: "pointer",
-      transition: "background 150ms"
-    }
-  }, children);
-}
-function Container({
-  children,
-  style = {}
-}) {
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      maxWidth: 1200,
-      margin: "0 auto",
-      padding: "0 32px",
-      boxSizing: "border-box",
-      ...style
-    }
-  }, children);
-}
-function Eyebrow({
-  children,
-  onDark = false
-}) {
-  return /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: '"PT Sans", sans-serif',
-      fontWeight: 700,
-      fontSize: 14,
-      letterSpacing: "1px",
-      textTransform: "uppercase",
-      color: onDark ? DL.mint : DL.slate
-    }
-  }, children);
-}
-function LearnMore({
-  label = "Learn more",
-  onDark = false
-}) {
-  const [hover, setHover] = React.useState(false);
-  return /*#__PURE__*/React.createElement("span", {
-    onMouseEnter: () => setHover(true),
-    onMouseLeave: () => setHover(false),
-    style: {
-      fontFamily: '"PT Sans", sans-serif',
-      fontWeight: 700,
-      fontSize: 16,
-      color: onDark ? DL.white : DL.navy,
-      cursor: "pointer",
-      display: "inline-flex",
-      gap: 6
-    }
-  }, label, " ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      transition: "transform 150ms",
-      transform: hover ? "translateX(4px)" : "none"
-    }
-  }, "\u2192"));
-}
-Object.assign(window, {
-  DL,
-  Button,
-  IconWell,
-  Card,
-  Chip,
-  Container,
-  Eyebrow,
-  LearnMore
-});
-})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/primitives.jsx", error: String((e && e.message) || e) }); }
+__ds_ns.ProductCard = __ds_scope.ProductCard;
 
-__ds_ns.Accordion = __ds_scope.Accordion;
-
-__ds_ns.Avatar = __ds_scope.Avatar;
-
-__ds_ns.DataTable = __ds_scope.DataTable;
-
-__ds_ns.EmptyState = __ds_scope.EmptyState;
-
-__ds_ns.AlertBanner = __ds_scope.AlertBanner;
+__ds_ns.SwatchPicker = __ds_scope.SwatchPicker;
 
 __ds_ns.Badge = __ds_scope.Badge;
 
-__ds_ns.ModalDialog = __ds_scope.ModalDialog;
+__ds_ns.Button = __ds_scope.Button;
 
-__ds_ns.ProgressBar = __ds_scope.ProgressBar;
+__ds_ns.Input = __ds_scope.Input;
 
-__ds_ns.Skeleton = __ds_scope.Skeleton;
+__ds_ns.OptionCard = __ds_scope.OptionCard;
 
-__ds_ns.Spinner = __ds_scope.Spinner;
-
-__ds_ns.Toast = __ds_scope.Toast;
-
-__ds_ns.Tooltip = __ds_scope.Tooltip;
-
-__ds_ns.Checkbox = __ds_scope.Checkbox;
-
-__ds_ns.Field = __ds_scope.Field;
-
-__ds_ns.RadioGroup = __ds_scope.RadioGroup;
-
-__ds_ns.SearchBar = __ds_scope.SearchBar;
+__ds_ns.SegmentedControl = __ds_scope.SegmentedControl;
 
 __ds_ns.Select = __ds_scope.Select;
 
-__ds_ns.SliderInput = __ds_scope.SliderInput;
-
-__ds_ns.TextInput = __ds_scope.TextInput;
-
-__ds_ns.Toggle = __ds_scope.Toggle;
-
-__ds_ns.Divider = __ds_scope.Divider;
-
-__ds_ns.Drawer = __ds_scope.Drawer;
-
-__ds_ns.Stack = __ds_scope.Stack;
-
-__ds_ns.Breadcrumbs = __ds_scope.Breadcrumbs;
-
-__ds_ns.MenuDropdown = __ds_scope.MenuDropdown;
-
-__ds_ns.Pagination = __ds_scope.Pagination;
-
-__ds_ns.Stepper = __ds_scope.Stepper;
-
-__ds_ns.Tabs = __ds_scope.Tabs;
-
-__ds_ns.ProductHero = __ds_scope.ProductHero;
-
-__ds_ns.ResultsPreview = __ds_scope.ResultsPreview;
-
-__ds_ns.CTASection = __ds_scope.CTASection;
-
-__ds_ns.ContactModal = __ds_scope.ContactModal;
-
-__ds_ns.DocsPage = __ds_scope.DocsPage;
-
-__ds_ns.FocusAreas = __ds_scope.FocusAreas;
-
-__ds_ns.Header = __ds_scope.Header;
-
-__ds_ns.Hero = __ds_scope.Hero;
-
-__ds_ns.StatBand = __ds_scope.StatBand;
+__ds_ns.FAQ = __ds_scope.FAQ;
 
 })();

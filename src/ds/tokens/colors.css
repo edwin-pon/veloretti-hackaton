@@ -1,0 +1,56 @@
+/* Veloretti — Color tokens
+   EXACT palette extracted from "Veloretti Visual Language" (colour language page).
+   Structure per the guide: Primary · Secondary · Background · Tertiary.
+   Warm-neutral greys throughout; a single vivid orange as the promo-only tertiary.
+   No cream/sand/red/sage — those earlier values were superseded by the guideline. */
+:root{
+  /* --- Primary --- */
+  --vr-black:#1A1A1A;        /* primary dark / ink */
+  --vr-true-black:#000000;   /* pure black — reserved for fine text if needed */
+  --vr-white:#FFFFFF;        /* primary light */
+  --vr-ink:#1A1A1A;
+
+  /* --- Secondary: warm-neutral grey ramp (dark → light) --- */
+  --vr-gray-900:#333130;
+  --vr-gray-800:#4B4943;     /* Fuscous Gray — secondary anchor */
+  --vr-gray-700:#4B4943;     /* alias used across components */
+  --vr-gray-600:#6B6961;
+  --vr-gray-500:#6B6961;     /* secondary text */
+  --vr-gray-400:#8A887E;
+  --vr-gray-300:#9F9A93;     /* disabled ink / captions */
+  --vr-gray-250:#BBB8B3;
+  --vr-gray-200:#D9D7D3;     /* borders */
+  --vr-gray-100:#E8E8E6;     /* hairlines / subtle borders */
+
+  /* --- Background: neutral surfaces --- */
+  --vr-paper:#F5F5F4;        /* page */
+  --vr-surface-2:#F3F3F3;    /* subtle panel / product tile */
+  --vr-surface-3:#E8E8E6;    /* deeper panel / configurator ground */
+
+  /* --- Tertiary: promotional accent only (discounts, sale, urgency) --- */
+  --vr-orange:#FE5900;       /* tertiary accent — not fixed; promo use only */
+  --vr-orange-ink:#C24500;   /* darker orange for accent text on light (contrast) */
+
+  /* --- Semantic aliases --- */
+  --text-primary:var(--vr-ink);
+  --text-secondary:var(--vr-gray-700);
+  --text-muted:var(--vr-gray-500);
+  --text-inverse:var(--vr-white);
+  --text-link:var(--vr-ink);
+  --text-accent:var(--vr-orange-ink);
+
+  --surface-page:var(--vr-paper);
+  --surface-card:var(--vr-white);
+  --surface-sand:var(--vr-surface-2);
+  --surface-panel:var(--vr-surface-3);
+  --surface-inverse:var(--vr-black);
+
+  --border-subtle:var(--vr-gray-100);
+  --border-default:var(--vr-gray-200);
+  --border-strong:var(--vr-black);
+
+  --accent:var(--vr-orange);
+  --accent-ink:var(--vr-orange-ink);
+
+  --focus-ring:var(--vr-ink);
+}

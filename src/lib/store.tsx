@@ -39,8 +39,8 @@ function initialState(): AppState {
 
 export interface FieldStatus {
   label: 'Edited' | 'Needs review' | 'Extracted'
-  tone: 'navy' | 'warning' | 'mint'
-  shadow: string
+  /** Maps to the design system's Badge variants. */
+  variant: 'outline' | 'accent' | 'neutral'
 }
 
 interface Store {
@@ -243,13 +243,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const fieldStatus = useCallback<Store['fieldStatus']>(
     (field) => {
-      if (state.touched[field.key]) {
-        return { label: 'Edited', tone: 'navy', shadow: '0 2px 8px rgba(0,44,71,0.08)' }
-      }
-      if (field.conf < 80) {
-        return { label: 'Needs review', tone: 'warning', shadow: '0 8px 24px rgba(0,44,71,0.12)' }
-      }
-      return { label: 'Extracted', tone: 'mint', shadow: '0 2px 8px rgba(0,44,71,0.08)' }
+      if (state.touched[field.key]) return { label: 'Edited', variant: 'outline' }
+      if (field.conf < 80) return { label: 'Needs review', variant: 'accent' }
+      return { label: 'Extracted', variant: 'neutral' }
     },
     [state.touched],
   )
