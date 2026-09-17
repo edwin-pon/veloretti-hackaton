@@ -2,7 +2,18 @@ import type { ReactNode } from 'react'
 import { DEFS, DOC_ORDER } from '../data/docs'
 import { Label } from '../ds'
 import { useStore } from '../lib/store'
+import type { Screen } from '../lib/types'
 import Wordmark from './Wordmark'
+
+/** Campaign screens name themselves; onboarding screens name their document. */
+const CAMPAIGN_CRUMBS: Partial<Record<Screen, string>> = {
+  campaigns: 'Campaigns',
+  'campaign-start': 'New campaign',
+  'brief-upload': 'Campaign brief',
+  'brief-analyzing': 'Campaign brief',
+  'brief-review': 'Campaign brief',
+  matrix: 'Slot matrix',
+}
 
 /**
  * Editorial shell: the wordmark sits top left, a hairline separates it from the
@@ -19,12 +30,14 @@ const RULE: React.CSSProperties = {
 export default function Shell({ children }: { children: ReactNode }) {
   const { state, doneCount, allDone, go, reset } = useStore()
 
+  const inCampaign = state.screen in CAMPAIGN_CRUMBS
   const crumb =
-    state.screen === 'hub'
+    CAMPAIGN_CRUMBS[state.screen] ??
+    (state.screen === 'hub'
       ? 'Onboarding'
       : state.screen === 'dashboard'
         ? 'Brand knowledge'
-        : DEFS[state.doc].card
+        : DEFS[state.doc].card)
 
   return (
     <div style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -71,12 +84,31 @@ export default function Shell({ children }: { children: ReactNode }) {
           </span>
 
           <nav className="vr-header-nav">
-            <span
-              className="vr-hide-md"
-              style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)' }}
+            <button
+              type="button"
+              className="vr-underline"
+              onClick={() => go('campaigns')}
+              style={{
+                fontSize: 'var(--fs-body-s)',
+                textDecoration: inCampaign ? 'underline' : 'none',
+                color: inCampaign ? 'var(--vr-ink)' : 'var(--text-muted)',
+              }}
             >
-              {crumb}
-            </span>
+              Campaigns
+            </button>
+            {/* The campaigns list is the section itself, so naming it twice reads
+                as a stutter. Every other screen is a page inside a section. */}
+            {crumb !== 'Campaigns' && (
+              <>
+                <span aria-hidden className="vr-hide-md" style={RULE} />
+                <span
+                  className="vr-hide-md"
+                  style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)' }}
+                >
+                  {crumb}
+                </span>
+              </>
+            )}
             <span aria-hidden className="vr-hide-md" style={RULE} />
             <span style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)' }}>
               {allDone ? 'All sources confirmed' : `${doneCount} of ${DOC_ORDER.length} confirmed`}

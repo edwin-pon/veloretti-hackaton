@@ -90,7 +90,7 @@ export async function analyseDocument(options: AnalyseOptions): Promise<AnalyseR
   }
 }
 
-function simulateProgress(onProgress?: (pct: number) => void, signal?: AbortSignal): Promise<void> {
+export function simulateProgress(onProgress?: (pct: number) => void, signal?: AbortSignal): Promise<void> {
   return new Promise((resolve, reject) => {
     if (signal?.aborted) return reject(abortError())
     let progress = 0
@@ -111,7 +111,7 @@ function simulateProgress(onProgress?: (pct: number) => void, signal?: AbortSign
 }
 
 /** Creeps progress towards `ceiling` so a live call still feels responsive. */
-function tickTowards(ceiling: number, onProgress?: (pct: number) => void, signal?: AbortSignal) {
+export function tickTowards(ceiling: number, onProgress?: (pct: number) => void, signal?: AbortSignal) {
   let progress = 0
   const timer = setInterval(() => {
     if (signal?.aborted) return clearInterval(timer)
@@ -122,6 +122,6 @@ function tickTowards(ceiling: number, onProgress?: (pct: number) => void, signal
   return () => clearInterval(timer)
 }
 
-function abortError() {
+export function abortError() {
   return new DOMException('Analysis cancelled', 'AbortError')
 }

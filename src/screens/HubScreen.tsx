@@ -3,7 +3,7 @@ import { Badge, Button, Label, Stepper } from '../ds'
 import { useStore } from '../lib/store'
 
 export default function HubScreen() {
-  const { state, doneCount, allDone, openDoc, go } = useStore()
+  const { state, doneCount, allDone, openDoc, prefillAll, go } = useStore()
   const nextUp = DOC_ORDER.find((key) => !state.done[key])
 
   return (
@@ -31,6 +31,37 @@ export default function HubScreen() {
         Upload one document at a time. An agent reads it, extracts the rules your campaigns will
         follow, and hands you an editable draft to confirm.
       </p>
+
+      {!allDone && (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 20,
+            flexWrap: 'wrap',
+            padding: '20px 0',
+            borderTop: '1px solid var(--border-default)',
+            borderBottom: '1px solid var(--border-default)',
+            marginBottom: 56,
+          }}
+        >
+          <Button variant="secondary" onClick={prefillAll}>
+            Fill in the sample documents
+          </Button>
+          <span
+            style={{
+              fontSize: 'var(--fs-body-s)',
+              color: 'var(--text-muted)',
+              maxWidth: '54ch',
+              textWrap: 'pretty',
+            }}
+          >
+            Confirms all three sources from the samples in the repo, for when you want to get to a
+            campaign without walking the upload each time. Each step still works normally, with its
+            sample already attached.
+          </span>
+        </div>
+      )}
 
       <div style={{ marginBottom: 64 }}>
         <Stepper steps={['Brand information', 'Legal rules', 'Style guide', 'Ready']} current={doneCount} />

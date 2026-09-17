@@ -1,0 +1,124 @@
+VELORETTI
+Colour and type, 2026
+
+Demo stand-in. The palette, typeface and usage rules on these pages come from
+Veloretti's own visual language; the page numbers, the type scale and the
+example-layout contradiction are staged so the agent has something to be
+unsure about.
+<<<PAGE>>>
+02  CONTENTS
+
+  04   Palette
+  05   The neutral ramp
+  06   Using colour
+  07   Example layouts
+  08   Punctuation
+  09   Typeface
+  10   Fallbacks
+  11   Type scale
+<<<PAGE>>>
+03  FIRST PRINCIPLE
+
+Less, but better. If a surface can carry the message in black on paper, it
+does.
+<<<PAGE>>>
+04  PALETTE
+
+PRIMARY
+
+  #1A1A1A   Ink black          Pantone Black 6 C
+
+"Monochrome first. The product is the colour."
+
+The bike carries the colour. Everything around it is ink, paper and grey. Ink
+black is the only swatch on this page marked primary, and it is the only one
+that may set type at any size.
+
+TERTIARY
+
+  #FE5900   Signal orange
+
+"Tertiary is not fixed. Special cases only."
+
+Signal orange is promotional. Discounts, sale, urgency. It is not a brand
+colour and not a default call to action, and the guide states it is not fixed:
+a future promotion may replace it.
+<<<PAGE>>>
+05  THE NEUTRAL RAMP
+
+  #333130
+  #4B4943
+  #6B6961
+  #8A887E
+  #9F9A93
+  #BBB8B3
+  #D9D7D3
+  #E8E8E6
+
+"Grays do the work quietly."
+
+Eight steps, warm neutral, printed here without names or roles. Which step is
+text and which is a border is shown by the example layouts on pages 6 and 7
+rather than stated.
+<<<PAGE>>>
+06  USING COLOUR
+
+"Reserved for discounts and promotional messages."
+
+Signal orange marks a promotion and nothing else. Never as a background behind
+body copy. Never on type below 18px.
+
+"Sentence case everywhere except product names."
+
+Headlines, subheads and subject lines are sentence case. Forty examples follow
+in this guide and none of them deviate.
+<<<PAGE>>>
+07  EXAMPLE LAYOUTS
+
+Four layouts at desktop width. Two of them set the second-level heading larger
+than the scale on page 11 allows, which is an error in the examples rather
+than a second scale.
+<<<PAGE>>>
+08  PUNCTUATION
+
+"No serial comma."
+
+British-English house style. Lists read: the carrier, the basket and the child
+seat.
+
+"We do not shout."
+
+Exclamation marks are forbidden. No stated exceptions.
+<<<PAGE>>>
+09  TYPEFACE
+
+"One typeface does everything."
+
+PP Neue Montreal, Regular 400 and Medium 500. Those two weights were supplied
+as web fonts and no other weight appears in this specimen.
+
+"Display is large and tight."
+
+Display and headings are set Medium at -2% tracking. The licence note confirms
+web use is covered.
+<<<PAGE>>>
+10  FALLBACKS
+
+"Fallbacks use system fonts."
+
+  Helvetica Neue, Arial, sans-serif
+
+An editorial serif voice is referenced for the journal. No font file was
+supplied with it, so it is out of scope here.
+<<<PAGE>>>
+11  TYPE SCALE
+
+  H1        36
+  H2        28
+  H3        22
+  body      16
+  caption   13
+
+"Scale shown at desktop width."
+
+Mobile sizes are not given anywhere in this guide.

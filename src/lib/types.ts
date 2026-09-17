@@ -1,7 +1,18 @@
 import type { DocKey } from '../data/docs'
 
-/** Screens in the onboarding flow. The campaign/canvas screens land here later. */
-export type Screen = 'hub' | 'upload' | 'analyzing' | 'review' | 'dashboard'
+/** Brand onboarding, then the campaign track. The asset canvas lands here later. */
+export type Screen =
+  | 'hub'
+  | 'upload'
+  | 'analyzing'
+  | 'review'
+  | 'dashboard'
+  | 'campaigns'
+  | 'campaign-start'
+  | 'brief-upload'
+  | 'brief-analyzing'
+  | 'brief-review'
+  | 'matrix'
 
 export type FieldValue = string | string[] | boolean
 

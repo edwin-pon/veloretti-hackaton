@@ -41,7 +41,9 @@ export default function DashboardScreen() {
         <div style={{ minWidth: 0 }}>
           <Label>Brand knowledge</Label>
           <h1 style={{ fontSize: 'var(--fs-display-m)', margin: '18px 0 16px', maxWidth: '20ch' }}>
-            {allDone ? 'Everything the studio knows about you.' : 'What the studio knows so far.'}
+            {allDone
+              ? 'Everything the studio knows about Veloretti.'
+              : 'What the studio knows about Veloretti so far.'}
           </h1>
           <p
             style={{
@@ -57,9 +59,12 @@ export default function DashboardScreen() {
               : `${doneCount} of ${DOC_ORDER.length} sources confirmed. Campaigns run with partial rules until onboarding is finished.`}
           </p>
         </div>
-        <Button variant="secondary" onClick={() => go('hub')}>
-          {allDone ? 'Review sources' : 'Continue onboarding'}
-        </Button>
+        <div style={{ display: 'flex', gap: 14, alignItems: 'center', flex: 'none' }}>
+          <Button variant="secondary" onClick={() => go('hub')}>
+            {allDone ? 'Review sources' : 'Continue onboarding'}
+          </Button>
+          <Button onClick={() => go('campaigns')}>Campaigns</Button>
+        </div>
       </div>
 
       <div
