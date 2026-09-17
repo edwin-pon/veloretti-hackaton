@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { BRIEFING, buildCampaign } from '../data/briefing'
 import { Badge, Button, Label } from '../ds'
-import { useCampaign } from '../lib/campaign-store'
+import { useCampaign, type CampaignStage } from '../lib/campaign-store'
 import { since, type SavedCampaign } from '../lib/campaign-storage'
 import { resolveSlots, runGates } from '../lib/matrix'
 import { useStore } from '../lib/store'
@@ -159,11 +159,12 @@ export default function CampaignsScreen() {
   )
 }
 
-const STAGE_LABEL = {
+const STAGE_LABEL: Record<CampaignStage, string> = {
   brief: 'Briefing',
   review: 'In review',
   matrix: 'Resolved',
-} as const
+  export: 'Handed over',
+}
 
 function describe(record: SavedCampaign) {
   const campaign = buildCampaign(record.state.values, {

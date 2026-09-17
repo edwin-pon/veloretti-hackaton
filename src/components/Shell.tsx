@@ -13,6 +13,7 @@ const CAMPAIGN_CRUMBS: Partial<Record<Screen, string>> = {
   'brief-analyzing': 'Campaign brief',
   'brief-review': 'Campaign brief',
   matrix: 'Slot matrix',
+  export: 'Handoff',
 }
 
 /**

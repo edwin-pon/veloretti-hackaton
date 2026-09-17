@@ -506,3 +506,75 @@ function isPlaceholder(value: string): boolean {
   if (!text) return true
   return PLACEHOLDER_MARKERS.some((marker) => text.includes(marker))
 }
+
+export interface ExportRow {
+  file: string
+  track: string
+  phase: string
+  platform: string
+  ratio: string
+  market: string
+  language: string
+  assetType: string
+  focusPoint: string
+  status: string
+  flightDate: string
+  angle: string
+  treatment: string
+  offerTreatment: string
+  slogan: string
+  cta: string
+}
+
+/**
+ * Stage [8]. One row per slot, keyed by the filename the slot resolves to.
+ *
+ * Naming is the handoff contract: a file lands in a platform bundle and the
+ * manifest says which line of which brief it came from. Everything here is
+ * already decided by the matrix, so the export is a projection, not a step
+ * that can introduce anything new.
+ */
+export function exportRows(slots: Slot[]): ExportRow[] {
+  return slots.map((slot) => ({
+    file: slot.id,
+    track: slot.track,
+    phase: slot.phase,
+    platform: PLATFORMS[slot.platform].label,
+    ratio: slot.ratio,
+    market: MARKET_LABEL[slot.market],
+    language: slot.language,
+    assetType: slot.assetType,
+    focusPoint: slot.focusPoint,
+    status: slot.status,
+    flightDate: slot.flightDate,
+    angle: slot.brief.angle,
+    treatment: slot.brief.treatment,
+    offerTreatment: slot.brief.offerTreatment ?? '',
+    slogan: slot.brief.slogan ?? '',
+    cta: slot.brief.cta,
+  }))
+}
+
+/** Per-platform counts, which is how the bundles are handed over. */
+export function bundles(slots: Slot[]): Array<{ platform: string; count: number; ratios: string[] }> {
+  return Object.values(PLATFORMS)
+    .map((platform) => {
+      const mine = slots.filter((slot) => slot.platform === platform.key)
+      return {
+        platform: platform.label,
+        count: mine.length,
+        ratios: [...new Set(mine.map((slot) => slot.ratio))],
+      }
+    })
+    .filter((bundle) => bundle.count > 0)
+}
+
+export function toCsv(rows: ExportRow[]): string {
+  if (!rows.length) return ''
+  const headers = Object.keys(rows[0]) as Array<keyof ExportRow>
+  const cell = (value: string) => (/[",\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value)
+  return [
+    headers.join(','),
+    ...rows.map((row) => headers.map((header) => cell(row[header])).join(',')),
+  ].join('\n')
+}

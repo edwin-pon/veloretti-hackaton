@@ -15,7 +15,7 @@ import type { GateResult } from '../lib/campaign'
  */
 export default function MatrixScreen() {
   const { go } = useStore()
-  const { campaign, matrix, summary, gates, blocking } = useCampaign()
+  const { campaign, matrix, summary, gates, blocking, draftAssets } = useCampaign()
   const [shown, setShown] = useState(4)
   // The offer conflict gets its own resolution control, so it is not repeated
   // in the generic blocked notice.
@@ -65,7 +65,7 @@ export default function MatrixScreen() {
           <Button variant="secondary" onClick={() => go('brief-review')}>
             Edit the brief
           </Button>
-          <Button disabled={blocking.length > 0}>
+          <Button disabled={blocking.length > 0} onClick={draftAssets}>
             {blocking.length > 0 ? `${blocking.length} blocking` : 'Draft all assets'}
           </Button>
         </div>

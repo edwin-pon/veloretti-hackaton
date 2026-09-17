@@ -13,6 +13,7 @@ export type Screen =
   | 'brief-analyzing'
   | 'brief-review'
   | 'matrix'
+  | 'export'
 
 export type FieldValue = string | string[] | boolean
 

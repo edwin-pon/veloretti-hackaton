@@ -5,6 +5,7 @@ import BriefReviewScreen from './screens/BriefReviewScreen'
 import BriefUploadScreen from './screens/BriefUploadScreen'
 import CampaignStartScreen from './screens/CampaignStartScreen'
 import CampaignsScreen from './screens/CampaignsScreen'
+import ExportScreen from './screens/ExportScreen'
 import DashboardScreen from './screens/DashboardScreen'
 import HubScreen from './screens/HubScreen'
 import MatrixScreen from './screens/MatrixScreen'
@@ -28,6 +29,7 @@ export default function App() {
       {state.screen === 'brief-analyzing' && <BriefAnalyzingScreen />}
       {state.screen === 'brief-review' && <BriefReviewScreen />}
       {state.screen === 'matrix' && <MatrixScreen />}
+      {state.screen === 'export' && <ExportScreen />}
     </Shell>
   )
 }

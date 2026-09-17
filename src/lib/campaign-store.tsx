@@ -43,7 +43,7 @@ import type { PickedDocument } from './types'
 export type CampaignMode = 'brand' | 'clean'
 
 /** How far a campaign got, which is also where resuming it lands. */
-export type CampaignStage = 'brief' | 'review' | 'matrix'
+export type CampaignStage = 'brief' | 'review' | 'matrix' | 'export'
 
 export interface CampaignState {
   /** Null until a campaign is started, which is also what makes it saveable. */
@@ -100,6 +100,8 @@ interface CampaignStore {
   removeChip: (key: string, index: number) => void
   toggleWhy: (key: string) => void
   confirmBrief: () => void
+  /** Composes the brief and the filename for every slot, then opens the export. */
+  draftAssets: () => void
   /** Settles the offer on one percentage and corrects the other surfaces to it. */
   resolveOffer: (pct: number) => void
   toggleEntry: (id: string) => void
@@ -129,11 +131,13 @@ function initialState(): CampaignState {
 }
 
 /** Resuming a draft lands on the screen it was left on. */
-const SCREEN_FOR_STAGE: Record<CampaignStage, 'brief-upload' | 'brief-review' | 'matrix'> = {
-  brief: 'brief-upload',
-  review: 'brief-review',
-  matrix: 'matrix',
-}
+const SCREEN_FOR_STAGE: Record<CampaignStage, 'brief-upload' | 'brief-review' | 'matrix' | 'export'> =
+  {
+    brief: 'brief-upload',
+    review: 'brief-review',
+    matrix: 'matrix',
+    export: 'export',
+  }
 
 const CampaignContext = createContext<CampaignStore | null>(null)
 
@@ -345,6 +349,10 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
     confirmBrief: useCallback(() => {
       patch({ confirmed: true, stage: 'matrix' })
       go('matrix')
+    }, [go, patch]),
+    draftAssets: useCallback(() => {
+      patch({ stage: 'export' })
+      go('export')
     }, [go, patch]),
     resolveOffer: useCallback(
       (pct) =>
