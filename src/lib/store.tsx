@@ -8,7 +8,15 @@ import {
   useState,
   type ReactNode,
 } from 'react'
-import { DEFS, DOC_ORDER, type DocField, type DocKey } from '../data/docs'
+import {
+  BRANDS,
+  DEFS,
+  DOC_ORDER,
+  substitute,
+  type Brand,
+  type DocField,
+  type DocKey,
+} from '../data/docs'
 import { analyseDocument, seedAllValues } from './api'
 import type { AppState, DoneMap, FieldValue, Screen } from './types'
 
@@ -16,10 +24,12 @@ function initialState(): AppState {
   return {
     screen: 'hub',
     doc: 'brand',
+    brandKey: BRANDS[0].key,
     upload: null,
-    done: {},
+    brandsOpen: false,
+    doneByBrand: Object.fromEntries(BRANDS.map((b) => [b.key, {} as DoneMap])),
     progress: 0,
-    values: seedAllValues(),
+    values: seedAllValues(BRANDS[0]),
     touched: {},
     why: null,
     drafts: {},
@@ -29,15 +39,20 @@ function initialState(): AppState {
 
 export interface FieldStatus {
   label: 'Edited' | 'Needs review' | 'Extracted'
-  /** Maps to the design system's Badge variants. */
-  variant: 'outline' | 'accent' | 'neutral'
+  tone: 'navy' | 'warning' | 'mint'
+  shadow: string
 }
 
 interface Store {
   state: AppState
+  brand: Brand
+  /** Documents confirmed for the brand currently selected. */
+  done: DoneMap
   doneCount: number
   allDone: boolean
   go: (screen: Screen, patch?: Partial<AppState>) => void
+  selectBrand: (key: string) => void
+  toggleBrands: () => void
   openDoc: (doc: DocKey) => void
   pickFile: (file?: File) => void
   removeFile: () => void
@@ -64,21 +79,45 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setState((s) => ({ ...s, ...(typeof update === 'function' ? update(s) : update) }))
   }, [])
 
-  const doneCount = DOC_ORDER.filter((key) => state.done[key]).length
+  const brand = useMemo(
+    () => BRANDS.find((b) => b.key === state.brandKey) ?? BRANDS[0],
+    [state.brandKey],
+  )
+  const done = state.doneByBrand[state.brandKey] ?? {}
+  const doneCount = DOC_ORDER.filter((key) => done[key]).length
   const allDone = doneCount === DOC_ORDER.length
 
-  const go = useCallback<Store['go']>((screen, extra) => patch({ screen, ...extra }), [patch])
+  const go = useCallback<Store['go']>(
+    (screen, extra) => patch({ screen, brandsOpen: false, ...extra }),
+    [patch],
+  )
 
-  const openDoc = useCallback<Store['openDoc']>(
-    (doc) =>
-      patch((s) => ({
-        doc,
-        screen: s.done[doc] ? 'review' : 'upload',
+  const selectBrand = useCallback<Store['selectBrand']>(
+    (key) => {
+      analysis.current?.abort()
+      const next = BRANDS.find((b) => b.key === key) ?? BRANDS[0]
+      patch({
+        brandKey: key,
+        brandsOpen: false,
+        screen: 'hub',
+        doc: 'brand',
         upload: null,
         why: null,
+        touched: {},
+        drafts: {},
         error: null,
-      })),
+        values: seedAllValues(next),
+      })
+    },
     [patch],
+  )
+
+  const openDoc = useCallback<Store['openDoc']>(
+    (doc) => {
+      const isDone = !!(state.doneByBrand[state.brandKey] ?? {})[doc]
+      patch({ doc, screen: isDone ? 'review' : 'upload', upload: null, why: null, error: null })
+    },
+    [patch, state.brandKey, state.doneByBrand],
   )
 
   const pickFile = useCallback<Store['pickFile']>(
@@ -88,10 +127,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         error: null,
         upload: file
           ? { name: file.name, meta: formatBytes(file.size), file }
-          : { name: doc.file, meta: doc.size },
+          : { name: substitute(doc.file, brand), meta: doc.size },
       })
     },
-    [patch, state.doc],
+    [brand, patch, state.doc],
   )
 
   const startAnalysis = useCallback(() => {
@@ -105,8 +144,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     patch({ screen: 'analyzing', progress: 0, error: null })
 
     analyseDocument({
+      brand,
       doc,
-      fileName: upload?.name ?? DEFS[doc].file,
+      fileName: upload?.name ?? substitute(DEFS[doc].file, brand),
       file: upload?.file,
       signal: controller.signal,
       onProgress: (progress) => patch({ progress }),
@@ -127,7 +167,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           error: error instanceof Error ? error.message : 'Analysis failed',
         })
       })
-  }, [patch, state.doc, state.upload])
+  }, [brand, patch, state.doc, state.upload])
 
   const setValue = useCallback<Store['setValue']>(
     (key, value) =>
@@ -135,6 +175,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         values: { ...s.values, [key]: value },
         touched: { ...s.touched, [key]: true },
       })),
+    [patch],
+  )
+
+  const setDraft = useCallback<Store['setDraft']>(
+    (key, value) => patch((s) => ({ drafts: { ...s.drafts, [key]: value } })),
     [patch],
   )
 
@@ -167,10 +212,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const approve = useCallback(() => {
     patch((s) => {
-      const done: DoneMap = { ...s.done, [s.doc]: true }
-      const next = DOC_ORDER.find((key) => !done[key])
+      const brandDone: DoneMap = { ...(s.doneByBrand[s.brandKey] ?? {}), [s.doc]: true }
+      const next = DOC_ORDER.find((key) => !brandDone[key])
       return {
-        done,
+        doneByBrand: { ...s.doneByBrand, [s.brandKey]: brandDone },
         screen: next ? 'hub' : 'dashboard',
         doc: next ?? s.doc,
         upload: null,
@@ -181,35 +226,55 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const reset = useCallback(() => {
     analysis.current?.abort()
-    setState(initialState())
-  }, [])
+    patch((s) => ({
+      screen: 'hub',
+      doc: 'brand',
+      upload: null,
+      touched: {},
+      drafts: {},
+      why: null,
+      brandsOpen: false,
+      error: null,
+      progress: 0,
+      values: seedAllValues(brand),
+      doneByBrand: { ...s.doneByBrand, [s.brandKey]: {} },
+    }))
+  }, [brand, patch])
 
   const fieldStatus = useCallback<Store['fieldStatus']>(
     (field) => {
-      if (state.touched[field.key]) return { label: 'Edited', variant: 'outline' }
-      if (field.conf < 80) return { label: 'Needs review', variant: 'accent' }
-      return { label: 'Extracted', variant: 'neutral' }
+      if (state.touched[field.key]) {
+        return { label: 'Edited', tone: 'navy', shadow: '0 2px 8px rgba(0,44,71,0.08)' }
+      }
+      if (field.conf < 80) {
+        return { label: 'Needs review', tone: 'warning', shadow: '0 8px 24px rgba(0,44,71,0.12)' }
+      }
+      return { label: 'Extracted', tone: 'mint', shadow: '0 2px 8px rgba(0,44,71,0.08)' }
     },
     [state.touched],
   )
 
   const store: Store = {
     state,
+    brand,
+    done,
     doneCount,
     allDone,
     go,
+    selectBrand,
+    toggleBrands: useCallback(() => patch((s) => ({ brandsOpen: !s.brandsOpen })), [patch]),
     openDoc,
     pickFile,
     removeFile: useCallback(() => patch({ upload: null }), [patch]),
     startAnalysis,
     setValue,
-    setDraft: useCallback(
-      (key, value) => patch((s) => ({ drafts: { ...s.drafts, [key]: value } })),
-      [patch],
-    ),
+    setDraft,
     addChip,
     removeChip,
-    toggleWhy: useCallback((key) => patch((s) => ({ why: s.why === key ? null : key })), [patch]),
+    toggleWhy: useCallback(
+      (key) => patch((s) => ({ why: s.why === key ? null : key })),
+      [patch],
+    ),
     approve,
     reset,
     fieldStatus,

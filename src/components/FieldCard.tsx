@@ -1,6 +1,13 @@
-import type { DocField } from '../data/docs'
-import { Badge, Label, SelectField, TextArea, TextField, Toggle } from '../ds'
+import { substitute, type DocField } from '../data/docs'
+import { Badge, Select, TextInput, Toggle } from '../ds'
 import { useStore } from '../lib/store'
+
+/** Confidence dot colour — the prototype's three-step scale. */
+function confidenceColor(conf: number): string {
+  if (conf >= 85) return '#52E9C0'
+  if (conf >= 70) return '#B399FF'
+  return '#E4572E'
+}
 
 interface Props {
   field: DocField
@@ -10,26 +17,14 @@ interface Props {
   control?: React.ReactNode
 }
 
-/**
- * One extracted rule: what the agent read, how sure it was, where it came from,
- * and why. Rows are separated by hairlines rather than boxed in cards — the
- * brand reads editorial, not dashboard.
- */
 export default function FieldCard({ field, preview, control }: Props) {
-  const { state, setValue, setDraft, addChip, removeChip, toggleWhy, fieldStatus } = useStore()
+  const { state, brand, setValue, setDraft, addChip, removeChip, toggleWhy, fieldStatus } = useStore()
   const status = fieldStatus(field)
   const value = state.values[field.key]
   const whyOpen = state.why === field.key
 
   return (
-    <div
-      style={{
-        background: 'var(--surface-card)',
-        border: '1px solid var(--border-subtle)',
-        borderRadius: 'var(--radius-lg)',
-        padding: 28,
-      }}
-    >
+    <div style={{ background: '#fff', borderRadius: 20, padding: 24, boxShadow: status.shadow }}>
       {preview}
 
       <div
@@ -37,26 +32,41 @@ export default function FieldCard({ field, preview, control }: Props) {
           display: 'flex',
           alignItems: 'flex-start',
           justifyContent: 'space-between',
-          gap: 20,
-          marginBottom: 18,
+          gap: 16,
+          marginBottom: 14,
         }}
       >
         <div style={{ minWidth: 0 }}>
-          <div style={{ fontSize: 'var(--fs-body)', fontWeight: 500, marginBottom: 4 }}>
+          <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--ink-heading)' }}>
             {field.label}
           </div>
-          <div style={{ fontSize: 'var(--fs-caption)', color: 'var(--text-muted)' }}>
-            {field.hint}
-          </div>
+          <div style={{ fontSize: 13, color: 'var(--slate)', marginTop: 2 }}>{field.hint}</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 'none' }}>
-          <Label style={{ color: 'var(--vr-gray-500)' }}>{field.conf}%</Label>
-          <Badge
-            variant={status.variant}
-            style={status.variant === 'accent' ? { color: 'var(--vr-ink)' } : undefined}
+          <span
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              background: 'var(--mist)',
+              borderRadius: 20,
+              padding: '4px 12px',
+              fontSize: 12,
+              fontWeight: 700,
+              color: 'var(--ink-heading)',
+            }}
           >
-            {status.label}
-          </Badge>
+            <span
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: 999,
+                background: confidenceColor(field.conf),
+              }}
+            />
+            {field.conf}% confidence
+          </span>
+          <Badge tone={status.tone}>{status.label}</Badge>
         </div>
       </div>
 
@@ -66,21 +76,30 @@ export default function FieldCard({ field, preview, control }: Props) {
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: 18,
+          gap: 16,
           flexWrap: 'wrap',
-          marginTop: 18,
-          fontSize: 'var(--fs-caption)',
-          color: 'var(--text-muted)',
+          marginTop: 14,
+          fontSize: 12,
+          color: 'var(--slate)',
         }}
       >
-        <span>{field.cite}</span>
+        <span>{substitute(field.cite, brand)}</span>
         <button
           type="button"
-          className="vr-underline"
           onClick={() => toggleWhy(field.key)}
-          style={{ fontSize: 'var(--fs-caption)' }}
+          style={{
+            border: 'none',
+            background: 'none',
+            padding: 0,
+            font: 'inherit',
+            fontSize: 12,
+            fontWeight: 700,
+            color: 'var(--navy)',
+            cursor: 'pointer',
+            textDecoration: 'underline',
+          }}
         >
-          {whyOpen ? 'Hide reasoning' : 'Why this value'}
+          {whyOpen ? 'Hide reasoning' : 'Why this value?'}
         </button>
         <span style={{ marginLeft: 'auto' }}>
           {state.touched[field.key] ? 'Edited by you' : ''}
@@ -90,34 +109,44 @@ export default function FieldCard({ field, preview, control }: Props) {
       {whyOpen && (
         <div
           style={{
-            marginTop: 18,
-            paddingTop: 18,
-            borderTop: '1px solid var(--border-subtle)',
+            marginTop: 14,
+            background: 'var(--mist)',
+            borderRadius: 12,
+            padding: '16px 20px',
           }}
         >
-          <div style={{ marginBottom: 10 }}>
-            <Label>Agent reasoning</Label>
+          <div
+            style={{
+              fontSize: 11,
+              letterSpacing: '1px',
+              fontWeight: 700,
+              color: 'var(--slate)',
+              marginBottom: 8,
+            }}
+          >
+            AGENT REASONING
           </div>
           <p
             style={{
-              fontSize: 'var(--fs-body-s)',
-              lineHeight: 'var(--lh-body)',
-              color: 'var(--text-secondary)',
-              margin: '0 0 14px',
+              fontSize: 14,
+              lineHeight: 1.6,
+              color: 'var(--ink-secondary)',
+              margin: '0 0 12px',
               textWrap: 'pretty',
             }}
           >
-            {field.reasoning}
+            {substitute(field.reasoning, brand)}
           </p>
           <div
             style={{
-              fontSize: 'var(--fs-body-s)',
-              color: 'var(--text-muted)',
-              borderLeft: '1.5px solid var(--border-default)',
-              paddingLeft: 16,
+              fontSize: 13,
+              color: 'var(--slate)',
+              fontStyle: 'italic',
+              borderLeft: '3px solid var(--purple)',
+              paddingLeft: 12,
             }}
           >
-            {field.quote}
+            {substitute(field.quote, brand)}
           </div>
         </div>
       )}
@@ -128,28 +157,23 @@ export default function FieldCard({ field, preview, control }: Props) {
     switch (field.type) {
       case 'text':
         return (
-          <TextField
-            value={String(value ?? '')}
-            onChange={(next) => setValue(field.key, next)}
-            ariaLabel={field.label}
-          />
+          <TextInput value={String(value ?? '')} onChange={(next) => setValue(field.key, next)} />
         )
       case 'area':
         return (
-          <TextArea
+          <TextInput
             value={String(value ?? '')}
             onChange={(next) => setValue(field.key, next)}
+            multiline
             rows={field.rows ?? 3}
-            ariaLabel={field.label}
           />
         )
       case 'select':
         return (
-          <SelectField
+          <Select
             value={String(value ?? '')}
             onChange={(next) => setValue(field.key, next)}
             options={field.options ?? []}
-            ariaLabel={field.label}
           />
         )
       case 'toggle':
@@ -171,12 +195,13 @@ export default function FieldCard({ field, preview, control }: Props) {
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: 10,
-                    height: 'var(--control-h-sm)',
-                    padding: '0 8px 0 16px',
-                    borderRadius: 'var(--radius-pill)',
-                    border: '1px solid var(--border-default)',
-                    fontSize: 'var(--fs-body-s)',
+                    gap: 8,
+                    background: index % 2 ? 'var(--mist)' : 'var(--sky)',
+                    borderRadius: 20,
+                    padding: '7px 14px',
+                    fontSize: 14,
+                    fontWeight: 700,
+                    color: 'var(--navy)',
                   }}
                 >
                   {chip}
@@ -185,16 +210,14 @@ export default function FieldCard({ field, preview, control }: Props) {
                     aria-label={`Remove ${chip}`}
                     onClick={() => removeChip(field.key, index)}
                     style={{
-                      width: 20,
-                      height: 20,
-                      display: 'grid',
-                      placeItems: 'center',
                       border: 'none',
                       background: 'none',
                       padding: 0,
+                      font: 'inherit',
                       fontSize: 15,
                       lineHeight: 1,
-                      color: 'var(--vr-gray-500)',
+                      color: 'var(--navy)',
+                      opacity: 0.55,
                       cursor: 'pointer',
                     }}
                   >
@@ -208,26 +231,26 @@ export default function FieldCard({ field, preview, control }: Props) {
                 event.preventDefault()
                 addChip(field.key)
               }}
-              style={{ display: 'flex', gap: 10, marginTop: 14, maxWidth: 440 }}
+              style={{ display: 'flex', gap: 8, marginTop: 12, maxWidth: 420 }}
             >
               <div style={{ flex: 1 }}>
-                <TextField
+                <TextInput
                   value={state.drafts[field.key] ?? ''}
                   onChange={(next) => setDraft(field.key, next)}
                   placeholder={field.chipPlaceholder ?? 'Add an item'}
-                  ariaLabel={`${field.chipPlaceholder ?? 'Add an item'} to ${field.label}`}
                 />
               </div>
               <button
                 type="submit"
                 style={{
-                  height: 'var(--control-h-md)',
-                  padding: '0 22px',
-                  borderRadius: 'var(--radius-pill)',
-                  border: '1.5px solid var(--vr-black)',
+                  border: '2px solid var(--navy)',
                   background: 'transparent',
-                  fontSize: '0.9375rem',
-                  fontWeight: 500,
+                  color: 'var(--navy)',
+                  borderRadius: 20,
+                  padding: '0 20px',
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: 14,
+                  fontWeight: 700,
                   cursor: 'pointer',
                   flex: 'none',
                 }}

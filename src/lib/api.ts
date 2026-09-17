@@ -1,4 +1,4 @@
-import { DEFS, type DocKey } from '../data/docs'
+import { DEFS, substitute, type Brand, type DocKey } from '../data/docs'
 import type { FieldValue } from './types'
 
 /**
@@ -15,6 +15,14 @@ const ANALYSE_URL = import.meta.env.VITE_N8N_ANALYSE_URL as string | undefined
 const SIMULATED_DURATION = 3000
 const PROGRESS_TICK = 90
 
+export interface AnalyseRequest {
+  brand: Brand
+  doc: DocKey
+  fileName: string
+  /** The bytes the user picked. Absent when they accepted the stand-in document. */
+  file?: File
+}
+
 export interface AnalyseResult {
   /** Field key → extracted value. Keys match `DocField.key` in data/docs.ts. */
   values: Record<string, FieldValue>
@@ -22,11 +30,7 @@ export interface AnalyseResult {
   confidence?: Record<string, number>
 }
 
-export interface AnalyseOptions {
-  doc: DocKey
-  fileName: string
-  /** The bytes the user picked. Absent when the sample document was used. */
-  file?: File
+export interface AnalyseOptions extends AnalyseRequest {
   onProgress?: (pct: number) => void
   signal?: AbortSignal
 }
@@ -34,27 +38,29 @@ export interface AnalyseOptions {
 export const usingLiveBackend = Boolean(ANALYSE_URL)
 
 /** The prototype's own extraction output, used as the offline fallback. */
-export function seedValues(doc: DocKey): Record<string, FieldValue> {
+export function seedValues(doc: DocKey, brand: Brand): Record<string, FieldValue> {
   const values: Record<string, FieldValue> = {}
   for (const section of DEFS[doc].sections) {
     for (const field of section.fields) {
-      values[field.key] = Array.isArray(field.value) ? [...field.value] : field.value
+      values[field.key] = Array.isArray(field.value)
+        ? field.value.map((item) => substitute(item, brand))
+        : substitute(field.value, brand)
     }
   }
   return values
 }
 
-/** Seeds every document at once — used for the initial state and on reset. */
-export function seedAllValues(): Record<string, FieldValue> {
-  return Object.assign({}, ...(Object.keys(DEFS) as DocKey[]).map(seedValues))
+/** Seeds every document at once — used when switching brands. */
+export function seedAllValues(brand: Brand): Record<string, FieldValue> {
+  return Object.assign({}, ...(Object.keys(DEFS) as DocKey[]).map((doc) => seedValues(doc, brand)))
 }
 
 export async function analyseDocument(options: AnalyseOptions): Promise<AnalyseResult> {
-  const { doc, fileName, file, onProgress, signal } = options
+  const { brand, doc, fileName, file, onProgress, signal } = options
 
   if (!ANALYSE_URL) {
     await simulateProgress(onProgress, signal)
-    return { values: seedValues(doc) }
+    return { values: seedValues(doc, brand) }
   }
 
   // Report indeterminate progress while the webhook runs; n8n gives us no
@@ -62,9 +68,10 @@ export async function analyseDocument(options: AnalyseOptions): Promise<AnalyseR
   const stopTicking = tickTowards(90, onProgress, signal)
   try {
     // Send multipart when there are real bytes so the n8n workflow can read the
-    // document; fall back to JSON metadata when the sample document was used.
-    const body = file ? new FormData() : JSON.stringify({ doc, fileName })
+    // document; fall back to JSON metadata when the stand-in document was used.
+    const body = file ? new FormData() : JSON.stringify({ brand: brand.key, doc, fileName })
     if (body instanceof FormData) {
+      body.append('brand', brand.key)
       body.append('doc', doc)
       body.append('fileName', fileName)
       body.append('document', file as File, fileName)

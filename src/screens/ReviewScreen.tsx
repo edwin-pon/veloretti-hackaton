@@ -1,11 +1,10 @@
-import { DEFS, type DocField, type DocSection } from '../data/docs'
-import { Button, Label, Notice } from '../ds'
-import BackLink from '../components/BackLink'
+import { DEFS, substitute, type DocField, type DocSection } from '../data/docs'
+import { AlertBanner } from '../ds'
 import FieldCard from '../components/FieldCard'
 import { useReviewStats, useStore } from '../lib/store'
 
 export default function ReviewScreen() {
-  const { state, go, startAnalysis, approve } = useStore()
+  const { state, brand, go, startAnalysis, approve } = useStore()
   const def = DEFS[state.doc]
   const stats = useReviewStats(state.doc)
   const isStyle = state.doc === 'style'
@@ -28,67 +27,110 @@ export default function ReviewScreen() {
 
   return (
     <div>
-      <BackLink onClick={() => go('hub')}>Back to onboarding</BackLink>
+      <button
+        type="button"
+        onClick={() => go('hub')}
+        style={{
+          border: 'none',
+          background: 'none',
+          padding: 0,
+          font: 'inherit',
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--slate)',
+          cursor: 'pointer',
+          marginBottom: 20,
+        }}
+      >
+        ← Back to onboarding
+      </button>
 
       <div
         style={{
           display: 'flex',
-          alignItems: 'flex-end',
+          alignItems: 'flex-start',
           justifyContent: 'space-between',
-          gap: 32,
+          gap: 24,
           flexWrap: 'wrap',
-          marginBottom: 40,
+          marginBottom: 24,
         }}
       >
         <div style={{ minWidth: 0 }}>
-          <Label>Review</Label>
-          <h1 style={{ fontSize: 'var(--fs-display-m)', margin: '18px 0 12px' }}>{def.title}</h1>
-          <div style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)' }}>
-            {state.upload?.name ?? def.file} · analysed just now · {stats.total} fields extracted
+          <h1
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 36,
+              fontWeight: 700,
+              color: 'var(--ink-heading)',
+              margin: '0 0 8px',
+              lineHeight: 1.2,
+            }}
+          >
+            {def.title}
+          </h1>
+          <div style={{ fontSize: 14, color: 'var(--slate)' }}>
+            {state.upload?.name ?? substitute(def.file, brand)} · analysed just now ·{' '}
+            {stats.total} fields extracted
           </div>
         </div>
-        <div style={{ display: 'flex', gap: 14, alignItems: 'center', flex: 'none' }}>
-          <Button variant="secondary" onClick={startAnalysis}>
+        <div style={{ display: 'flex', gap: 16, alignItems: 'center', flex: 'none' }}>
+          <button
+            type="button"
+            onClick={startAnalysis}
+            style={{
+              border: '2px solid var(--navy)',
+              background: 'transparent',
+              color: 'var(--navy)',
+              borderRadius: 20,
+              padding: '12px 24px',
+              fontFamily: 'var(--font-sans)',
+              fontSize: 15,
+              fontWeight: 700,
+              letterSpacing: '0.5px',
+              cursor: 'pointer',
+            }}
+          >
             Re-run analysis
-          </Button>
-          <Button onClick={approve}>{approveLabel}</Button>
+          </button>
+          <ApproveButton label={approveLabel} onClick={approve} />
         </div>
       </div>
 
-      <div style={{ marginBottom: 48 }}>
-        <Notice title={def.summaryTitle}>{def.summary}</Notice>
+      <div style={{ marginBottom: 32 }}>
+        <AlertBanner variant="info" title={def.summaryTitle}>
+          {substitute(def.summary, brand)}
+        </AlertBanner>
       </div>
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))',
-          gap: 32,
-          padding: '28px 0',
-          borderTop: '1px solid var(--border-default)',
-          borderBottom: '1px solid var(--border-default)',
-          marginBottom: 64,
-        }}
-      >
+      <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', marginBottom: 32 }}>
         {[
           { value: stats.total, label: 'Fields extracted' },
           { value: stats.needReview, label: 'Need your review' },
           { value: `${stats.average}%`, label: 'Average confidence' },
         ].map((stat) => (
-          <div key={stat.label}>
+          <div
+            key={stat.label}
+            style={{
+              background: '#fff',
+              borderRadius: 20,
+              padding: '20px 24px',
+              boxShadow: '0 2px 8px rgba(0,44,71,0.08)',
+              minWidth: 180,
+            }}
+          >
             <div
               style={{
-                fontSize: 'var(--fs-display-m)',
-                fontWeight: 500,
-                letterSpacing: 'var(--tracking-display)',
-                lineHeight: 'var(--lh-tight)',
+                fontFamily: 'var(--font-display)',
+                fontSize: 32,
+                fontWeight: 700,
+                color: 'var(--ink-heading)',
+                lineHeight: 1.1,
+                letterSpacing: '-0.5px',
               }}
             >
               {stat.value}
             </div>
-            <div style={{ marginTop: 12 }}>
-              <Label>{stat.label}</Label>
-            </div>
+            <div style={{ fontSize: 13, color: 'var(--slate)', marginTop: 6 }}>{stat.label}</div>
           </div>
         ))}
       </div>
@@ -96,60 +138,79 @@ export default function ReviewScreen() {
       {isStyle && <StyleVisuals />}
 
       {sections.map((section) => (
-        <section key={section.title} style={{ marginBottom: 64 }}>
+        <div key={section.title} style={{ marginBottom: 40 }}>
           <SectionHeading title={section.title} meta={section.meta} />
           <div style={{ display: 'grid', gap: 16 }}>
             {section.fields.map((field) => (
               <FieldCard key={field.key} field={field} />
             ))}
           </div>
-        </section>
+        </div>
       ))}
 
       <div
         style={{
-          borderTop: '1px solid var(--border-default)',
-          paddingTop: 32,
+          background: '#fff',
+          borderRadius: 20,
+          padding: 24,
+          boxShadow: '0 2px 8px rgba(0,44,71,0.08)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: 32,
+          gap: 24,
           flexWrap: 'wrap',
         }}
       >
-        <div
-          style={{
-            fontSize: 'var(--fs-body)',
-            color: 'var(--text-secondary)',
-            lineHeight: 'var(--lh-body)',
-            maxWidth: '58ch',
-          }}
-        >
+        <div style={{ fontSize: 15, color: 'var(--ink-secondary)', lineHeight: 1.6 }}>
           {stats.needReview > 0
             ? 'You can approve now and revisit flagged fields later. Flagged rules stay advisory until confirmed.'
-            : 'Every field is confirmed. These rules apply to every campaign the studio generates.'}
+            : 'Every field is confirmed. These rules apply to every campaign generated for this brand.'}
         </div>
-        <Button onClick={approve}>{approveLabel}</Button>
+        <ApproveButton label={approveLabel} onClick={approve} />
       </div>
     </div>
   )
 }
 
-function SectionHeading({ title, meta }: { title: string; meta: string }) {
+function ApproveButton({ label, onClick }: { label: string; onClick: () => void }) {
   return (
-    <div
+    <button
+      type="button"
+      onClick={onClick}
       style={{
-        display: 'flex',
-        alignItems: 'baseline',
-        justifyContent: 'space-between',
-        gap: 20,
-        paddingBottom: 16,
-        marginBottom: 24,
-        borderBottom: '1px solid var(--border-default)',
+        border: 'none',
+        background: 'var(--mint)',
+        color: 'var(--navy)',
+        borderRadius: 20,
+        padding: '14px 28px',
+        fontFamily: 'var(--font-sans)',
+        fontSize: 15,
+        fontWeight: 700,
+        letterSpacing: '0.5px',
+        cursor: 'pointer',
+        flex: 'none',
       }}
     >
-      <h2 style={{ fontSize: 'var(--fs-h2)' }}>{title}</h2>
-      <Label>{meta}</Label>
+      {label}
+    </button>
+  )
+}
+
+function SectionHeading({ title, meta }: { title: string; meta: string }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 16 }}>
+      <h2
+        style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: 22,
+          fontWeight: 700,
+          color: 'var(--ink-heading)',
+          margin: 0,
+        }}
+      >
+        {title}
+      </h2>
+      <span style={{ fontSize: 12, color: 'var(--slate)' }}>{meta}</span>
     </div>
   )
 }
@@ -170,8 +231,8 @@ function StyleVisuals() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))',
-          gap: 16,
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: 24,
           marginBottom: 16,
         }}
       >
@@ -182,18 +243,18 @@ function StyleVisuals() {
             preview={
               <div
                 style={{
-                  height: 160,
-                  borderRadius: 'var(--radius-md)',
+                  height: 132,
+                  borderRadius: 12,
                   background: hexOf(valueOf(field)),
-                  border: '1px solid var(--border-subtle)',
-                  marginBottom: 24,
+                  border: '1px solid var(--hairline)',
+                  marginBottom: 16,
                 }}
               />
             }
           />
         ))}
       </div>
-      <div style={{ marginBottom: 64 }}>
+      <div style={{ marginBottom: 40 }}>
         <FieldCard field={colors.fields[2]} />
       </div>
 
@@ -201,8 +262,8 @@ function StyleVisuals() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))',
-          gap: 16,
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: 24,
           marginBottom: 16,
         }}
       >
@@ -212,14 +273,14 @@ function StyleVisuals() {
             family: headingFamily,
             size: 30,
             weight: 700,
-            sample: 'Ride into the city',
+            sample: 'Ninety kilometres on one charge',
           },
           {
             field: fonts.fields[1],
             family: bodyFamily,
             size: 18,
             weight: 400,
-            sample: 'An electric bike designed in Amsterdam, built to make your daily rides a pleasure.',
+            sample: 'Engineered for daily distance, sold and serviced through independent dealers.',
           },
         ].map((spec) => (
           <FieldCard
@@ -228,14 +289,10 @@ function StyleVisuals() {
             preview={
               <div
                 style={{
-                  background: 'var(--vr-surface-2)',
-                  borderRadius: 'var(--radius-md)',
-                  padding: '28px 28px 20px',
-                  marginBottom: 24,
-                  minHeight: 190,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
+                  background: 'var(--mist)',
+                  borderRadius: 12,
+                  padding: '20px 24px',
+                  marginBottom: 16,
                 }}
               >
                 <div
@@ -243,19 +300,14 @@ function StyleVisuals() {
                     fontFamily: spec.family,
                     fontSize: spec.size,
                     fontWeight: spec.weight,
+                    color: 'var(--ink-heading)',
                     lineHeight: 1.25,
                   }}
                 >
                   {spec.sample}
                 </div>
-                <div
-                  style={{
-                    fontSize: 'var(--fs-caption)',
-                    color: 'var(--text-muted)',
-                    marginTop: 14,
-                  }}
-                >
-                  {familyOf(valueOf(spec.field))} · preview uses a fallback, font file not uploaded
+                <div style={{ fontSize: 12, color: 'var(--slate)', marginTop: 10 }}>
+                  {`${spec.field.label} specimen · ${familyOf(valueOf(spec.field))} — preview uses a fallback, font file not uploaded`}
                 </div>
               </div>
             }
@@ -263,49 +315,56 @@ function StyleVisuals() {
         ))}
       </div>
 
-      <div style={{ marginBottom: 64 }}>
+      <div style={{ marginBottom: 40 }}>
         <FieldCard
           field={fonts.fields[3]}
           control={
             <div>
-              {scaleRows(valueOf(fonts.fields[3]), headingFamily, bodyFamily).map((row) => (
-                <div
-                  key={row.name}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'baseline',
-                    gap: 20,
-                    padding: '14px 0',
-                    borderTop: '1px solid var(--border-subtle)',
-                  }}
-                >
-                  <Label style={{ width: 56, flex: 'none' }}>{row.name}</Label>
-                  <span
+              <div style={{ display: 'grid', gap: 2 }}>
+                {scaleRows(valueOf(fonts.fields[3]), headingFamily, bodyFamily).map((row) => (
+                  <div
+                    key={row.name}
                     style={{
-                      width: 56,
-                      flex: 'none',
-                      fontSize: 'var(--fs-caption)',
-                      color: 'var(--text-muted)',
+                      display: 'flex',
+                      alignItems: 'baseline',
+                      gap: 16,
+                      padding: '10px 0',
+                      borderTop: '1px solid var(--hairline)',
                     }}
                   >
-                    {row.px}
-                  </span>
-                  <span
-                    style={{
-                      minWidth: 0,
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                      fontFamily: row.family,
-                      fontSize: row.size,
-                      fontWeight: row.weight,
-                      lineHeight: 1.2,
-                    }}
-                  >
-                    {row.sample}
-                  </span>
-                </div>
-              ))}
+                    <span
+                      style={{
+                        width: 64,
+                        flex: 'none',
+                        fontSize: 11,
+                        letterSpacing: '1px',
+                        fontWeight: 700,
+                        color: 'var(--slate)',
+                      }}
+                    >
+                      {row.name}
+                    </span>
+                    <span style={{ width: 56, flex: 'none', fontSize: 12, color: 'var(--slate)' }}>
+                      {row.px}
+                    </span>
+                    <span
+                      style={{
+                        minWidth: 0,
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        fontFamily: row.family,
+                        fontSize: row.size,
+                        fontWeight: row.weight,
+                        color: 'var(--ink-heading)',
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      {row.sample}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           }
         />
@@ -315,20 +374,11 @@ function StyleVisuals() {
 }
 
 function hexOf(value: string): string {
-  return value.match(/#[0-9a-fA-F]{3,8}/)?.[0] ?? '#F3F3F3'
+  return value.match(/#[0-9a-fA-F]{3,8}/)?.[0] ?? '#F0F4F8'
 }
 
 function familyOf(value: string): string {
   return value.split('—')[0].split(',')[0].trim()
-}
-
-/** One line per scale step, so the preview reads as a scale rather than a repeat. */
-const SCALE_SAMPLES: Record<string, string> = {
-  H1: 'Ride into the city',
-  H2: 'Designed in Amsterdam',
-  H3: 'Built for the way you ride',
-  BODY: 'An electric bike built to make your daily rides a pleasure.',
-  CAPTION: 'Handmade in Europe · Two year warranty',
 }
 
 function scaleRows(value: string, headingFamily: string, bodyFamily: string) {
@@ -343,7 +393,9 @@ function scaleRows(value: string, headingFamily: string, bodyFamily: string) {
       size: Math.min(px, 40),
       family: isHeading ? headingFamily : bodyFamily,
       weight: isHeading ? 700 : 400,
-      sample: SCALE_SAMPLES[name.toUpperCase()] ?? 'Timeless, quiet, and made for the way you actually ride.',
+      sample: isHeading
+        ? 'Ninety kilometres on one charge'
+        : 'Engineered for daily distance, serviced by your dealer.',
     }
   })
 }

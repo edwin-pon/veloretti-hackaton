@@ -2,9 +2,6 @@
 // prototype) so the app and the prototype stay in sync. Values are the agent's
 // simulated extraction output; once n8n is wired in these become the fallback
 // used when the webhook is unreachable.
-//
-// This is Veloretti's studio: one brand, one set of rules. There is no brand
-// switcher and no per-brand state.
 
 export type FieldType = 'text' | 'area' | 'select' | 'toggle' | 'chips'
 
@@ -47,6 +44,15 @@ export interface DocDef {
 
 export type DocKey = 'brand' | 'legal' | 'style'
 
+export interface Brand {
+  key: string
+  name: string
+  short: string
+  slug: string
+  initials: string
+  color: string
+}
+
 export const DOC_ORDER: DocKey[] = ['brand', 'legal', 'style']
 
 export const DEFS: Record<DocKey, DocDef> =
@@ -56,35 +62,35 @@ export const DEFS: Record<DocKey, DocDef> =
       card: 'Brand information',
       desc: 'Identity, positioning, markets and voice, pulled from the brand book.',
       intro: 'The agent reads the brand book and drafts the identity, market and voice rules that every generated campaign will inherit.',
-      file: 'veloretti-visual-language.pdf', size: '4.8 MB · 17 pages',
+      file: 'veloretti-brand-book-2026.pdf', size: '4.8 MB · 38 pages',
       summaryTitle: 'Agent summary',
       summary: 'Identity and market coverage are stated explicitly in the brand book, so confidence is high there. Voice attributes were inferred from 14 example headlines rather than a written list, and the claim library appears only as scattered footnotes. Both are flagged for your review.',
       extracts: ['Brand name, positioning and mission', 'Primary markets and audience segments', 'Voice attributes and banned wording', 'Substantiated product claims'],
       sections: [
         { title: 'Identity', meta: 'stated in the document', fields: [
-          { key: 'b1', label: 'Brand name', hint: 'Used in every generated subject line and headline', type: 'text', value: 'Veloretti', conf: 99, cite: 'veloretti-visual-language.pdf · p.1',
+          { key: 'b1', label: 'Brand name', hint: 'Used in every generated subject line and headline', type: 'text', value: 'Veloretti', conf: 99, cite: 'veloretti-brand-book-2026.pdf · p.1',
             reasoning: 'Matched the wordmark on the cover, the legal entity line in the colophon and 112 in-body mentions. No competing spelling found.', quote: '“Veloretti B.V. — brand book, edition 2026”' },
-          { key: 'b2', label: 'Positioning statement', hint: 'Anchors campaign angles and value propositions', type: 'area', rows: 3, value: 'Bicycles and e-bikes designed in Amsterdam and handmade in Europe, for people who are not cyclists so much as commuters who care about design.', conf: 88, cite: 'veloretti-visual-language.pdf · p.4',
+          { key: 'b2', label: 'Positioning statement', hint: 'Anchors campaign angles and value propositions', type: 'area', rows: 3, value: 'Electric cargo and commuter bikes engineered for daily distance, sold and serviced through independent dealers.', conf: 88, cite: 'veloretti-brand-book-2026.pdf · p.4',
             reasoning: 'Condensed from the two-paragraph positioning spread. The dealer clause was added because it recurs in the channel section as a defining constraint.', quote: '“We do not sell direct. The dealer is part of the product.”' },
-          { key: 'b3', label: 'Mission', hint: 'Used for about-us and brand-level copy', type: 'area', rows: 2, value: 'Make your daily rides a pleasure, wherever you go.', conf: 81, cite: 'veloretti-visual-language.pdf · p.3',
+          { key: 'b3', label: 'Mission', hint: 'Used for about-us and brand-level copy', type: 'area', rows: 2, value: 'Replace short car trips in European cities with rides people actually prefer.', conf: 81, cite: 'veloretti-brand-book-2026.pdf · p.3',
             reasoning: 'Three candidate mission sentences appear across pages 3 and 5. Selected the one under the "Mission" heading; the others read as vision copy.', quote: '“Every short car trip is an opening.”' }
         ]},
         { title: 'Markets', meta: '2 fields · both editable as lists', fields: [
-          { key: 'b4', label: 'Primary markets', hint: 'Controls language, currency and compliance rules per campaign', type: 'chips', value: ['Netherlands', 'Germany', 'Belgium', 'Denmark'], conf: 94, cite: 'veloretti-visual-language.pdf · p.9',
+          { key: 'b4', label: 'Primary markets', hint: 'Controls language, currency and compliance rules per campaign', type: 'chips', value: ['Netherlands', 'Germany', 'Belgium', 'Denmark'], conf: 94, cite: 'veloretti-brand-book-2026.pdf · p.9',
             chipPlaceholder: 'Add a market', reasoning: 'Read from the market map on page 9. Austria and Switzerland appear on the map in a lighter tint labelled "2027 pipeline" and were excluded.', quote: '“Core four: NL, DE, BE, DK.”' },
-          { key: 'b5', label: 'Audience segments', hint: 'Drives audience targeting and tone per segment', type: 'chips', value: ['City commuters, 25-44', 'Design-led lifestyle buyers', 'Parents buying kids bikes'], conf: 76, cite: 'veloretti-visual-language.pdf · p.11',
+          { key: 'b5', label: 'Audience segments', hint: 'Drives audience targeting and tone per segment', type: 'chips', value: ['Urban commuters', 'Fleet operators', 'Dealer network'], conf: 76, cite: 'veloretti-brand-book-2026.pdf · p.11',
             chipPlaceholder: 'Add a segment', reasoning: 'No formal segment list exists. These were derived from the personas section, which describes five personas that collapse into three commercial audiences.', quote: '“Meet Joris, Anna, Sven, Mila and Bram.”' }
         ]},
         { title: 'Voice', meta: 'inferred — needs your confirmation', fields: [
-          { key: 'b6', label: 'Tone attributes', hint: 'Applied to every generated line of copy', type: 'chips', value: ['Warm', 'Plain', 'Quietly confident', 'Understated'], conf: 68, cite: 'veloretti-visual-language.pdf · p.14',
+          { key: 'b6', label: 'Tone attributes', hint: 'Applied to every generated line of copy', type: 'chips', value: ['Direct', 'Technical', 'Understated', 'Optimistic'], conf: 68, cite: 'veloretti-brand-book-2026.pdf · p.14',
             chipPlaceholder: 'Add an attribute', reasoning: 'The brand book gives examples but no adjective list. These four were inferred from 14 approved headlines and the "how we write" do/don\'t table.', quote: '“Say the number. Skip the adjective.”' },
-          { key: 'b7', label: 'Words to avoid', hint: 'Blocked at generation time', type: 'chips', value: ['revolutionary', 'game-changing', 'effortless', 'unleash'], conf: 90, cite: 'veloretti-visual-language.pdf · p.16',
+          { key: 'b7', label: 'Words to avoid', hint: 'Blocked at generation time', type: 'chips', value: ['revolutionary', 'effortless', 'game-changing', 'unleash'], conf: 90, cite: 'veloretti-brand-book-2026.pdf · p.16',
             chipPlaceholder: 'Add a blocked word', reasoning: 'Taken verbatim from the "never write" column. Four further entries were style notes rather than words and were left out.', quote: '“No revolutions. We make bikes.”' },
-          { key: 'b8', label: 'Reading level', hint: 'Target complexity for generated copy', type: 'select', value: 'B1 — plain, non-specialist', options: ['A2 — very simple', 'B1 — plain, non-specialist', 'B2 — confident reader', 'C1 — specialist'], conf: 72, cite: 'veloretti-visual-language.pdf · p.15',
+          { key: 'b8', label: 'Reading level', hint: 'Target complexity for generated copy', type: 'select', value: 'B1 — plain, non-specialist', options: ['A2 — very simple', 'B1 — plain, non-specialist', 'B2 — confident reader', 'C1 — specialist'], conf: 72, cite: 'veloretti-brand-book-2026.pdf · p.15',
             reasoning: 'The book asks for "language a first-time buyer understands", which maps to B1. Technical spec copy in the appendix reads closer to B2.', quote: '“Language a first-time buyer understands.”' }
         ]},
         { title: 'Proof', meta: 'partial extraction', fields: [
-          { key: 'b9', label: 'Substantiated claims', hint: 'Only claims listed here may be generated', type: 'area', rows: 4, value: 'Designed in Amsterdam, handmade in Europe. Part of the Pon.Bike family since 2012. Fair pricing, timeless design, friendly service.', conf: 61, cite: 'veloretti-visual-language.pdf · p.21, p.29',
+          { key: 'b9', label: 'Substantiated claims', hint: 'Only claims listed here may be generated', type: 'area', rows: 4, value: '90 km range on the Cargo Line at 25 km/h assist. 12-year frame warranty. Service within 48 hours at 340 partner dealers.', conf: 61, cite: 'veloretti-brand-book-2026.pdf · p.21, p.29',
             reasoning: 'Claims are scattered across the product pages rather than collected in one place. Three of the five found carry a footnote reference; two do not and were dropped.', quote: '“Range figures per WLTP-e cycle, see appendix C.”' }
         ]}
       ]
@@ -128,39 +134,55 @@ export const DEFS: Record<DocKey, DocDef> =
       card: 'Style guide',
       desc: 'Writing mechanics, colors and typefaces.',
       intro: 'Mechanical rules the generator applies to every asset: casing, punctuation, the color palette and the typefaces used in generated layouts.',
-      file: 'veloretti-visual-language-colour-type.pdf', size: '2.1 MB · 9 pages',
+      file: 'veloretti-style-guide-2026.pdf', size: '2.1 MB · 22 pages',
       summaryTitle: 'Agent summary',
       summary: 'Mechanics, palette and typefaces were listed as explicit rules and extracted with high confidence. The type scale is desktop-only and two example layouts contradict it, so it is flagged for review.',
       extracts: ['Casing and punctuation rules', 'Primary, accent and neutral colors', 'Heading and body typefaces', 'Type scale and fallbacks'],
       sections: [
         { title: 'Writing mechanics', meta: 'applied to every generated asset', fields: [
-          { key: 's1', label: 'Sentence case headings', hint: 'Headlines, subheads and subject lines', type: 'toggle', value: true, toggleLabel: 'Sentence case, not Title Case', conf: 97, cite: 'veloretti-visual-language-colour-type.pdf · p.6',
+          { key: 's1', label: 'Sentence case headings', hint: 'Headlines, subheads and subject lines', type: 'toggle', value: true, toggleLabel: 'Sentence case, not Title Case', conf: 97, cite: 'veloretti-style-guide-2026.pdf · p.6',
             reasoning: 'Stated as a rule and consistent across all 40 examples in the guide.', quote: '“Sentence case everywhere except product names.”' },
-          { key: 's2', label: 'Oxford comma', hint: 'Punctuation in generated lists', type: 'toggle', value: false, toggleLabel: 'Use the Oxford comma', conf: 91, cite: 'veloretti-visual-language-colour-type.pdf · p.8',
+          { key: 's2', label: 'Oxford comma', hint: 'Punctuation in generated lists', type: 'toggle', value: false, toggleLabel: 'Use the Oxford comma', conf: 91, cite: 'veloretti-style-guide-2026.pdf · p.8',
             reasoning: 'The guide omits it in every example list and notes British-English house style.', quote: '“No serial comma.”' },
-          { key: 's3', label: 'Exclamation marks', hint: 'Blocked punctuation', type: 'select', value: 'Never', options: ['Never', 'Sparingly', 'Allowed'], conf: 94, cite: 'veloretti-visual-language-colour-type.pdf · p.8',
+          { key: 's3', label: 'Exclamation marks', hint: 'Blocked punctuation', type: 'select', value: 'Never', options: ['Never', 'Sparingly', 'Allowed'], conf: 94, cite: 'veloretti-style-guide-2026.pdf · p.8',
             reasoning: 'Listed under forbidden punctuation with no stated exceptions.', quote: '“We do not shout.”' }
         ]},
         { title: 'Colors', meta: 'applied to generated assets and templates', fields: [
-          { key: 'c1', label: 'Primary color', hint: 'Backgrounds, headlines and dark surfaces', type: 'text', value: '#1A1A1A — Ink black', conf: 96, cite: 'veloretti-visual-language-colour-type.pdf · p.4',
-            reasoning: 'Read from the palette page, where it is the only swatch marked "primary" and carries both HEX and Pantone values.', quote: '“Monochrome first. The product is the colour.”' },
-          { key: 'c2', label: 'Accent color', hint: 'Buttons, highlights and data marks', type: 'text', value: '#FE5900 — Signal orange', conf: 92, cite: 'veloretti-visual-language-colour-type.pdf · p.4',
-            reasoning: 'Named as the tertiary accent. The guide marks it "not fixed" and limits it to promotional use, so it is stored as a restricted colour rather than a brand colour.', quote: '“Tertiary is not fixed. Special cases only.”' },
-          { key: 'c3', label: 'Neutral scale', hint: 'Text, borders and surfaces', type: 'chips', value: ['#333130', '#4B4943', '#6B6961', '#8A887E', '#9F9A93', '#BBB8B3', '#D9D7D3', '#E8E8E6'], conf: 84, cite: 'veloretti-visual-language-colour-type.pdf · p.5',
-            chipPlaceholder: 'Add a hex value', reasoning: 'Eight steps were printed as a warm-neutral ramp without names or roles. Role mapping was inferred from the example layouts on pages 6 and 7.', quote: '“Grays do the work quietly.”' },
-          { key: 'c4', label: 'Color usage rule', hint: 'Enforced when a template is generated', type: 'area', rows: 3, value: 'Signal orange is reserved for promotional messages — discounts, sale, urgency. Never as a background behind body copy, never as a default call to action.', conf: 69, cite: 'veloretti-visual-language-colour-type.pdf · p.6',
-            reasoning: 'The promo-only restriction is stated. The rule against using it as a default call to action was inferred from the examples, which never show it that way.', quote: '“Reserved for discounts and promotional messages.”' }
+          { key: 'c1', label: 'Primary color', hint: 'Backgrounds, headlines and dark surfaces', type: 'text', value: '#123A2C — Deep pine', conf: 96, cite: 'veloretti-style-guide-2026.pdf · p.4',
+            reasoning: 'Read from the palette page, where it is the only swatch marked "primary" and carries both HEX and Pantone values.', quote: '“Deep pine carries the brand. Everything else supports it.”' },
+          { key: 'c2', label: 'Accent color', hint: 'Buttons, highlights and data marks', type: 'text', value: '#D6FF4B — Signal lime', conf: 92, cite: 'veloretti-style-guide-2026.pdf · p.4',
+            reasoning: 'Named as the single accent. A second bright swatch on the same page is labelled "packaging only" and was excluded.', quote: '“One accent. Never two.”' },
+          { key: 'c3', label: 'Neutral scale', hint: 'Text, borders and surfaces', type: 'chips', value: ['#0B0F0D', '#3F4A44', '#8C9A93', '#E8EDEA', '#FFFFFF'], conf: 84, cite: 'veloretti-style-guide-2026.pdf · p.5',
+            chipPlaceholder: 'Add a hex value', reasoning: 'Five steps were printed as a ramp without names or roles. Role mapping was inferred from the example layouts on pages 6 and 7.', quote: '“Grays do the work quietly.”' },
+          { key: 'c4', label: 'Color usage rule', hint: 'Enforced when a template is generated', type: 'area', rows: 3, value: 'Signal lime is reserved for one element per asset, normally the call to action. Never as a background behind body copy, never on text below 18px.', conf: 69, cite: 'veloretti-style-guide-2026.pdf · p.6',
+            reasoning: 'The one-element rule is stated. The contrast limits were derived from the accessibility note, which gives a ratio rather than a size threshold.', quote: '“Lime marks the next action, nothing else.”' }
         ]},
         { title: 'Fonts', meta: '1 field needs review', fields: [
-          { key: 'f1', label: 'Heading typeface', hint: 'Headlines, subheads and subject lines', type: 'text', value: 'PP Neue Montreal — Medium, -2% tracking', conf: 95, cite: 'veloretti-visual-language-colour-type.pdf · p.9',
-            reasoning: 'Specimen page names the family, weight and tracking. Licence note confirms web use is covered.', quote: '“Display is large and tight.”' },
-          { key: 'f2', label: 'Body typeface', hint: 'Body copy, labels and UI text', type: 'text', value: 'PP Neue Montreal — Regular 400', conf: 94, cite: 'veloretti-visual-language-colour-type.pdf · p.9',
-            reasoning: 'Only Regular and Medium were supplied as web fonts. The specimen shows no other weight in use.', quote: '“One typeface does everything.”' },
-          { key: 'f3', label: 'Fallback stack', hint: 'Used where the webfont cannot load', type: 'text', value: 'Helvetica Neue, Arial, sans-serif', conf: 87, cite: 'veloretti-visual-language-colour-type.pdf · p.10',
-            reasoning: 'Taken from the fallback section. An editorial serif voice is referenced for the journal, but no font file was provided, so it was excluded here.', quote: '“Fallbacks use system fonts.”' },
-          { key: 'f4', label: 'Type scale', hint: 'Sizes for generated layouts', type: 'text', value: 'H1 36 / H2 28 / H3 22 / body 16 / caption 13', conf: 66, cite: 'veloretti-visual-language-colour-type.pdf · p.11',
+          { key: 'f1', label: 'Heading typeface', hint: 'Headlines, subheads and subject lines', type: 'text', value: 'Chapeau Display — Bold, -1% tracking', conf: 95, cite: 'veloretti-style-guide-2026.pdf · p.9',
+            reasoning: 'Specimen page names the family, weight and tracking. Licence note confirms web use is covered.', quote: '“Chapeau Display Bold, tightened.”' },
+          { key: 'f2', label: 'Body typeface', hint: 'Body copy, labels and UI text', type: 'text', value: 'Chapeau Text — Regular and Medium', conf: 94, cite: 'veloretti-style-guide-2026.pdf · p.9',
+            reasoning: 'Two weights are shown in the specimen. Light and Black appear crossed out in the same table.', quote: '“Two weights are enough.”' },
+          { key: 'f3', label: 'Fallback stack', hint: 'Used where the webfont cannot load', type: 'text', value: 'Helvetica Neue, Arial, sans-serif', conf: 87, cite: 'veloretti-style-guide-2026.pdf · p.10',
+            reasoning: 'Taken from the fallback section. Georgia is listed as a serif fallback for editorial templates only and was excluded here.', quote: '“Fallbacks use system fonts.”' },
+          { key: 'f4', label: 'Type scale', hint: 'Sizes for generated layouts', type: 'text', value: 'H1 44 / H2 32 / H3 24 / body 16 / caption 13', conf: 66, cite: 'veloretti-style-guide-2026.pdf · p.11',
             reasoning: 'The guide prints a desktop scale only, and two example layouts contradict it at H2. Mobile sizes are missing entirely — confirm before generating layouts.', quote: '“Scale shown at desktop width.”' }
         ]}
       ]
     }
+}
+
+export const BRANDS: Brand[] =
+[
+    { key: 'veloretti', name: 'Veloretti', short: 'Veloretti', slug: 'veloretti', initials: 'VA', color: '#52E9C0' },
+    { key: 'canondale', name: 'Canondale', short: 'Canondale', slug: 'canondale', initials: 'CA', color: '#DAE7FE' },
+    { key: 'gazelle', name: 'Gazelle', short: 'Gazelle', slug: 'gazelle', initials: 'GA', color: '#B399FF' }
+]
+
+/**
+ * The prototype ships Veloretti copy; switching brands rewrites the brand name
+ * and filename slugs so the other two workspaces read plausibly.
+ */
+export function substitute<T>(text: T, brand: Brand): T {
+  if (typeof text !== 'string') return text
+  return text.split('Veloretti').join(brand.name).split('veloretti-').join(brand.slug + '-') as T
 }
