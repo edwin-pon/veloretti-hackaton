@@ -16,8 +16,7 @@ page_break() {
   awk '{ if ($0 == "<<<PAGE>>>") printf "\f"; else print }' "$1"
 }
 
-for name in veloretti-visual-language veloretti-visual-language-colour-type \
-            growth-briefing-back-to-school-2026; do
+for name in veloretti-visual-language veloretti-visual-language-colour-type; do
   page_break "docs/samples/$name.txt" > "/tmp/$name.txt"
   cupsfilter -i text/plain -m application/pdf "/tmp/$name.txt" > "public/samples/$name.pdf" 2>/dev/null
   echo "public/samples/$name.pdf"

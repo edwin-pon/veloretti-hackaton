@@ -1,56 +1,48 @@
-// Handing a resolved campaign to n8n.
+// Handing a campaign to n8n.
 //
-// The payload keeps `campaign` and `slots` byte-identical to the JSON the
-// handoff screen downloads, because that file is what the n8n flow was built
-// against. Anything extra is added under its own key so a mapping built on the
-// sample keeps working.
+// Two n8n behaviours decide what the user sees, and both are reported rather
+// than smoothed over:
 //
-// Two things about this call are worth knowing before reading the code:
-//
-//   * a production webhook (`/webhook/...`) only answers while its workflow is
+//   * a production webhook (`/webhook/...`) answers only while its workflow is
 //     active; a test one (`/webhook-test/...`) only after someone clicks
 //     "Execute workflow", and then only once. Both return the same 404.
-//   * n8n sends no CORS headers unless the Webhook node's allowed origins are
-//     set, so a browser is usually refused the *response* even though the
-//     request itself arrives. That is why this falls back to an opaque send
-//     and reports what it can and cannot know.
+//   * without allowed origins set on the Webhook node, the browser is refused
+//     the *response* even though the request arrives. The call then falls back
+//     to a mode the browser permits and says it cannot confirm delivery.
 
-import type { Campaign, GateResult, Slot } from './campaign'
-import type { MatrixSummary } from './matrix'
+import type { CampaignInput } from '../data/campaign-form'
 
 const CAMPAIGN_URL = import.meta.env.VITE_N8N_CAMPAIGN_URL as string | undefined
 
 export const campaignWebhook = CAMPAIGN_URL
 
 export interface CampaignPayload {
-  /** Same shape as the downloaded JSON, so an existing mapping still fits. */
-  campaign: Campaign['meta']
-  slots: Slot[]
-  summary: MatrixSummary
-  gates: GateResult[]
-  exportedAt: string
+  campaignName: string
+  description: string
+  markets: string[]
+  channels: string[]
+  audiences: string[]
+  bikeModel: string
+  submittedAt: string
 }
-
-const NOT_REGISTERED =
-  'n8n says the webhook is not registered. A production webhook answers only while its workflow is active; a test one only after "Execute workflow" is clicked, and then once.'
 
 export type PushOutcome =
   | { status: 'ok'; detail: string }
   | { status: 'sent-unconfirmed'; detail: string }
   | { status: 'failed'; detail: string }
 
-export function campaignPayload(
-  campaign: Campaign,
-  slots: Slot[],
-  summary: MatrixSummary,
-  gates: GateResult[],
-): CampaignPayload {
+const NOT_REGISTERED =
+  'n8n says the webhook is not registered. A production webhook answers only while its workflow is active; a test one only after "Execute workflow" is clicked, and then once.'
+
+export function campaignPayload(input: CampaignInput): CampaignPayload {
   return {
-    campaign: campaign.meta,
-    slots,
-    summary,
-    gates,
-    exportedAt: new Date().toISOString(),
+    campaignName: input.name.trim(),
+    description: input.description.trim(),
+    markets: input.markets,
+    channels: input.channels,
+    audiences: input.audiences,
+    bikeModel: input.bikeModel,
+    submittedAt: new Date().toISOString(),
   }
 }
 
@@ -71,12 +63,8 @@ export async function pushCampaign(
       body,
       signal,
     })
-    if (response.ok) {
-      return { status: 'ok', detail: `n8n accepted ${payload.slots.length} slots.` }
-    }
-    if (response.status === 404) {
-      return { status: 'failed', detail: NOT_REGISTERED }
-    }
+    if (response.ok) return { status: 'ok', detail: 'n8n accepted the campaign.' }
+    if (response.status === 404) return { status: 'failed', detail: NOT_REGISTERED }
     return { status: 'failed', detail: `n8n replied ${response.status} ${response.statusText}.` }
   } catch {
     // A CORS refusal and a dead network look the same from here, so send it

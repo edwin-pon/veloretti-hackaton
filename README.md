@@ -92,53 +92,31 @@ imports must stay in that order.
 
 ## Campaign intake
 
-A growth briefing is a grid, not a document: one concept projected onto ads, a
-landing page and a newsletter. The Veloretti "Back to School 2026" briefing holds
-458 ad slots carrying 66 distinct briefs, which is a template with about four
-parameters rather than 458 pieces of writing. Intake exists to capture those
-parameters and resolve the grid.
+Six questions, and the answers go to n8n:
 
-`docs/growth-briefing-blueprint.md` is the source those vocabularies were read
-from. Change a vocabulary there first, then here.
+| Field | |
+|---|---|
+| Campaign name | open text |
+| Description | open text, several lines |
+| Markets | NL, BE; more than one allowed |
+| Channels | Meta, Google, TikTok; more than one allowed |
+| Audience | open text, as many as apply |
+| Bike model | Ace Two, the only one for now |
 
-Drafts live in `localStorage` under one key, written by an effect on the whole
-campaign state, so no screen has to remember to save. A picked `File` cannot be
-serialised: resuming a draft keeps the document's name and re-attaches the
-sample briefing if that is what it was, and a real upload has to be dropped
-again.
+```
+campaigns → new campaign → send to the agent → handed over
+```
 
-There are two human checkpoints, and both are there to be cheap. Brief sign-off
-happens on `BriefReviewScreen`, where the slot count updates as you edit, so the
-cost of a change is visible before it is confirmed. Matrix sign-off happens on
-`MatrixScreen`, where rows are pruned. A slot removed there costs nothing; the
-same slot removed after its copy and renders costs all of it.
+Name, description, at least one market and at least one channel have to be
+answered before the button does anything. Campaigns save themselves from the
+first edit, so a half-written brief survives a closed tab, and the list shows
+every draft with what it currently says.
 
-Three things in the model are load-bearing and easy to get wrong:
-
-- **The offer is a mode, not a percentage.** `offer.mode` is `aspiration` or
-  `discount`, because the briefing's real mechanic is "no discount unless behind
-  on target". In aspiration mode no percentage may appear on any asset. The
-  percentage itself is single-sourced, so the source's own contradiction (15% in
-  the concept against -10% on every ad sticker) surfaces as a blocking gate
-  instead of quietly diverging across surfaces. Either number is a defensible
-  campaign, so `OfferConflict` offers the choice on both the brief and the
-  matrix; picking one corrects the other surfaces to it and clears the gate.
-- **Language derives from market.** NL to NL, BE to English, DE to DE. It is not
-  an axis of its own, and there is no French.
-- **The flight date lives on the market.** One window is shared by all three
-  markets; only the Dutch in-market dates stagger inside it, so the stagger has
-  to reach individual slots rather than sit on the campaign.
-
-The gates in `src/lib/matrix.ts` run on the resolved matrix alone: offer state,
-offer consistency, CTA per phase, no price in SEE, platform and ratio validity,
-language derivation, market and phase coverage, flighting, scope status,
-placeholder copy and asset differentiation. Brand, legal and rendered-dimension
-checks belong to the compose stage, where there is an actual asset to measure,
-and are deliberately not faked here.
-
-`npm run check:matrix` resolves the seeded briefing and prints the matrix and
-every gate. Two failures are seeded on purpose and are the point of the exercise:
-the 15% against -10% conflict, and Germany trailing the other two markets.
+An earlier version read a growth briefing here and resolved it into a slot
+matrix of 364 deliverables, with QA gates and an export manifest. That lives in
+the history, and the reasoning behind it is still in
+`docs/growth-briefing-blueprint.md`. The thinking moved to n8n: the studio asks
+what the campaign is, and the agent works out what it takes.
 
 ## Demo documents
 

@@ -1,8 +1,8 @@
 // Campaign drafts, kept in localStorage.
 //
-// A campaign is a working document: someone reads a briefing, edits half the
-// fields, gets pulled into a meeting and comes back. Losing that to a refresh
-// is the one failure this flow cannot afford, so every change is written out.
+// A campaign is a working document: someone writes half the brief, gets pulled
+// into a meeting and comes back. Losing that to a refresh is the one failure
+// this flow cannot afford, so every change is written out.
 //
 // Nothing here talks to a server. When there is a backend, this module is the
 // seam to replace, and the record shape is what it has to store.
@@ -11,16 +11,11 @@ import type { CampaignState } from './campaign-store'
 
 const KEY = 'veloretti-brand-studio/campaigns/v1'
 
-/** The File a user picked cannot be serialised, so only its description is kept. */
-export type StoredCampaignState = Omit<CampaignState, 'upload'> & {
-  upload: { name: string; meta: string } | null
-}
-
 export interface SavedCampaign {
   id: string
   createdAt: string
   updatedAt: string
-  state: StoredCampaignState
+  state: CampaignState
 }
 
 function read(): SavedCampaign[] {
@@ -57,15 +52,11 @@ export function saveCampaign(id: string, state: CampaignState): SavedCampaign {
   const records = read()
   const existing = records.find((record) => record.id === id)
   const now = new Date().toISOString()
-  const stored: StoredCampaignState = {
-    ...state,
-    upload: state.upload ? { name: state.upload.name, meta: state.upload.meta } : null,
-  }
   const record: SavedCampaign = {
     id,
     createdAt: existing?.createdAt ?? now,
     updatedAt: now,
-    state: stored,
+    state,
   }
   write([record, ...records.filter((r) => r.id !== id)])
   return record
