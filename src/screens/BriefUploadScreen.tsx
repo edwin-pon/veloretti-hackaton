@@ -21,10 +21,10 @@ export default function BriefUploadScreen() {
       <button
         type="button"
         className="vr-underline"
-        onClick={() => go('brief')}
+        onClick={() => go('campaign-start')}
         style={{ fontSize: 'var(--fs-body-s)', marginBottom: 32 }}
       >
-        Back to the briefing
+        Back to start options
       </button>
 
       <Label>Campaign brief</Label>

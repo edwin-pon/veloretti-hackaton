@@ -8,9 +8,10 @@ export type Screen =
   | 'review'
   | 'dashboard'
   | 'campaigns'
-  | 'brief'
+  | 'campaign-start'
   | 'brief-upload'
   | 'brief-analyzing'
+  | 'brief-review'
   | 'matrix'
 
 export type FieldValue = string | string[] | boolean

@@ -4,6 +4,7 @@ import { Badge, Button, Label } from '../ds'
 import { useCampaign } from '../lib/campaign-store'
 import { since, type SavedCampaign } from '../lib/campaign-storage'
 import { resolveSlots, runGates } from '../lib/matrix'
+import { useStore } from '../lib/store'
 
 /**
  * Every campaign that has been started, drafts included.
@@ -13,6 +14,7 @@ import { resolveSlots, runGates } from '../lib/matrix'
  * rows of cross-product; recomputing it is cheaper than keeping it in sync.
  */
 export default function CampaignsScreen() {
+  const { go } = useStore()
   const { saved, state, start, resume, discard } = useCampaign()
 
   const rows = useMemo(() => saved.map(describe), [saved])
@@ -49,7 +51,7 @@ export default function CampaignsScreen() {
               : 'Start one and it saves itself from the first edit, so a half-read briefing survives a closed tab.'}
           </p>
         </div>
-        <Button onClick={start}>New campaign</Button>
+        <Button onClick={() => go('campaign-start')}>New campaign</Button>
       </div>
 
       {rows.length === 0 ? (
@@ -69,11 +71,10 @@ export default function CampaignsScreen() {
               textWrap: 'pretty',
             }}
           >
-            A briefing asks for the campaign once. The Back to School 2026 answers are one
-            click away inside it, for a demo.
+            The sample growth briefing comes attached, so the first one is a click-through.
           </p>
-          <Button variant="secondary" onClick={start}>
-            Start a briefing
+          <Button variant="secondary" onClick={() => start('brand')}>
+            Start from the sample briefing
           </Button>
         </div>
       ) : (
@@ -160,6 +161,7 @@ export default function CampaignsScreen() {
 
 const STAGE_LABEL = {
   brief: 'Briefing',
+  review: 'In review',
   matrix: 'Resolved',
 } as const
 
@@ -180,10 +182,7 @@ function describe(record: SavedCampaign) {
   return {
     record,
     name: [campaign.meta.name, campaign.meta.year].filter(Boolean).join(' ') || 'Untitled campaign',
-    window:
-      campaign.meta.window.start && campaign.meta.window.end
-        ? `${campaign.meta.window.start} to ${campaign.meta.window.end}`
-        : 'No window yet',
+    window: `${campaign.meta.window.start} to ${campaign.meta.window.end}`,
     slots: matrix.slots.length,
     blocking,
   }

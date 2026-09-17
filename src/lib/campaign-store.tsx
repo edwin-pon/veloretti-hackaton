@@ -19,7 +19,6 @@ import {
   BRIEFING,
   BRIEF_FIELDS,
   OFFER_CONFLICTS,
-  blankBriefValues,
   buildCampaign,
   seedBriefValues,
   type BriefField,
@@ -40,19 +39,22 @@ import { loadSample } from './samples'
 import { useStore } from './store'
 import type { PickedDocument } from './types'
 
+/** How the campaign was started, which decides what the agent may assume. */
+export type CampaignMode = 'brand' | 'clean'
+
 /** How far a campaign got, which is also where resuming it lands. */
-export type CampaignStage = 'brief' | 'matrix'
+export type CampaignStage = 'brief' | 'review' | 'matrix'
 
 export interface CampaignState {
   /** Null until a campaign is started, which is also what makes it saveable. */
   id: string | null
   stage: CampaignStage
-  /** Only set when a document was read; a hand-filled briefing has no upload. */
+  mode: CampaignMode | null
   upload: PickedDocument | null
   progress: number
+  /** Whether the briefing has been read, so the review screen has something to show. */
+  read: boolean
   values: Record<string, BriefValue>
-  /** Field keys an agent filled in, which are the only ones with a citation. */
-  extracted: Record<string, boolean>
   touched: Record<string, boolean>
   drafts: Record<string, string>
   why: string | null
@@ -71,7 +73,7 @@ export interface CampaignState {
 }
 
 export interface FieldStatus {
-  label: 'Edited' | 'Needs review' | 'Extracted' | 'Entered' | 'Empty'
+  label: 'Edited' | 'Needs review' | 'Extracted'
   variant: 'outline' | 'accent' | 'neutral'
 }
 
@@ -86,18 +88,12 @@ interface CampaignStore {
   needReview: number
   /** Drafts on disk, newest first. */
   saved: SavedCampaign[]
-  /** A new, empty briefing. */
-  start: () => void
-  /** Fills the whole briefing with the Back to School 2026 answers. */
-  fillExample: () => void
+  start: (mode: CampaignMode) => void
   resume: (id: string) => void
   discard: (id: string) => void
   pickFile: (file?: File) => void
   removeFile: () => void
-  /** Hands the uploaded document to the agent and fills the briefing from it. */
   read: () => void
-  setMarkets: (markets: Market[]) => void
-  setChannelPlan: (plan: ChannelEntry[]) => void
   setValue: (key: string, value: BriefValue) => void
   setDraft: (key: string, value: string) => void
   addChip: (key: string) => void
@@ -115,25 +111,27 @@ function initialState(): CampaignState {
   return {
     id: null,
     stage: 'brief',
+    mode: null,
     upload: null,
     progress: 0,
-    values: blankBriefValues(),
-    extracted: {},
+    read: false,
+    values: seedBriefValues(),
     touched: {},
     drafts: {},
     why: null,
-    markets: [],
-    channelPlan: [],
+    markets: BRIEFING.markets,
+    channelPlan: BRIEFING.channelPlan,
     excluded: [],
-    statedElsewhere: [],
+    statedElsewhere: OFFER_CONFLICTS,
     confirmed: false,
     error: null,
   }
 }
 
 /** Resuming a draft lands on the screen it was left on. */
-const SCREEN_FOR_STAGE: Record<CampaignStage, 'brief' | 'matrix'> = {
-  brief: 'brief',
+const SCREEN_FOR_STAGE: Record<CampaignStage, 'brief-upload' | 'brief-review' | 'matrix'> = {
+  brief: 'brief-upload',
+  review: 'brief-review',
   matrix: 'matrix',
 }
 
@@ -179,10 +177,8 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
   const gates = useMemo(() => runGates(campaign, matrix), [campaign, matrix])
   const blocking = useMemo(() => gates.filter((g) => !g.passed && g.severity === 'blocking'), [gates])
   const needReview = useMemo(
-    () =>
-      BRIEF_FIELDS.filter((f) => state.extracted[f.key] && f.conf < 70 && !state.touched[f.key])
-        .length,
-    [state.extracted, state.touched],
+    () => BRIEF_FIELDS.filter((f) => f.conf < 70 && !state.touched[f.key]).length,
+    [state.touched],
   )
 
   /** Loads the sample briefing's bytes in the background, name already on screen. */
@@ -193,30 +189,21 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
     })
   }, [patch])
 
-  const start = useCallback<CampaignStore['start']>(() => {
-    run.current?.abort()
-    setState({ ...initialState(), id: newCampaignId() })
-    go('brief')
-  }, [go])
-
-  /**
-   * Fills every answer from the Back to School 2026 briefing, the one
-   * docs/growth-briefing-blueprint.md was read from. Entered, not extracted:
-   * these are answers someone typed, so they carry no citation.
-   */
-  const fillExample = useCallback<CampaignStore['fillExample']>(() => {
-    patch((s) => ({
-      id: s.id ?? newCampaignId(),
-      values: seedBriefValues(),
-      extracted: {},
-      touched: {},
-      markets: BRIEFING.markets,
-      channelPlan: BRIEFING.channelPlan,
-      excluded: [],
-      statedElsewhere: OFFER_CONFLICTS,
-      error: null,
-    }))
-  }, [patch])
+  const start = useCallback<CampaignStore['start']>(
+    (mode) => {
+      run.current?.abort()
+      // The sample briefing comes attached, so the demo is a click-through.
+      setState({
+        ...initialState(),
+        id: newCampaignId(),
+        mode,
+        upload: { name: BRIEFING.file, meta: BRIEFING.size },
+      })
+      go('brief-upload')
+      attachSample()
+    },
+    [attachSample, go],
+  )
 
   const resume = useCallback<CampaignStore['resume']>(
     (id) => {
@@ -264,15 +251,13 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
         if (controller.signal.aborted) return
         patch((s) => ({
           progress: 100,
+          read: true,
+          stage: 'review',
           values: { ...s.values, ...result.values },
-          // Only what came back carries a citation; anything already filled in
-          // by hand stays the answer of whoever typed it.
-          extracted: { ...s.extracted, ...mapTrue(result.values) },
           markets: result.markets ?? s.markets,
           channelPlan: result.channelPlan ?? s.channelPlan,
-          statedElsewhere: OFFER_CONFLICTS,
         }))
-        go('brief')
+        go('brief-review')
       })
       .catch((error: unknown) => {
         if (controller.signal.aborted) return
@@ -323,16 +308,10 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
   const fieldStatus = useCallback<CampaignStore['fieldStatus']>(
     (field) => {
       if (state.touched[field.key]) return { label: 'Edited', variant: 'outline' }
-      if (state.extracted[field.key]) {
-        // Confidence only means something when an agent produced the value.
-        if (field.conf < 70) return { label: 'Needs review', variant: 'accent' }
-        return { label: 'Extracted', variant: 'neutral' }
-      }
-      return isEmpty(state.values[field.key])
-        ? { label: 'Empty', variant: 'neutral' }
-        : { label: 'Entered', variant: 'outline' }
+      if (field.conf < 70) return { label: 'Needs review', variant: 'accent' }
+      return { label: 'Extracted', variant: 'neutral' }
     },
-    [state.extracted, state.touched, state.values],
+    [state.touched],
   )
 
   const store: CampaignStore = {
@@ -345,7 +324,6 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
     needReview,
     saved,
     start,
-    fillExample,
     resume,
     discard: useCallback((id) => {
       deleteCampaign(id)
@@ -356,8 +334,6 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
     pickFile,
     removeFile: useCallback(() => patch({ upload: null }), [patch]),
     read,
-    setMarkets: useCallback((markets) => patch({ markets }), [patch]),
-    setChannelPlan: useCallback((channelPlan) => patch({ channelPlan }), [patch]),
     setValue,
     setDraft: useCallback(
       (key, value) => patch((s) => ({ drafts: { ...s.drafts, [key]: value } })),
@@ -396,16 +372,6 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
   }
 
   return <CampaignContext.Provider value={store}>{children}</CampaignContext.Provider>
-}
-
-function mapTrue(values: Record<string, unknown>): Record<string, boolean> {
-  return Object.fromEntries(Object.keys(values).map((key) => [key, true]))
-}
-
-function isEmpty(value: BriefValue | undefined): boolean {
-  if (Array.isArray(value)) return value.length === 0
-  if (typeof value === 'number') return value === 0
-  return !value
 }
 
 function formatBytes(bytes: number): string {
