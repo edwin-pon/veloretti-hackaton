@@ -71,10 +71,10 @@ export default function CampaignsScreen() {
               textWrap: 'pretty',
             }}
           >
-            The sample growth briefing comes attached, so the first one is a click-through.
+            The demo briefing comes attached, so the first one is a click-through.
           </p>
           <Button variant="secondary" onClick={() => start('brand')}>
-            Start from the sample briefing
+            Start from the demo briefing
           </Button>
         </div>
       ) : (

@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { BRIEFING } from '../data/briefing'
-import { Button, Label, Notice } from '../ds'
+import { usingLiveBriefingBackend } from '../lib/briefing-api'
+import { Badge, Button, Label, Notice } from '../ds'
 import { useCampaign } from '../lib/campaign-store'
 import { useStore } from '../lib/store'
 
@@ -128,7 +129,7 @@ export default function BriefUploadScreen() {
                 onClick={() => pickFile()}
                 style={{ fontSize: 'var(--fs-caption)' }}
               >
-                Use the sample {BRIEFING.file}
+                Use the demo sample {BRIEFING.file}
               </button>
             </div>
           )}
@@ -149,16 +150,27 @@ export default function BriefUploadScreen() {
                 <div style={{ minWidth: 0, flex: 1 }}>
                   <div
                     style={{
-                      fontSize: 'var(--fs-body)',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      minWidth: 0,
                     }}
                   >
-                    {upload.name}
+                    <span
+                      style={{
+                        fontSize: 'var(--fs-body)',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {upload.name}
+                    </span>
+                    {upload.sample && <Badge variant="outline">Demo sample</Badge>}
                   </div>
                   <div style={{ fontSize: 'var(--fs-caption)', color: 'var(--text-muted)' }}>
                     {upload.meta}
+                    {upload.sample ? ' · bundled with this build, swap it for your own' : ''}
                   </div>
                 </div>
                 <button
@@ -174,7 +186,9 @@ export default function BriefUploadScreen() {
               <div style={{ display: 'flex', gap: 20, alignItems: 'center', marginTop: 28 }}>
                 <Button onClick={read}>Read the brief</Button>
                 <span style={{ fontSize: 'var(--fs-caption)', color: 'var(--text-muted)' }}>
-                  Takes about 15 seconds
+                  {usingLiveBriefingBackend
+                    ? 'Takes about 15 seconds'
+                    : 'Demo mode — replays a prepared reading, nothing is read'}
                 </span>
               </div>
             </div>

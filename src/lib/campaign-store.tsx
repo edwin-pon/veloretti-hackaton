@@ -201,7 +201,7 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
         ...initialState(),
         id: newCampaignId(),
         mode,
-        upload: { name: BRIEFING.file, meta: BRIEFING.size },
+        upload: { name: BRIEFING.file, meta: BRIEFING.size, sample: true },
       })
       go('brief-upload')
       attachSample()
@@ -227,7 +227,7 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
   const pickFile = useCallback<CampaignStore['pickFile']>(
     (file) => {
       if (!file) {
-        patch({ error: null, upload: { name: BRIEFING.file, meta: BRIEFING.size } })
+        patch({ error: null, upload: { name: BRIEFING.file, meta: BRIEFING.size, sample: true } })
         attachSample()
         return
       }

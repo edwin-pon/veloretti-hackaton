@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react'
 import { DEFS } from '../data/docs'
-import { Button, Label, Notice } from '../ds'
+import { Badge, Button, Label, Notice } from '../ds'
 import BackLink from '../components/BackLink'
+import { usingLiveBackend } from '../lib/api'
 import { useStore } from '../lib/store'
 
 export default function UploadScreen() {
@@ -127,7 +128,7 @@ export default function UploadScreen() {
                 onClick={() => pickFile()}
                 style={{ fontSize: 'var(--fs-caption)' }}
               >
-                Use the sample {def.file}
+                Use the demo sample {def.file}
               </button>
             </div>
           )}
@@ -148,16 +149,27 @@ export default function UploadScreen() {
                 <div style={{ minWidth: 0, flex: 1 }}>
                   <div
                     style={{
-                      fontSize: 'var(--fs-body)',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      minWidth: 0,
                     }}
                   >
-                    {upload.name}
+                    <span
+                      style={{
+                        fontSize: 'var(--fs-body)',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {upload.name}
+                    </span>
+                    {upload.sample && <Badge variant="outline">Demo sample</Badge>}
                   </div>
                   <div style={{ fontSize: 'var(--fs-caption)', color: 'var(--text-muted)' }}>
                     {upload.meta}
+                    {upload.sample ? ' · bundled with this build, swap it for your own' : ''}
                   </div>
                 </div>
                 <button
@@ -173,7 +185,9 @@ export default function UploadScreen() {
               <div style={{ display: 'flex', gap: 20, alignItems: 'center', marginTop: 28 }}>
                 <Button onClick={startAnalysis}>Start analysis</Button>
                 <span style={{ fontSize: 'var(--fs-caption)', color: 'var(--text-muted)' }}>
-                  Takes about 40 seconds
+                  {usingLiveBackend
+                    ? 'Takes about 40 seconds'
+                    : 'Demo mode — replays a prepared extraction, nothing is read'}
                 </span>
               </div>
             </div>

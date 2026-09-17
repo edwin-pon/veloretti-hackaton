@@ -24,8 +24,10 @@ export interface PickedDocument {
   name: string
   /** Human-readable size, e.g. "4.8 MB". Page count is unknown for real files. */
   meta: string
-  /** Absent when the sample document was used. */
+  /** The bytes, once loaded. Samples carry these too, so this cannot identify one. */
   file?: File
+  /** True for the documents bundled with this build, so the UI can say so. */
+  sample?: boolean
 }
 
 export interface AppState {

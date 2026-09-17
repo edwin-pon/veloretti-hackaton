@@ -2,6 +2,7 @@ import BriefFieldCard from '../components/BriefFieldCard'
 import OfferConflict from '../components/OfferConflict'
 import { ChannelPlanTable, MarketsTable } from '../components/PlanTables'
 import { BRIEFING } from '../data/briefing'
+import { usingLiveBriefingBackend } from '../lib/briefing-api'
 import { Badge, Button, Label, Notice } from '../ds'
 import { useCampaign } from '../lib/campaign-store'
 import { useStore } from '../lib/store'
@@ -50,7 +51,8 @@ export default function BriefReviewScreen() {
             {String(state.values.cp1)} {String(state.values.cp3)}
           </h1>
           <div style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)' }}>
-            {state.upload?.name ?? BRIEFING.file} · read just now ·{' '}
+            {state.upload?.name ?? BRIEFING.file} ·{' '}
+            {usingLiveBriefingBackend ? 'read just now' : 'prepared demo reading'} ·{' '}
             {BRIEFING.sections.flatMap((s) => s.fields).length} fields extracted
           </div>
         </div>

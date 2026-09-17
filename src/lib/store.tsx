@@ -91,7 +91,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       patch((s) => ({
         doc,
         screen: s.done[doc] ? 'review' : 'upload',
-        upload: { name: def.file, meta: def.size },
+        upload: { name: def.file, meta: def.size, sample: true },
         why: null,
         error: null,
       }))
@@ -104,7 +104,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     (file) => {
       const doc = DEFS[state.doc]
       if (!file) {
-        patch({ error: null, upload: { name: doc.file, meta: doc.size } })
+        patch({ error: null, upload: { name: doc.file, meta: doc.size, sample: true } })
         attachSample(doc.file)
         return
       }

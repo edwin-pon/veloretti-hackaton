@@ -45,8 +45,9 @@ export default function HubScreen() {
             marginBottom: 56,
           }}
         >
+          <Label style={{ color: 'var(--vr-ink)', whiteSpace: 'nowrap' }}>Demo shortcut</Label>
           <Button variant="secondary" onClick={prefillAll}>
-            Fill in the sample documents
+            Confirm all three with the samples
           </Button>
           <span
             style={{
@@ -56,9 +57,9 @@ export default function HubScreen() {
               textWrap: 'pretty',
             }}
           >
-            Confirms all three sources from the samples in the repo, for when you want to get to a
-            campaign without walking the upload each time. Each step still works normally, with its
-            sample already attached.
+            For demos only. Confirms all three sources using the sample documents shipped with this
+            build, so you can reach a campaign without walking through each upload. Every step still
+            works on its own, with its sample already attached.
           </span>
         </div>
       )}

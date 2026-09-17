@@ -1,5 +1,6 @@
 import { DEFS, type DocField, type DocSection } from '../data/docs'
 import { Button, Label, Notice } from '../ds'
+import { usingLiveBackend } from '../lib/api'
 import BackLink from '../components/BackLink'
 import FieldCard from '../components/FieldCard'
 import { useReviewStats, useStore } from '../lib/store'
@@ -44,7 +45,9 @@ export default function ReviewScreen() {
           <Label>Review</Label>
           <h1 style={{ fontSize: 'var(--fs-display-m)', margin: '18px 0 12px' }}>{def.title}</h1>
           <div style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)' }}>
-            {state.upload?.name ?? def.file} · analysed just now · {stats.total} fields extracted
+            {state.upload?.name ?? def.file} ·{' '}
+            {usingLiveBackend ? 'analysed just now' : 'prepared demo extraction'} · {stats.total}{' '}
+            fields extracted
           </div>
         </div>
         <div style={{ display: 'flex', gap: 14, alignItems: 'center', flex: 'none' }}>
