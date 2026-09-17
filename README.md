@@ -208,6 +208,27 @@ It must respond with the extracted values keyed by field key:
 Field keys, types and the confidence scores they are shown against are defined
 in `src/data/docs.ts`.
 
+### Pushing a campaign back
+
+The handoff screen can POST a resolved campaign straight to n8n. Set:
+
+```sh
+VITE_N8N_CAMPAIGN_URL=https://<your-n8n>/webhook/<id>
+```
+
+It sends `{ campaign, slots, summary, gates, exportedAt }`, where `campaign` and
+`slots` are byte-identical to the JSON that screen downloads, so a mapping built
+on the sample file keeps working.
+
+Two n8n details decide whether it appears to work:
+
+- a `/webhook-test/` URL only accepts one call, and only after someone clicks
+  **Execute workflow**. A `/webhook/` URL has neither limit;
+- n8n sends no CORS headers unless the Webhook node's allowed origins are set,
+  so the browser is usually refused the *response* even though the request
+  arrives. The screen says "sent, but not confirmed" in that case rather than
+  claiming a delivery it cannot see.
+
 The briefing webhook works the same way, against the field keys in
 `src/data/briefing.ts`, and may additionally return `markets`, `channelPlan` and
 `propositions`, which the intake edits as tables rather than as fields.

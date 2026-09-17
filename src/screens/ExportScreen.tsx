@@ -1,5 +1,11 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { Badge, Button, Label } from '../ds'
+import {
+  campaignPayload,
+  campaignWebhook,
+  pushCampaign,
+  type PushOutcome,
+} from '../lib/campaign-api'
 import { useCampaign } from '../lib/campaign-store'
 import { bundles, briefText, exportRows, toCsv } from '../lib/matrix'
 import { useStore } from '../lib/store'
@@ -18,11 +24,20 @@ import { useStore } from '../lib/store'
  */
 export default function ExportScreen() {
   const { go } = useStore()
-  const { campaign, matrix, summary } = useCampaign()
+  const { campaign, matrix, summary, gates } = useCampaign()
+  const [pushing, setPushing] = useState(false)
+  const [outcome, setOutcome] = useState<PushOutcome | null>(null)
 
   const rows = useMemo(() => exportRows(matrix.slots), [matrix])
   const perPlatform = useMemo(() => bundles(matrix.slots), [matrix])
   const stem = slug(campaign.meta.name || 'campaign')
+
+  const push = async () => {
+    setPushing(true)
+    setOutcome(null)
+    setOutcome(await pushCampaign(campaignPayload(campaign, matrix.slots, summary, gates)))
+    setPushing(false)
+  }
 
   const download = (name: string, body: string, type: string) => {
     const url = URL.createObjectURL(new Blob([body], { type }))
@@ -74,24 +89,65 @@ export default function ExportScreen() {
             from, and nothing arrives unaccounted for.
           </p>
         </div>
-        <div style={{ display: 'flex', gap: 14, alignItems: 'center', flex: 'none', flexWrap: 'wrap' }}>
-          <Button
-            variant="secondary"
-            onClick={() => download(`${stem}-manifest.csv`, toCsv(rows), 'text/csv')}
-          >
-            Download manifest (CSV)
-          </Button>
-          <Button
-            onClick={() =>
-              download(
-                `${stem}-briefs.json`,
-                JSON.stringify({ campaign: campaign.meta, slots: matrix.slots }, null, 2),
-                'application/json',
-              )
-            }
-          >
-            Download briefs (JSON)
-          </Button>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-end',
+            gap: 14,
+            flex: 'none',
+            maxWidth: 380,
+          }}
+        >
+          {campaignWebhook ? (
+            <Button onClick={push} disabled={pushing}>
+              {pushing ? 'Pushing…' : 'Push campaign to n8n'}
+            </Button>
+          ) : (
+            <span style={{ fontSize: 'var(--fs-caption)', color: 'var(--text-muted)' }}>
+              Set VITE_N8N_CAMPAIGN_URL to push straight to n8n.
+            </span>
+          )}
+
+          <div style={{ display: 'flex', gap: 18, alignItems: 'center' }}>
+            <button
+              type="button"
+              className="vr-underline"
+              onClick={() => download(`${stem}-manifest.csv`, toCsv(rows), 'text/csv')}
+              style={{ fontSize: 'var(--fs-body-s)' }}
+            >
+              Manifest (CSV)
+            </button>
+            <button
+              type="button"
+              className="vr-underline"
+              onClick={() =>
+                download(
+                  `${stem}-briefs.json`,
+                  JSON.stringify({ campaign: campaign.meta, slots: matrix.slots }, null, 2),
+                  'application/json',
+                )
+              }
+              style={{ fontSize: 'var(--fs-body-s)' }}
+            >
+              Briefs (JSON)
+            </button>
+          </div>
+
+          {outcome && (
+            <p
+              style={{
+                margin: 0,
+                textAlign: 'right',
+                fontSize: 'var(--fs-caption)',
+                lineHeight: 'var(--lh-body)',
+                color: outcome.status === 'failed' ? 'var(--accent-ink)' : 'var(--text-muted)',
+                textWrap: 'pretty',
+              }}
+            >
+              {outcome.detail}
+            </p>
+          )}
         </div>
       </div>
 
