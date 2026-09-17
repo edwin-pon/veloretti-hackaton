@@ -17,10 +17,10 @@ export default function CampaignStartScreen() {
       <button
         type="button"
         className="vr-underline"
-        onClick={() => go(allDone ? 'dashboard' : 'hub')}
+        onClick={() => go('campaigns')}
         style={{ fontSize: 'var(--fs-body-s)', marginBottom: 32 }}
       >
-        Back to brand knowledge
+        Back to campaigns
       </button>
 
       <Label>New campaign</Label>

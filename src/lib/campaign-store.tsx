@@ -25,6 +25,14 @@ import {
   type BriefValue,
 } from '../data/briefing'
 import { analyseBriefing } from './briefing-api'
+import {
+  deleteCampaign,
+  loadCampaign,
+  loadCampaigns,
+  newCampaignId,
+  saveCampaign,
+  type SavedCampaign,
+} from './campaign-storage'
 import type { Campaign, ChannelEntry, GateResult, Market } from './campaign'
 import { resolveSlots, runGates, summarise, type MatrixSummary, type ResolvedMatrix } from './matrix'
 import { loadSample } from './samples'
@@ -34,7 +42,13 @@ import type { PickedDocument } from './types'
 /** How the campaign was started, which decides what the agent may assume. */
 export type CampaignMode = 'brand' | 'clean'
 
+/** How far a campaign got, which is also where resuming it lands. */
+export type CampaignStage = 'brief' | 'review' | 'matrix'
+
 export interface CampaignState {
+  /** Null until a campaign is started, which is also what makes it saveable. */
+  id: string | null
+  stage: CampaignStage
   mode: CampaignMode | null
   upload: PickedDocument | null
   progress: number
@@ -72,7 +86,11 @@ interface CampaignStore {
   gates: GateResult[]
   blocking: GateResult[]
   needReview: number
+  /** Drafts on disk, newest first. */
+  saved: SavedCampaign[]
   start: (mode: CampaignMode) => void
+  resume: (id: string) => void
+  discard: (id: string) => void
   pickFile: (file?: File) => void
   removeFile: () => void
   read: () => void
@@ -91,6 +109,8 @@ interface CampaignStore {
 
 function initialState(): CampaignState {
   return {
+    id: null,
+    stage: 'brief',
     mode: null,
     upload: null,
     progress: 0,
@@ -108,6 +128,13 @@ function initialState(): CampaignState {
   }
 }
 
+/** Resuming a draft lands on the screen it was left on. */
+const SCREEN_FOR_STAGE: Record<CampaignStage, 'brief-upload' | 'brief-review' | 'matrix'> = {
+  brief: 'brief-upload',
+  review: 'brief-review',
+  matrix: 'matrix',
+}
+
 const CampaignContext = createContext<CampaignStore | null>(null)
 
 export function CampaignProvider({ children }: { children: ReactNode }) {
@@ -117,12 +144,22 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => () => run.current?.abort(), [])
 
+  const [saved, setSaved] = useState<SavedCampaign[]>(() => loadCampaigns())
+
   const patch = useCallback(
     (update: Partial<CampaignState> | ((s: CampaignState) => Partial<CampaignState>)) => {
       setState((s) => ({ ...s, ...(typeof update === 'function' ? update(s) : update) }))
     },
     [],
   )
+
+  // Autosave. Every edit is a state change, so writing here covers all of them
+  // without any screen having to remember to save.
+  useEffect(() => {
+    if (!state.id) return
+    saveCampaign(state.id, state)
+    setSaved(loadCampaigns())
+  }, [state])
 
   const campaign = useMemo(
     () =>
@@ -158,11 +195,27 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
       // The sample briefing comes attached, so the demo is a click-through.
       setState({
         ...initialState(),
+        id: newCampaignId(),
         mode,
         upload: { name: BRIEFING.file, meta: BRIEFING.size },
       })
       go('brief-upload')
       attachSample()
+    },
+    [attachSample, go],
+  )
+
+  const resume = useCallback<CampaignStore['resume']>(
+    (id) => {
+      const record = loadCampaign(id)
+      if (!record) return
+      run.current?.abort()
+      setState(record.state)
+      go(SCREEN_FOR_STAGE[record.state.stage])
+      // The picked file never survives a reload. Re-attaching the sample keeps
+      // a resumed demo able to re-read its briefing; a real upload has to be
+      // dropped again, and the name on screen says which one it was.
+      if (record.state.upload?.name === BRIEFING.file) attachSample()
     },
     [attachSample, go],
   )
@@ -199,6 +252,7 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
         patch((s) => ({
           progress: 100,
           read: true,
+          stage: 'review',
           values: { ...s.values, ...result.values },
           markets: result.markets ?? s.markets,
           channelPlan: result.channelPlan ?? s.channelPlan,
@@ -268,7 +322,15 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
     gates,
     blocking,
     needReview,
+    saved,
     start,
+    resume,
+    discard: useCallback((id) => {
+      deleteCampaign(id)
+      setSaved(loadCampaigns())
+      // Deleting the campaign being edited stops the autosave putting it back.
+      setState((s) => (s.id === id ? initialState() : s))
+    }, []),
     pickFile,
     removeFile: useCallback(() => patch({ upload: null }), [patch]),
     read,
@@ -281,7 +343,7 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
     removeChip,
     toggleWhy: useCallback((key) => patch((s) => ({ why: s.why === key ? null : key })), [patch]),
     confirmBrief: useCallback(() => {
-      patch({ confirmed: true })
+      patch({ confirmed: true, stage: 'matrix' })
       go('matrix')
     }, [go, patch]),
     resolveOffer: useCallback(

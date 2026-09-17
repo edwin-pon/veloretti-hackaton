@@ -19,8 +19,12 @@ out of it, and the confirmed brief resolves into the slots the campaign has to
 deliver.
 
 ```
-campaign start → brief upload → analyzing → brief review → slot matrix
+campaigns → start → brief upload → analyzing → brief review → slot matrix
 ```
+
+Campaigns save themselves from the first edit, so a half-read briefing survives
+a closed tab. The list shows every draft with the stage it reached and what it
+currently resolves to, and continuing one lands on the screen it was left on.
 
 ## Running it
 
@@ -56,6 +60,7 @@ Currently live at https://veloretti-brand-studio.nielskorte.workers.dev
 | `src/lib/campaign.ts` | The Campaign object and the slot that is the atomic deliverable |
 | `src/lib/matrix.ts` | Resolve, brief templating and the QA gates. Deterministic, no model calls |
 | `src/lib/campaign-store.tsx` | Campaign state, and the matrix and gates derived from it |
+| `src/lib/campaign-storage.ts` | Autosaved drafts. **The seam to replace with a backend** |
 | `src/lib/briefing-api.ts` | **The campaign-intake seam** |
 | `src/ds/` | Veloretti design system — bundle, tokens, and the primitives it does not ship |
 | `src/assets/` | The official wordmark, black and white |
@@ -95,6 +100,12 @@ parameters and resolve the grid.
 
 `docs/growth-briefing-blueprint.md` is the source those vocabularies were read
 from. Change a vocabulary there first, then here.
+
+Drafts live in `localStorage` under one key, written by an effect on the whole
+campaign state, so no screen has to remember to save. A picked `File` cannot be
+serialised: resuming a draft keeps the document's name and re-attaches the
+sample briefing if that is what it was, and a real upload has to be dropped
+again.
 
 There are two human checkpoints, and both are there to be cheap. Brief sign-off
 happens on `BriefReviewScreen`, where the slot count updates as you edit, so the

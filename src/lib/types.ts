@@ -7,6 +7,7 @@ export type Screen =
   | 'analyzing'
   | 'review'
   | 'dashboard'
+  | 'campaigns'
   | 'campaign-start'
   | 'brief-upload'
   | 'brief-analyzing'

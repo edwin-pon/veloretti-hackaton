@@ -7,6 +7,7 @@ import Wordmark from './Wordmark'
 
 /** Campaign screens name themselves; onboarding screens name their document. */
 const CAMPAIGN_CRUMBS: Partial<Record<Screen, string>> = {
+  campaigns: 'Campaigns',
   'campaign-start': 'New campaign',
   'brief-upload': 'Campaign brief',
   'brief-analyzing': 'Campaign brief',
@@ -88,7 +89,7 @@ export default function Shell({ children }: { children: ReactNode }) {
             <button
               type="button"
               className="vr-underline"
-              onClick={() => go('campaign-start')}
+              onClick={() => go('campaigns')}
               style={{
                 fontSize: 'var(--fs-body-s)',
                 textDecoration: inCampaign ? 'underline' : 'none',
