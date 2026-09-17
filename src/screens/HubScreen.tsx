@@ -1,39 +1,30 @@
-import { DEFS, DOC_ORDER, substitute, type DocKey } from '../data/docs'
-import { Badge, Stepper } from '../ds'
+import { DEFS, DOC_ORDER, type DocKey } from '../data/docs'
+import { Badge, Button, Label, Stepper } from '../ds'
 import { useStore } from '../lib/store'
 
-const CARD: React.CSSProperties = {
-  background: '#fff',
-  borderRadius: 20,
-  padding: 24,
-  boxShadow: '0 2px 8px rgba(0,44,71,0.08)',
-}
-
 export default function HubScreen() {
-  const { brand, done, doneCount, allDone, openDoc, go } = useStore()
-  const nextUp = DOC_ORDER.find((key) => !done[key])
+  const { state, doneCount, allDone, openDoc, go } = useStore()
+  const nextUp = DOC_ORDER.find((key) => !state.done[key])
 
   return (
     <div>
+      <Label>Brand knowledge</Label>
       <h1
         style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 36,
-          fontWeight: 700,
-          color: 'var(--ink-heading)',
-          margin: '0 0 12px',
-          lineHeight: 1.2,
+          fontSize: 'var(--fs-display-m)',
+          margin: '18px 0 20px',
+          maxWidth: '18ch',
         }}
       >
-        Brand onboarding
+        Teach the studio how Veloretti sounds.
       </h1>
       <p
         style={{
-          fontSize: 18,
-          lineHeight: 1.7,
-          color: 'var(--ink-secondary)',
-          margin: '0 0 32px',
-          maxWidth: '64ch',
+          fontSize: 'var(--fs-body-l)',
+          lineHeight: 'var(--lh-body)',
+          color: 'var(--text-secondary)',
+          margin: '0 0 56px',
+          maxWidth: '58ch',
           textWrap: 'pretty',
         }}
       >
@@ -41,106 +32,79 @@ export default function HubScreen() {
         follow, and hands you an editable draft to confirm.
       </p>
 
-      <div style={{ ...CARD, marginBottom: 24 }}>
+      <div style={{ marginBottom: 64 }}>
         <Stepper steps={['Brand information', 'Legal rules', 'Style guide', 'Ready']} current={doneCount} />
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: 1,
+          background: 'var(--border-subtle)',
+          border: '1px solid var(--border-subtle)',
+        }}
+      >
         {DOC_ORDER.map((key) => {
           const def = DEFS[key]
-          const isDone = !!done[key]
+          const isDone = !!state.done[key]
           const isNext = nextUp === key
           const locked = !isDone && !isNext
           return (
-            <div
+            <article
               key={key}
               style={{
-                ...CARD,
+                background: 'var(--surface-card)',
+                padding: 32,
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 16,
-                border: `2px solid ${isNext ? '#52E9C0' : 'transparent'}`,
+                gap: 20,
+                opacity: locked ? 0.55 : 1,
+                transition: 'opacity var(--dur-med) var(--ease-standard)',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <div
-                  style={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: 999,
-                    background: def.well,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontFamily: 'var(--font-display)',
-                    fontSize: 20,
-                    fontWeight: 700,
-                    color: 'var(--navy)',
-                  }}
-                >
-                  {def.order}
-                </div>
-                <Badge tone={isDone ? 'mint' : isNext ? 'sky' : 'neutral'}>
-                  {isDone ? 'Confirmed' : isNext ? 'Next up' : 'Waiting'}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+                <Label style={{ color: 'var(--vr-ink)' }}>{String(def.order).padStart(2, '0')}</Label>
+                <Badge variant={isDone ? 'ink' : isNext ? 'outline' : 'neutral'}>
+                  {isDone ? 'Confirmed' : isNext ? 'Next' : 'Waiting'}
                 </Badge>
               </div>
 
               <div>
-                <h3
+                <h2 style={{ fontSize: 'var(--fs-h3)', marginBottom: 10 }}>{def.card}</h2>
+                <p
                   style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: 22,
-                    fontWeight: 700,
-                    color: 'var(--ink-heading)',
-                    margin: '0 0 8px',
-                    lineHeight: 1.3,
+                    fontSize: 'var(--fs-body-s)',
+                    lineHeight: 'var(--lh-body)',
+                    color: 'var(--text-muted)',
+                    margin: 0,
                   }}
                 >
-                  {def.card}
-                </h3>
-                <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--slate)', margin: 0 }}>
                   {def.desc}
                 </p>
               </div>
 
               <div
                 style={{
-                  fontSize: 12,
-                  color: 'var(--slate)',
-                  borderTop: '1px solid var(--hairline)',
-                  paddingTop: 12,
                   marginTop: 'auto',
+                  paddingTop: 20,
+                  borderTop: '1px solid var(--border-subtle)',
+                  fontSize: 'var(--fs-caption)',
+                  color: 'var(--text-muted)',
                 }}
               >
-                {isDone
-                  ? substitute(def.file, brand)
-                  : locked
-                    ? 'Unlocks after the previous step'
-                    : 'No document yet'}
+                {isDone ? def.file : locked ? 'Unlocks after the previous step' : 'No document yet'}
               </div>
 
-              <button
-                type="button"
-                className="dl-lift"
+              <Button
+                variant={isNext ? 'primary' : 'secondary'}
                 disabled={locked}
+                full
                 onClick={() => openDoc(key as DocKey)}
-                style={{
-                  border: isDone ? '2px solid var(--navy)' : 'none',
-                  background: isDone ? 'transparent' : locked ? 'var(--mist)' : 'var(--mint)',
-                  color: locked ? 'var(--slate)' : 'var(--navy)',
-                  borderRadius: 20,
-                  padding: '12px 24px',
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: 15,
-                  fontWeight: 700,
-                  letterSpacing: '0.5px',
-                  cursor: locked ? 'not-allowed' : 'pointer',
-                  opacity: locked ? 0.7 : 1,
-                }}
               >
                 {isDone ? 'Review again' : 'Upload document'}
-              </button>
-            </div>
+              </Button>
+            </article>
           )
         })}
       </div>
@@ -148,58 +112,51 @@ export default function HubScreen() {
       {allDone && (
         <div
           style={{
-            marginTop: 24,
-            background: 'var(--navy)',
-            borderRadius: 20,
-            padding: 32,
+            marginTop: 64,
+            background: 'var(--surface-inverse)',
+            color: 'var(--text-inverse)',
+            padding: '56px var(--container-gutter)',
             display: 'flex',
-            alignItems: 'center',
+            alignItems: 'flex-end',
             justifyContent: 'space-between',
-            gap: 24,
+            gap: 32,
             flexWrap: 'wrap',
           }}
         >
-          <div>
-            <h3
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 28,
-                fontWeight: 700,
-                color: '#fff',
-                margin: '0 0 8px',
-              }}
-            >
-              Brand knowledge is live
-            </h3>
+          <div style={{ minWidth: 0 }}>
+            <Label style={{ color: 'var(--vr-gray-300)' }}>Ready</Label>
+            <h2 style={{ fontSize: 'var(--fs-display-m)', margin: '16px 0 12px', maxWidth: '16ch' }}>
+              Your rules are live.
+            </h2>
             <p
               style={{
-                fontSize: 16,
-                lineHeight: 1.7,
-                color: 'var(--ink-secondary-dark)',
+                fontSize: 'var(--fs-body)',
+                lineHeight: 'var(--lh-body)',
+                color: 'var(--vr-gray-300)',
                 margin: 0,
+                maxWidth: '46ch',
               }}
             >
-              Every campaign draft is now checked against these rules before it leaves the platform.
+              Every campaign draft is checked against them before it leaves the studio.
             </p>
           </div>
           <button
             type="button"
             onClick={() => go('dashboard')}
             style={{
-              border: 'none',
-              background: 'var(--mint)',
-              color: 'var(--navy)',
-              borderRadius: 20,
-              padding: '14px 28px',
-              fontFamily: 'var(--font-sans)',
-              fontSize: 15,
-              fontWeight: 700,
-              letterSpacing: '0.5px',
+              height: 'var(--control-h-md)',
+              padding: '0 26px',
+              borderRadius: 'var(--radius-pill)',
+              border: '1.5px solid var(--vr-white)',
+              background: 'var(--vr-white)',
+              color: 'var(--vr-ink)',
+              fontSize: '0.9375rem',
+              fontWeight: 500,
               cursor: 'pointer',
               flex: 'none',
             }}
           >
-            Open dashboard
+            Open brand knowledge
           </button>
         </div>
       )}

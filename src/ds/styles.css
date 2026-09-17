@@ -1,7 +1,0 @@
-/* ============================================================
-   DATALAB — Design System entry stylesheet
-   This is the canonical entry point. It pulls in the full
-   foundations (self-hosted @font-face rules + color/type tokens).
-   Import THIS file and the brand fonts resolve automatically.
-   ============================================================ */
-@import url("colors_and_type.css");

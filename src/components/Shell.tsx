@@ -1,8 +1,14 @@
 import type { ReactNode } from 'react'
 import { DEFS, DOC_ORDER } from '../data/docs'
+import { Label } from '../ds'
 import { useStore } from '../lib/store'
-import Sidebar from './Sidebar'
+import Wordmark from './Wordmark'
 
+/**
+ * Editorial shell: the wordmark sits top left, a hairline separates it from the
+ * work, and everything below breathes. No colour, no chrome — the brand's
+ * "less, but better" applied to an internal tool.
+ */
 export default function Shell({ children }: { children: ReactNode }) {
   const { state, doneCount, allDone, go, reset } = useStore()
 
@@ -10,114 +16,136 @@ export default function Shell({ children }: { children: ReactNode }) {
     state.screen === 'hub'
       ? 'Onboarding'
       : state.screen === 'dashboard'
-        ? 'Dashboard'
+        ? 'Brand knowledge'
         : DEFS[state.doc].card
 
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', fontSize: 16 }}>
-      <Sidebar />
-
-      <main style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
-        <header
+    <div style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
+      <header
+        style={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 10,
+          background: 'rgba(245,245,244,0.85)',
+          backdropFilter: 'blur(12px)',
+          borderBottom: '1px solid var(--border-subtle)',
+        }}
+      >
+        <div
           style={{
-            background: '#fff',
-            borderBottom: '1px solid var(--hairline)',
-            padding: '18px 40px',
+            maxWidth: 'var(--container-max)',
+            margin: '0 auto',
+            padding: '22px var(--container-gutter)',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: 24,
+            gap: 28,
           }}
         >
-          <div
-            style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: 'var(--slate)' }}
+          <button
+            type="button"
+            onClick={() => go(allDone ? 'dashboard' : 'hub')}
+            style={{
+              background: 'none',
+              border: 'none',
+              padding: 0,
+              cursor: 'pointer',
+              flex: 'none',
+              display: 'block',
+            }}
+            aria-label="Veloretti Brand Studio — home"
           >
-            <button
-              type="button"
-              onClick={() => go('dashboard')}
-              style={{
-                border: 'none',
-                background: 'none',
-                padding: 0,
-                font: 'inherit',
-                fontSize: 14,
-                color: 'var(--slate)',
-                cursor: 'pointer',
-              }}
-            >
-              Brand knowledge
-            </button>
-            <span>/</span>
-            <span style={{ color: 'var(--ink-heading)', fontWeight: 700 }}>{crumb}</span>
-          </div>
+            <Wordmark width={132} />
+          </button>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginLeft: 'auto' }}>
-            <span style={{ fontSize: 13, color: 'var(--slate)' }}>
-              {allDone
-                ? 'Onboarding complete'
-                : `${doneCount} of ${DOC_ORDER.length} sources confirmed`}
+          <span
+            aria-hidden
+            style={{ width: 1, height: 22, background: 'var(--border-default)', flex: 'none' }}
+          />
+
+          <Label style={{ color: 'var(--vr-ink)' }}>Brand studio</Label>
+
+          <nav
+            style={{
+              marginLeft: 'auto',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 24,
+              minWidth: 0,
+            }}
+          >
+            <span style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)' }}>
+              {crumb}
             </span>
-            <div
+            <span
+              aria-hidden
+              style={{ width: 1, height: 22, background: 'var(--border-default)', flex: 'none' }}
+            />
+            <span style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)' }}>
+              {allDone ? 'All sources confirmed' : `${doneCount} of ${DOC_ORDER.length} confirmed`}
+            </span>
+            <span
+              aria-hidden
               style={{
-                width: 120,
-                height: 6,
-                borderRadius: 999,
-                background: 'var(--mist)',
+                width: 72,
+                height: 2,
+                background: 'var(--vr-gray-200)',
+                flex: 'none',
                 overflow: 'hidden',
               }}
             >
-              <div
+              <span
                 style={{
+                  display: 'block',
                   height: '100%',
                   width: `${Math.round((doneCount / DOC_ORDER.length) * 100)}%`,
-                  background: 'var(--mint)',
-                  transition: 'width 240ms ease-out',
+                  background: 'var(--vr-ink)',
+                  transition: 'width var(--dur-med) var(--ease-standard)',
                 }}
               />
-            </div>
-            <button
-              type="button"
-              onClick={reset}
-              style={{
-                border: 'none',
-                background: 'none',
-                padding: 0,
-                font: 'inherit',
-                fontSize: 13,
-                color: 'var(--slate)',
-                cursor: 'pointer',
-                textDecoration: 'underline',
-              }}
-            >
+            </span>
+            <button type="button" className="vr-underline" onClick={reset} style={{ fontSize: 'var(--fs-body-s)' }}>
               Restart
             </button>
-          </div>
-        </header>
+          </nav>
+        </div>
+      </header>
 
+      <main style={{ flex: 1, width: '100%' }}>
         <div
+          key={state.screen + state.doc}
           style={{
-            flex: 1,
-            minHeight: 0,
-            overflowY: 'auto',
-            padding: 40,
-            display: 'flex',
-            justifyContent: 'center',
+            maxWidth: 'var(--container-max)',
+            margin: '0 auto',
+            padding: '56px var(--container-gutter) 96px',
+            animation: 'vr-in var(--dur-med) var(--ease-out)',
           }}
         >
-          <div
-            key={state.screen + state.doc}
-            style={{
-              width: '100%',
-              minHeight: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              animation: 'dl-in 240ms ease-out',
-            }}
-          >
-            {children}
-          </div>
+          {children}
         </div>
       </main>
+
+      <footer
+        style={{
+          borderTop: '1px solid var(--border-subtle)',
+          padding: '24px var(--container-gutter)',
+        }}
+      >
+        <div
+          style={{
+            maxWidth: 'var(--container-max)',
+            margin: '0 auto',
+            display: 'flex',
+            justifyContent: 'space-between',
+            gap: 16,
+            flexWrap: 'wrap',
+            fontSize: 'var(--fs-caption)',
+            color: 'var(--text-muted)',
+          }}
+        >
+          <span>Veloretti · Designed in Amsterdam</span>
+          <span>Every campaign is checked against the rules you confirm here.</span>
+        </div>
+      </footer>
     </div>
   )
 }
