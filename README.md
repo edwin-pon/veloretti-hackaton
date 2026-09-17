@@ -222,8 +222,9 @@ on the sample file keeps working.
 
 Two n8n details decide whether it appears to work:
 
-- a `/webhook-test/` URL only accepts one call, and only after someone clicks
-  **Execute workflow**. A `/webhook/` URL has neither limit;
+- a `/webhook/` URL answers only while its workflow is **active**; a
+  `/webhook-test/` one only after someone clicks **Execute workflow**, and then
+  once. Both return the same 404 when they are not listening;
 - n8n sends no CORS headers unless the Webhook node's allowed origins are set,
   so the browser is usually refused the *response* even though the request
   arrives. The screen says "sent, but not confirmed" in that case rather than

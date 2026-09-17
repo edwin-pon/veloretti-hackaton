@@ -7,9 +7,9 @@
 //
 // Two things about this call are worth knowing before reading the code:
 //
-//   * n8n's *test* webhooks (`/webhook-test/...`) only accept a call after
-//     someone clicks "Execute workflow", and only one. A production webhook
-//     (`/webhook/...`) has neither limit.
+//   * a production webhook (`/webhook/...`) only answers while its workflow is
+//     active; a test one (`/webhook-test/...`) only after someone clicks
+//     "Execute workflow", and then only once. Both return the same 404.
 //   * n8n sends no CORS headers unless the Webhook node's allowed origins are
 //     set, so a browser is usually refused the *response* even though the
 //     request itself arrives. That is why this falls back to an opaque send
@@ -30,6 +30,9 @@ export interface CampaignPayload {
   gates: GateResult[]
   exportedAt: string
 }
+
+const NOT_REGISTERED =
+  'n8n says the webhook is not registered. A production webhook answers only while its workflow is active; a test one only after "Execute workflow" is clicked, and then once.'
 
 export type PushOutcome =
   | { status: 'ok'; detail: string }
@@ -72,11 +75,7 @@ export async function pushCampaign(
       return { status: 'ok', detail: `n8n accepted ${payload.slots.length} slots.` }
     }
     if (response.status === 404) {
-      return {
-        status: 'failed',
-        detail:
-          'n8n says the webhook is not registered. A test webhook only listens after "Execute workflow" is clicked, and only for one call.',
-      }
+      return { status: 'failed', detail: NOT_REGISTERED }
     }
     return { status: 'failed', detail: `n8n replied ${response.status} ${response.statusText}.` }
   } catch {
