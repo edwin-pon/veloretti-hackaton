@@ -8,10 +8,9 @@ import Wordmark from './Wordmark'
 /** Campaign screens name themselves; onboarding screens name their document. */
 const CAMPAIGN_CRUMBS: Partial<Record<Screen, string>> = {
   campaigns: 'Campaigns',
-  'campaign-start': 'New campaign',
+  brief: 'Campaign brief',
   'brief-upload': 'Campaign brief',
   'brief-analyzing': 'Campaign brief',
-  'brief-review': 'Campaign brief',
   matrix: 'Slot matrix',
 }
 

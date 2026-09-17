@@ -14,12 +14,13 @@ the confirmed rules land on a brand knowledge page.
 hub → upload → analyzing → review → (next document) → dashboard
 ```
 
-**Campaign intake**: hand over a growth briefing, the agent reads the campaign
-out of it, and the confirmed brief resolves into the slots the campaign has to
-deliver.
+**Campaign intake**: fill in the growth briefing for a campaign, and it resolves
+into the slots that campaign has to deliver.
 
 ```
-campaigns → start → brief upload → analyzing → brief review → slot matrix
+campaigns → briefing → slot matrix
+                ↑
+         (optional) upload a document and let an agent fill it in
 ```
 
 Campaigns save themselves from the first edit, so a half-read briefing survives
@@ -98,8 +99,24 @@ landing page and a newsletter. The Veloretti "Back to School 2026" briefing hold
 parameters rather than 458 pieces of writing. Intake exists to capture those
 parameters and resolve the grid.
 
-`docs/growth-briefing-blueprint.md` is the source those vocabularies were read
-from. Change a vocabulary there first, then here.
+`docs/growth-briefing-blueprint.md` reverse-engineered that one hand-built Figma
+file into a reusable spec. `src/data/briefing.ts` is that spec turned into
+questions, so the next campaign is filled in rather than reverse-engineered
+again. Change a vocabulary in the blueprint first, then here.
+
+**Filled in or read.** A field answered by hand is an answer. A field an agent
+read out of a document is a claim, so only that one carries a confidence, a
+citation and the reasoning behind it. `Read from a document` on the briefing
+runs the same extraction against a real file and marks what it filled in.
+`Fill in the Back to School 2026 example` populates every answer for a demo,
+without pretending an agent found them.
+
+Markets and the channel plan are edited as tables, because they are the two
+answers that are lists. The channel plan is where the matrix comes from: each
+row is a track in a funnel phase on one platform, and the slot count on the row
+moves as you edit it. Phase and platform constrain each other, so switching a
+row to SEE moves it off Google rather than letting an invalid combination exist
+long enough for a gate to catch it.
 
 Drafts live in `localStorage` under one key, written by an effect on the whole
 campaign state, so no screen has to remember to save. A picked `File` cannot be

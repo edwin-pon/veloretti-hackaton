@@ -1,10 +1,15 @@
-// Campaign intake: what the agent extracts from a growth briefing, and the
-// shape the review screen renders.
+// The growth briefing as a form: the questions a campaign has to answer before
+// it can be resolved into deliverables, in the order the campaign model needs
+// them.
 //
-// The seed below is the Veloretti "Back to School 2026" briefing as read in
-// docs/growth-briefing-blueprint.md. It plays the same role docs.ts plays for
-// brand onboarding: the offline fallback when no n8n webhook is configured, and
-// the reference for what a live extraction has to return.
+// The structure is docs/growth-briefing-blueprint.md turned inside out. That
+// document reverse-engineered one hand-built Figma briefing into a reusable
+// spec; these sections are that spec as something you fill in for the next
+// campaign, rather than something an agent has to dig out of a file again.
+//
+// Each field's `value` is the Back to School 2026 answer. It serves twice: as
+// the example a demo fills in, and as the offline fallback when no n8n webhook
+// is configured to read a real document.
 //
 // Two deliberate rough edges are preserved rather than cleaned up, because the
 // intake exists to surface them:
@@ -24,7 +29,10 @@ export interface BriefField {
   label: string
   hint: string
   type: BriefFieldType
+  /** The Back to School 2026 answer: the example, and the offline fallback. */
   value: BriefValue
+  /** A briefing cannot be resolved without this one. */
+  required?: boolean
   /** 0-100. Under 70 counts as needing review, as in brand onboarding. */
   conf: number
   cite: string
@@ -85,10 +93,11 @@ export const BRIEFING: BriefingDef = {
     {
       key: 'campaign',
       title: 'Campaign',
-      meta: 'stated on the cover',
+      meta: 'what it is called and when it runs',
       fields: [
         {
           key: 'cp1',
+          required: true,
           label: 'Campaign name',
           hint: 'Names the campaign folder and every exported file',
           type: 'text',
@@ -124,6 +133,7 @@ export const BRIEFING: BriefingDef = {
         },
         {
           key: 'cp4',
+          required: true,
           label: 'Window opens',
           hint: 'Shared by all three markets',
           type: 'date',
@@ -136,6 +146,7 @@ export const BRIEFING: BriefingDef = {
         },
         {
           key: 'cp5',
+          required: true,
           label: 'Window closes',
           hint: 'Shared by all three markets',
           type: 'date',
@@ -151,7 +162,7 @@ export const BRIEFING: BriefingDef = {
     {
       key: 'concept',
       title: 'Concept',
-      meta: 'one text node carries the whole strategy',
+      meta: 'the argument every asset ladders up to',
       fields: [
         {
           key: 'cn1',
@@ -178,6 +189,7 @@ export const BRIEFING: BriefingDef = {
         },
         {
           key: 'cn3',
+          required: true,
           label: 'Campaign line',
           hint: 'The line every asset ladders up to',
           type: 'text',
@@ -264,6 +276,7 @@ export const BRIEFING: BriefingDef = {
       fields: [
         {
           key: 'of1',
+          required: true,
           label: 'Offer mode',
           hint: 'In aspiration mode no percentage may appear on any asset',
           type: 'select',
@@ -750,8 +763,16 @@ export const BRIEFING: BriefingDef = {
 export const BRIEF_FIELDS: BriefField[] = BRIEFING.sections.flatMap((s) => s.fields)
 
 /** Field values as the agent first returned them, before any edit. */
+/** The Back to School 2026 answers, for the example fill and the fallback. */
 export function seedBriefValues(): Record<string, BriefValue> {
   return Object.fromEntries(BRIEF_FIELDS.map((f) => [f.key, f.value]))
+}
+
+/** An empty briefing, which is what a new campaign starts as. */
+export function blankBriefValues(): Record<string, BriefValue> {
+  return Object.fromEntries(
+    BRIEF_FIELDS.map((f) => [f.key, f.type === 'chips' ? [] : f.type === 'percent' ? 0 : '']),
+  )
 }
 
 function text(values: Record<string, BriefValue>, key: string): string {

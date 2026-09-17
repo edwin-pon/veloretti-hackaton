@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import OfferConflict from '../components/OfferConflict'
-import { ChannelPlanTable } from '../components/PlanTables'
+import { ChannelPlanTable, MarketsTable } from '../components/PlanTables'
 import { MARKET_LABEL } from '../data/vocab'
 import { Badge, Button, Label, Notice } from '../ds'
 import { useCampaign } from '../lib/campaign-store'
@@ -26,7 +26,7 @@ export default function MatrixScreen() {
       <button
         type="button"
         className="vr-underline"
-        onClick={() => go('brief-review')}
+        onClick={() => go('brief')}
         style={{ fontSize: 'var(--fs-body-s)', marginBottom: 32 }}
       >
         Back to the brief
@@ -62,7 +62,7 @@ export default function MatrixScreen() {
           </p>
         </div>
         <div style={{ display: 'flex', gap: 14, alignItems: 'center', flex: 'none' }}>
-          <Button variant="secondary" onClick={() => go('brief-review')}>
+          <Button variant="secondary" onClick={() => go('brief')}>
             Edit the brief
           </Button>
           <Button disabled={blocking.length > 0}>
@@ -130,6 +130,16 @@ export default function MatrixScreen() {
           Brand, legal and rendered-dimension checks run at compose time, where there is an actual
           asset to measure. They are not claimed here.
         </p>
+      </section>
+
+      <section style={{ marginBottom: 56 }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 20 }}>
+          <h2 style={{ fontSize: 'var(--fs-h3)' }}>Flighting</h2>
+          <span style={{ fontSize: 'var(--fs-caption)', color: 'var(--text-muted)' }}>
+            one window, a regional stagger inside it
+          </span>
+        </div>
+        <MarketsTable />
       </section>
 
       <section style={{ marginBottom: 56 }}>

@@ -1,16 +1,18 @@
 import type { BriefField } from '../data/briefing'
 import { Badge, Label, SelectField, TextArea, TextField } from '../ds'
 import { useCampaign } from '../lib/campaign-store'
+import { deriveField } from '../lib/derived'
 
 /**
- * One extracted field of a campaign brief. Same anatomy as the onboarding
- * FieldCard, with two types onboarding has no use for:
+ * One question in the briefing.
  *
- *   * `derived` renders read-only and says what it follows from, because some
- *     values are not choices. Language follows the market; the CTA follows the
- *     funnel phase. Making them editable would invite a contradiction.
- *   * `percent` is the single-sourced offer value, so it gets a plain number
- *     field rather than free text.
+ * A field answered by hand is just an answer. A field an agent read out of a
+ * document is a claim, so that one carries a confidence, a citation and the
+ * reasoning behind it. Showing that chrome on something someone typed would be
+ * dressing up their own answer as evidence, so it only appears when it is true.
+ *
+ * Two types are never answered at all. `derived` follows from another answer,
+ * so it renders read-only; `percent` is the single-sourced offer value.
  */
 export default function BriefFieldCard({ field }: { field: BriefField }) {
   const { state, setValue, setDraft, addChip, removeChip, toggleWhy, fieldStatus } = useCampaign()
@@ -18,12 +20,14 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
   const value = state.values[field.key]
   const whyOpen = state.why === field.key
   const derived = field.type === 'derived'
+  const extracted = !!state.extracted[field.key]
+  const missing = field.required && isEmpty(value)
 
   return (
     <div
       style={{
         background: derived ? 'var(--surface-sand)' : 'var(--surface-card)',
-        border: '1px solid var(--border-subtle)',
+        border: `1px solid ${missing ? 'var(--border-default)' : 'var(--border-subtle)'}`,
         borderRadius: 'var(--radius-lg)',
         padding: 28,
       }}
@@ -40,14 +44,20 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
         <div style={{ minWidth: 0 }}>
           <div style={{ fontSize: 'var(--fs-body)', fontWeight: 500, marginBottom: 4 }}>
             {field.label}
+            {field.required && (
+              <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}> · required</span>
+            )}
           </div>
           <div style={{ fontSize: 'var(--fs-caption)', color: 'var(--text-muted)' }}>
             {field.hint}
           </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 'none' }}>
-          <Label style={{ color: 'var(--vr-gray-400)' }}>{field.conf}%</Label>
-          <Badge variant={derived ? 'neutral' : status.variant}>
+          {extracted && <Label style={{ color: 'var(--vr-gray-500)' }}>{field.conf}%</Label>}
+          <Badge
+            variant={derived ? 'neutral' : status.variant}
+            style={status.variant === 'accent' ? { color: 'var(--vr-ink)' } : undefined}
+          >
             {derived ? 'Derived' : status.label}
           </Badge>
         </div>
@@ -55,30 +65,39 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
 
       <Control />
 
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 18,
-          flexWrap: 'wrap',
-          marginTop: 18,
-          fontSize: 'var(--fs-caption)',
-          color: 'var(--text-muted)',
-        }}
-      >
-        <span>{field.cite}</span>
-        <button
-          type="button"
-          className="vr-underline"
-          onClick={() => toggleWhy(field.key)}
-          style={{ fontSize: 'var(--fs-caption)' }}
+      {(extracted || derived) && (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 18,
+            flexWrap: 'wrap',
+            marginTop: 18,
+            fontSize: 'var(--fs-caption)',
+            color: 'var(--text-muted)',
+          }}
         >
-          {whyOpen ? 'Hide reasoning' : 'Why this value'}
-        </button>
-        <span style={{ marginLeft: 'auto' }}>{state.touched[field.key] ? 'Edited by you' : ''}</span>
-      </div>
+          {extracted && (
+            <>
+              <span>{field.cite}</span>
+              <button
+                type="button"
+                className="vr-underline"
+                onClick={() => toggleWhy(field.key)}
+                style={{ fontSize: 'var(--fs-caption)' }}
+              >
+                {whyOpen ? 'Hide reasoning' : 'Why this value'}
+              </button>
+            </>
+          )}
+          {derived && <span>Follows from {field.derivedFrom}</span>}
+          <span style={{ marginLeft: 'auto' }}>
+            {state.touched[field.key] ? 'Edited by you' : ''}
+          </span>
+        </div>
+      )}
 
-      {whyOpen && (
+      {whyOpen && extracted && (
         <div style={{ marginTop: 18, paddingTop: 18, borderTop: '1px solid var(--border-subtle)' }}>
           <div style={{ marginBottom: 10 }}>
             <Label>Agent reasoning</Label>
@@ -113,13 +132,8 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
     switch (field.type) {
       case 'derived':
         return (
-          <div>
-            <div style={{ fontSize: 'var(--fs-body)', lineHeight: 'var(--lh-body)' }}>
-              {String(value ?? '')}
-            </div>
-            <div style={{ marginTop: 10 }}>
-              <Label>Follows from {field.derivedFrom}</Label>
-            </div>
+          <div style={{ fontSize: 'var(--fs-body)', lineHeight: 'var(--lh-body)' }}>
+            {deriveField(field.key, state.markets)}
           </div>
         )
       case 'area':
@@ -128,6 +142,7 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
             value={String(value ?? '')}
             onChange={(next) => setValue(field.key, next)}
             rows={field.rows ?? 3}
+            ariaLabel={field.label}
           />
         )
       case 'select':
@@ -135,7 +150,10 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
           <SelectField
             value={String(value ?? '')}
             onChange={(next) => setValue(field.key, next)}
-            options={field.options ?? []}
+            // An unanswered question shows as unanswered rather than defaulting
+            // to whichever option happens to be first.
+            options={value ? (field.options ?? []) : ['', ...(field.options ?? [])]}
+            ariaLabel={field.label}
           />
         )
       case 'date':
@@ -143,6 +161,7 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
           <input
             type="date"
             className="vr-field"
+            aria-label={field.label}
             value={String(value ?? '')}
             onChange={(event) => setValue(field.key, event.target.value)}
             style={inputStyle}
@@ -156,6 +175,7 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
               min={0}
               max={100}
               className="vr-field"
+              aria-label={field.label}
               value={Number(value ?? 0)}
               onChange={(event) => setValue(field.key, Number(event.target.value))}
               style={{ ...inputStyle, width: 120 }}
@@ -197,7 +217,7 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
                       padding: 0,
                       fontSize: 15,
                       lineHeight: 1,
-                      color: 'var(--vr-gray-400)',
+                      color: 'var(--vr-gray-500)',
                       cursor: 'pointer',
                     }}
                   >
@@ -218,6 +238,7 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
                   value={state.drafts[field.key] ?? ''}
                   onChange={(next) => setDraft(field.key, next)}
                   placeholder={field.chipPlaceholder ?? 'Add an item'}
+                  ariaLabel={`${field.chipPlaceholder ?? 'Add an item'} to ${field.label}`}
                 />
               </div>
               <button
@@ -242,10 +263,20 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
       }
       default:
         return (
-          <TextField value={String(value ?? '')} onChange={(next) => setValue(field.key, next)} />
+          <TextField
+            value={String(value ?? '')}
+            onChange={(next) => setValue(field.key, next)}
+            ariaLabel={field.label}
+          />
         )
     }
   }
+}
+
+function isEmpty(value: unknown): boolean {
+  if (Array.isArray(value)) return value.length === 0
+  if (typeof value === 'number') return value === 0
+  return !value
 }
 
 const inputStyle: React.CSSProperties = {

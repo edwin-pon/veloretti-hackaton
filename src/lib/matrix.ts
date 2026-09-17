@@ -269,6 +269,25 @@ export function runGates(campaign: Campaign, matrix: ResolvedMatrix): GateResult
   const { slots, dropped } = matrix
   const gates: GateResult[] = []
 
+  // Completeness. A briefing with no markets or no channel plan resolves to
+  // nothing at all, and every gate below it would pass on an empty set.
+  const missing: string[] = []
+  if (!campaign.meta.name.trim()) missing.push('a campaign name')
+  if (!campaign.meta.window.start || !campaign.meta.window.end) missing.push('a window')
+  if (!campaign.concept.campaignLine.trim()) missing.push('a campaign line')
+  if (!campaign.markets.length) missing.push('at least one market')
+  if (!campaign.channelPlan.length) missing.push('at least one channel-plan row')
+  gates.push({
+    id: 'completeness',
+    label: 'Briefing is complete',
+    severity: 'blocking',
+    passed: missing.length === 0,
+    detail: missing.length
+      ? `The briefing still needs ${missing.join(', ')}.`
+      : 'Every answer the matrix depends on is filled in.',
+    affected: [],
+  })
+
   // Offer state. In aspiration mode nothing carries a discount token; in
   // discount mode every THINK and DO slot must carry an offer treatment.
   if (campaign.offer.mode === 'aspiration') {
