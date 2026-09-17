@@ -46,8 +46,11 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
           </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 'none' }}>
-          <Label style={{ color: 'var(--vr-gray-400)' }}>{field.conf}%</Label>
-          <Badge variant={derived ? 'neutral' : status.variant}>
+          <Label style={{ color: 'var(--vr-gray-500)' }}>{field.conf}%</Label>
+          <Badge
+            variant={derived ? 'neutral' : status.variant}
+            style={status.variant === 'accent' ? { color: 'var(--vr-ink)' } : undefined}
+          >
             {derived ? 'Derived' : status.label}
           </Badge>
         </div>
@@ -128,6 +131,7 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
             value={String(value ?? '')}
             onChange={(next) => setValue(field.key, next)}
             rows={field.rows ?? 3}
+            ariaLabel={field.label}
           />
         )
       case 'select':
@@ -136,6 +140,7 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
             value={String(value ?? '')}
             onChange={(next) => setValue(field.key, next)}
             options={field.options ?? []}
+            ariaLabel={field.label}
           />
         )
       case 'date':
@@ -143,6 +148,7 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
           <input
             type="date"
             className="vr-field"
+            aria-label={field.label}
             value={String(value ?? '')}
             onChange={(event) => setValue(field.key, event.target.value)}
             style={inputStyle}
@@ -156,6 +162,7 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
               min={0}
               max={100}
               className="vr-field"
+              aria-label={field.label}
               value={Number(value ?? 0)}
               onChange={(event) => setValue(field.key, Number(event.target.value))}
               style={{ ...inputStyle, width: 120 }}
@@ -197,7 +204,7 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
                       padding: 0,
                       fontSize: 15,
                       lineHeight: 1,
-                      color: 'var(--vr-gray-400)',
+                      color: 'var(--vr-gray-500)',
                       cursor: 'pointer',
                     }}
                   >
@@ -218,6 +225,7 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
                   value={state.drafts[field.key] ?? ''}
                   onChange={(next) => setDraft(field.key, next)}
                   placeholder={field.chipPlaceholder ?? 'Add an item'}
+                  ariaLabel={`${field.chipPlaceholder ?? 'Add an item'} to ${field.label}`}
                 />
               </div>
               <button
@@ -242,7 +250,11 @@ export default function BriefFieldCard({ field }: { field: BriefField }) {
       }
       default:
         return (
-          <TextField value={String(value ?? '')} onChange={(next) => setValue(field.key, next)} />
+          <TextField
+            value={String(value ?? '')}
+            onChange={(next) => setValue(field.key, next)}
+            ariaLabel={field.label}
+          />
         )
     }
   }
