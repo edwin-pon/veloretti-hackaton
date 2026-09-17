@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { DEFS } from '../data/docs'
 import { Button, Label, Notice } from '../ds'
+import BackLink from '../components/BackLink'
 import { useStore } from '../lib/store'
 
 export default function UploadScreen() {
@@ -17,14 +18,7 @@ export default function UploadScreen() {
 
   return (
     <div>
-      <button
-        type="button"
-        className="vr-underline"
-        onClick={() => go('hub')}
-        style={{ fontSize: 'var(--fs-body-s)', marginBottom: 32 }}
-      >
-        Back to onboarding
-      </button>
+      <BackLink onClick={() => go('hub')}>Back to onboarding</BackLink>
 
       <Label>Step {String(def.order).padStart(2, '0')}</Label>
       <h1 style={{ fontSize: 'var(--fs-display-m)', margin: '18px 0 20px' }}>{def.title}</h1>
@@ -49,7 +43,15 @@ export default function UploadScreen() {
         </div>
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.7fr) minmax(0, 1fr)', gap: 48, alignItems: 'start' }}>
+      <div
+        className="vr-two-col"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'minmax(0, 1.7fr) minmax(0, 1fr)',
+          gap: 48,
+          alignItems: 'start',
+        }}
+      >
         <div>
           <input
             ref={inputRef}
@@ -92,9 +94,20 @@ export default function UploadScreen() {
               PDF, DOCX or Markdown · up to 40 MB
             </div>
             <div style={{ marginTop: 28, display: 'flex', justifyContent: 'center' }}>
-              <Button variant="secondary" as="button">
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  height: 'var(--control-h-md)',
+                  padding: '0 26px',
+                  borderRadius: 'var(--radius-pill)',
+                  border: '1.5px solid var(--vr-black)',
+                  fontSize: '0.9375rem',
+                  fontWeight: 500,
+                }}
+              >
                 Browse files
-              </Button>
+              </span>
             </div>
           </div>
 

@@ -9,6 +9,13 @@ import Wordmark from './Wordmark'
  * work, and everything below breathes. No colour, no chrome — the brand's
  * "less, but better" applied to an internal tool.
  */
+const RULE: React.CSSProperties = {
+  width: 1,
+  height: 22,
+  background: 'var(--border-default)',
+  flex: 'none',
+}
+
 export default function Shell({ children }: { children: ReactNode }) {
   const { state, doneCount, allDone, go, reset } = useStore()
 
@@ -57,34 +64,26 @@ export default function Shell({ children }: { children: ReactNode }) {
             <Wordmark width={132} />
           </button>
 
-          <span
-            aria-hidden
-            style={{ width: 1, height: 22, background: 'var(--border-default)', flex: 'none' }}
-          />
+          <span aria-hidden className="vr-hide-sm" style={RULE} />
 
-          <Label style={{ color: 'var(--vr-ink)' }}>Brand studio</Label>
+          <span className="vr-hide-sm">
+            <Label style={{ color: 'var(--vr-ink)', whiteSpace: 'nowrap' }}>Brand studio</Label>
+          </span>
 
-          <nav
-            style={{
-              marginLeft: 'auto',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 24,
-              minWidth: 0,
-            }}
-          >
-            <span style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)' }}>
+          <nav className="vr-header-nav">
+            <span
+              className="vr-hide-md"
+              style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)' }}
+            >
               {crumb}
             </span>
-            <span
-              aria-hidden
-              style={{ width: 1, height: 22, background: 'var(--border-default)', flex: 'none' }}
-            />
+            <span aria-hidden className="vr-hide-md" style={RULE} />
             <span style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)' }}>
               {allDone ? 'All sources confirmed' : `${doneCount} of ${DOC_ORDER.length} confirmed`}
             </span>
             <span
               aria-hidden
+              className="vr-hide-sm"
               style={{
                 width: 72,
                 height: 2,

@@ -50,8 +50,13 @@ export default function FieldCard({ field, preview, control }: Props) {
           </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 'none' }}>
-          <Label style={{ color: 'var(--vr-gray-400)' }}>{field.conf}%</Label>
-          <Badge variant={status.variant}>{status.label}</Badge>
+          <Label style={{ color: 'var(--vr-gray-500)' }}>{field.conf}%</Label>
+          <Badge
+            variant={status.variant}
+            style={status.variant === 'accent' ? { color: 'var(--vr-ink)' } : undefined}
+          >
+            {status.label}
+          </Badge>
         </div>
       </div>
 
@@ -123,7 +128,11 @@ export default function FieldCard({ field, preview, control }: Props) {
     switch (field.type) {
       case 'text':
         return (
-          <TextField value={String(value ?? '')} onChange={(next) => setValue(field.key, next)} />
+          <TextField
+            value={String(value ?? '')}
+            onChange={(next) => setValue(field.key, next)}
+            ariaLabel={field.label}
+          />
         )
       case 'area':
         return (
@@ -131,6 +140,7 @@ export default function FieldCard({ field, preview, control }: Props) {
             value={String(value ?? '')}
             onChange={(next) => setValue(field.key, next)}
             rows={field.rows ?? 3}
+            ariaLabel={field.label}
           />
         )
       case 'select':
@@ -139,6 +149,7 @@ export default function FieldCard({ field, preview, control }: Props) {
             value={String(value ?? '')}
             onChange={(next) => setValue(field.key, next)}
             options={field.options ?? []}
+            ariaLabel={field.label}
           />
         )
       case 'toggle':
@@ -183,7 +194,7 @@ export default function FieldCard({ field, preview, control }: Props) {
                       padding: 0,
                       fontSize: 15,
                       lineHeight: 1,
-                      color: 'var(--vr-gray-400)',
+                      color: 'var(--vr-gray-500)',
                       cursor: 'pointer',
                     }}
                   >
@@ -204,6 +215,7 @@ export default function FieldCard({ field, preview, control }: Props) {
                   value={state.drafts[field.key] ?? ''}
                   onChange={(next) => setDraft(field.key, next)}
                   placeholder={field.chipPlaceholder ?? 'Add an item'}
+                  ariaLabel={`${field.chipPlaceholder ?? 'Add an item'} to ${field.label}`}
                 />
               </div>
               <button
