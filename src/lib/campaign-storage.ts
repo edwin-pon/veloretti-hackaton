@@ -9,7 +9,11 @@
 
 import type { CampaignState } from './campaign-store'
 
-const KEY = 'veloretti-brand-studio/campaigns/v1'
+// Bumped when the record shape changes. A stored campaign from an older shape
+// is not convertible into this one, and reading it would take the app down, so
+// the old key is dropped rather than migrated.
+const KEY = 'veloretti-brand-studio/campaigns/v2'
+const RETIRED_KEYS = ['veloretti-brand-studio/campaigns/v1']
 
 export interface SavedCampaign {
   id: string
@@ -20,14 +24,37 @@ export interface SavedCampaign {
 
 function read(): SavedCampaign[] {
   try {
+    RETIRED_KEYS.forEach((key) => localStorage.removeItem(key))
     const raw = localStorage.getItem(KEY)
     if (!raw) return []
-    const parsed = JSON.parse(raw) as SavedCampaign[]
-    return Array.isArray(parsed) ? parsed : []
+    const parsed = JSON.parse(raw) as unknown
+    if (!Array.isArray(parsed)) return []
+    // Anything that is not the shape this version reads is dropped. A stored
+    // draft is a convenience; letting a stale one blank the screen is not a
+    // trade worth making.
+    return parsed.filter(isSavedCampaign)
   } catch {
     // A corrupt or unavailable store is not worth crashing a demo over.
     return []
   }
+}
+
+function isSavedCampaign(value: unknown): value is SavedCampaign {
+  if (!value || typeof value !== 'object') return false
+  const record = value as Partial<SavedCampaign>
+  if (typeof record.id !== 'string' || typeof record.updatedAt !== 'string') return false
+  const state = record.state as Partial<CampaignState> | undefined
+  if (!state || typeof state !== 'object') return false
+  const input = state.input
+  if (!input || typeof input !== 'object') return false
+  return (
+    typeof input.name === 'string' &&
+    typeof input.description === 'string' &&
+    Array.isArray(input.markets) &&
+    Array.isArray(input.channels) &&
+    Array.isArray(input.audiences) &&
+    typeof input.bikeModel === 'string'
+  )
 }
 
 function write(records: SavedCampaign[]): void {
