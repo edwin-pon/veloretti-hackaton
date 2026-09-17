@@ -18,6 +18,7 @@ import {
 import {
   BRIEFING,
   BRIEF_FIELDS,
+  OFFER_CONFLICTS,
   buildCampaign,
   seedBriefValues,
   type BriefField,
@@ -47,6 +48,12 @@ export interface CampaignState {
   channelPlan: ChannelEntry[]
   /** Channel-plan rows pruned out of the matrix. */
   excluded: string[]
+  /**
+   * Discount percentages the briefing states somewhere other than the concept.
+   * Emptied when the conflict is resolved, because resolving it means the other
+   * surfaces are corrected to the campaign's value.
+   */
+  statedElsewhere: Array<{ pct: number; where: string }>
   confirmed: boolean
   error: string | null
 }
@@ -75,6 +82,8 @@ interface CampaignStore {
   removeChip: (key: string, index: number) => void
   toggleWhy: (key: string) => void
   confirmBrief: () => void
+  /** Settles the offer on one percentage and corrects the other surfaces to it. */
+  resolveOffer: (pct: number) => void
   toggleEntry: (id: string) => void
   reset: () => void
   fieldStatus: (field: BriefField) => FieldStatus
@@ -93,6 +102,7 @@ function initialState(): CampaignState {
     markets: BRIEFING.markets,
     channelPlan: BRIEFING.channelPlan,
     excluded: [],
+    statedElsewhere: OFFER_CONFLICTS,
     confirmed: false,
     error: null,
   }
@@ -120,8 +130,9 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
         markets: state.markets,
         channelPlan: state.channelPlan.filter((entry) => !state.excluded.includes(entry.id)),
         propositions: BRIEFING.propositions,
+        statedElsewhere: state.statedElsewhere,
       }),
-    [state.values, state.markets, state.channelPlan, state.excluded],
+    [state.values, state.markets, state.channelPlan, state.excluded, state.statedElsewhere],
   )
 
   const matrix = useMemo(() => resolveSlots(campaign), [campaign])
@@ -273,6 +284,15 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
       patch({ confirmed: true })
       go('matrix')
     }, [go, patch]),
+    resolveOffer: useCallback(
+      (pct) =>
+        patch((s) => ({
+          values: { ...s.values, of2: pct },
+          touched: { ...s.touched, of2: true },
+          statedElsewhere: [],
+        })),
+      [patch],
+    ),
     toggleEntry: useCallback(
       (id) =>
         patch((s) => ({

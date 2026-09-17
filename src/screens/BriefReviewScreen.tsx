@@ -1,4 +1,5 @@
 import BriefFieldCard from '../components/BriefFieldCard'
+import OfferConflict from '../components/OfferConflict'
 import { ChannelPlanTable, MarketsTable } from '../components/PlanTables'
 import { BRIEFING } from '../data/briefing'
 import { Badge, Button, Label, Notice } from '../ds'
@@ -69,10 +70,7 @@ export default function BriefReviewScreen() {
 
       {offerConflict && (
         <div style={{ marginBottom: 48 }}>
-          <Notice title="Offer conflict" tone="attention">
-            {offerConflict.detail} Until it is one value, every surface that reads the offer is
-            reading a different number.
-          </Notice>
+          <OfferConflict />
         </div>
       )}
 

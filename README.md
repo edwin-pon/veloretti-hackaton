@@ -109,7 +109,9 @@ Three things in the model are load-bearing and easy to get wrong:
   on target". In aspiration mode no percentage may appear on any asset. The
   percentage itself is single-sourced, so the source's own contradiction (15% in
   the concept against -10% on every ad sticker) surfaces as a blocking gate
-  instead of quietly diverging across surfaces.
+  instead of quietly diverging across surfaces. Either number is a defensible
+  campaign, so `OfferConflict` offers the choice on both the brief and the
+  matrix; picking one corrects the other surfaces to it and clears the gate.
 - **Language derives from market.** NL to NL, BE to English, DE to DE. It is not
   an axis of its own, and there is no French.
 - **The flight date lives on the market.** One window is shared by all three

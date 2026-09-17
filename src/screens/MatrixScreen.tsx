@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import OfferConflict from '../components/OfferConflict'
 import { ChannelPlanTable } from '../components/PlanTables'
 import { MARKET_LABEL } from '../data/vocab'
 import { Badge, Button, Label, Notice } from '../ds'
@@ -16,6 +17,9 @@ export default function MatrixScreen() {
   const { go } = useStore()
   const { campaign, matrix, summary, gates, blocking } = useCampaign()
   const [shown, setShown] = useState(4)
+  // The offer conflict gets its own resolution control, so it is not repeated
+  // in the generic blocked notice.
+  const otherBlocking = blocking.filter((gate) => gate.id !== 'offer-consistency')
 
   return (
     <div>
@@ -67,10 +71,16 @@ export default function MatrixScreen() {
         </div>
       </div>
 
-      {blocking.length > 0 && (
+      {blocking.some((gate) => gate.id === 'offer-consistency') && (
+        <div style={{ marginBottom: 24 }}>
+          <OfferConflict />
+        </div>
+      )}
+
+      {otherBlocking.length > 0 && (
         <div style={{ marginBottom: 48 }}>
           <Notice title="Blocked" tone="attention">
-            {blocking.map((gate) => gate.detail).join(' ')}
+            {otherBlocking.map((gate) => gate.detail).join(' ')}
           </Notice>
         </div>
       )}

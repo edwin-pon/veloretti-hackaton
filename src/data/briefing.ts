@@ -59,6 +59,15 @@ export interface BriefingDef {
 
 const SOURCE = 'growth-briefing-back-to-school-2026'
 
+/**
+ * Discount percentages the briefing states away from the concept. The source
+ * never reconciles its own 15% against the -10% on all 458 ad slots, so both
+ * values travel with the campaign until someone picks one.
+ */
+export const OFFER_CONFLICTS: Array<{ pct: number; where: string }> = [
+  { pct: 10, where: 'sale sticker on every ad slot' },
+]
+
 export const BRIEFING: BriefingDef = {
   file: 'growth-briefing-back-to-school-2026.pdf',
   size: '32 KB · 9 pages',
@@ -768,6 +777,8 @@ export function buildCampaign(
     markets: Market[]
     channelPlan: ChannelEntry[]
     propositions: Proposition[]
+    /** Empty once the conflict has been resolved onto a single value. */
+    statedElsewhere?: Array<{ pct: number; where: string }>
   },
 ): Campaign {
   const pct = Number(values.of2 ?? 0)
@@ -795,7 +806,7 @@ export function buildCampaign(
       code: text(values, 'of4') === 'Not used' ? null : text(values, 'of4'),
       // Recorded rather than resolved: the sticker value is what the ad slots
       // actually carry, and the consistency gate compares it against pct.
-      statedElsewhere: [{ pct: 10, where: 'sale sticker on every ad slot' }],
+      statedElsewhere: parts.statedElsewhere ?? OFFER_CONFLICTS,
     },
     trustLevers: ['klarna_instalments', 'klarna_pay_later', 'reviews', 'warranty'],
     markets: parts.markets.map((m) => ({ ...m, language: MARKET_LANGUAGE[m.key as MarketKey] })),

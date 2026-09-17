@@ -6,7 +6,7 @@
 // It is a smoke test, not a test suite: it fails only when the resolver throws
 // or a blocking gate that is meant to pass starts failing.
 
-import { seedCampaign } from '../src/data/briefing'
+import { BRIEFING, buildCampaign, seedBriefValues, seedCampaign } from '../src/data/briefing'
 import { blockingFailures, resolveSlots, runGates, summarise, briefText } from '../src/lib/matrix'
 
 const campaign = seedCampaign()
@@ -38,3 +38,22 @@ if (unexpected.length) {
   console.error('\nunexpected blocking failures:', unexpected.map((g) => g.id).join(', '))
   process.exit(1)
 }
+
+// Resolving the offer onto one value is what the intake screen's control does.
+// Nothing may block after it, or the campaign cannot leave the matrix.
+const resolved = buildCampaign(
+  { ...seedBriefValues(), of2: 10 },
+  {
+    markets: BRIEFING.markets,
+    channelPlan: BRIEFING.channelPlan,
+    propositions: BRIEFING.propositions,
+    statedElsewhere: [],
+  },
+)
+const afterResolve = blockingFailures(runGates(resolved, resolveSlots(resolved)))
+console.log('')
+console.log(
+  `after resolving the offer: ${afterResolve.length} blocking ` +
+    (afterResolve.length ? `(${afterResolve.map((g) => g.id).join(', ')})` : ''),
+)
+if (afterResolve.length) process.exit(1)
