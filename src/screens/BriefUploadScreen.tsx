@@ -112,24 +112,26 @@ export default function BriefUploadScreen() {
             </div>
           </div>
 
-          <div
-            style={{
-              marginTop: 16,
-              fontSize: 'var(--fs-caption)',
-              color: 'var(--text-muted)',
-              textAlign: 'center',
-            }}
-          >
-            No briefing to hand?{' '}
-            <button
-              type="button"
-              className="vr-underline"
-              onClick={() => pickFile()}
-              style={{ fontSize: 'var(--fs-caption)' }}
+          {!upload && (
+            <div
+              style={{
+                marginTop: 16,
+                fontSize: 'var(--fs-caption)',
+                color: 'var(--text-muted)',
+                textAlign: 'center',
+              }}
             >
-              Use the sample {BRIEFING.file}
-            </button>
-          </div>
+              No briefing to hand?{' '}
+              <button
+                type="button"
+                className="vr-underline"
+                onClick={() => pickFile()}
+                style={{ fontSize: 'var(--fs-caption)' }}
+              >
+                Use the sample {BRIEFING.file}
+              </button>
+            </div>
+          )}
 
           {upload && (
             <div style={{ marginTop: 36 }}>

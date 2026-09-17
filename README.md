@@ -59,6 +59,8 @@ Currently live at https://veloretti-brand-studio.nielskorte.workers.dev
 | `src/lib/briefing-api.ts` | **The campaign-intake seam** |
 | `src/ds/` | Veloretti design system — bundle, tokens, and the primitives it does not ship |
 | `src/assets/` | The official wordmark, black and white |
+| `public/samples/` | The documents the demo uploads, as real files |
+| `docs/samples/` | Their plain-text sources, and what `scripts/build-samples.sh` builds from |
 | `design/` | The original Design Canvas prototypes this was ported from |
 
 ## Brand
@@ -124,6 +126,39 @@ and are deliberately not faked here.
 `npm run check:matrix` resolves the seeded briefing and prints the matrix and
 every gate. Two failures are seeded on purpose and are the point of the exercise:
 the 15% against -10% conflict, and Germany trailing the other two markets.
+
+## Demo documents
+
+Every document the app offers is a real file in `public/samples`, named exactly
+as the app refers to it:
+
+| File | Stands in for |
+|---|---|
+| `veloretti-visual-language.pdf` | Brand book, 30 pages |
+| `legal-marketing-guidelines-v7.docx` | Legal guidelines, 7 sections |
+| `veloretti-visual-language-colour-type.pdf` | Colour and type, 11 pages |
+| `growth-briefing-back-to-school-2026.pdf` | The growth briefing, 9 pages |
+
+Each one contains the lines the agent is seeded to quote, on the page or in the
+section it cites, so a demo holds together if someone opens the source. They are
+stand-ins and say so on their own first page: the identity, voice, palette and
+type come from Veloretti's own material, the legal document is invented in full,
+and so are the page numbers, the confidence scores and the product claims.
+
+Edit `docs/samples/*.txt` and run `sh scripts/build-samples.sh` to rebuild them
+(macOS only, it uses `cupsfilter` and `textutil`). The built files are committed,
+so this is only needed when a source changes.
+
+Two things follow from the documents being real:
+
+- **Nothing has to be uploaded.** Opening a step attaches its sample already, so
+  a demo is a click-through. Remove swaps it for a real document, and the drop
+  zone works as it always did.
+- **A live webhook gets bytes.** With `VITE_N8N_ANALYSE_URL` set, the sample is
+  POSTed as an actual file rather than as a filename.
+
+To skip onboarding altogether, **Fill in the sample documents** on the hub
+confirms all three sources at once and opens brand knowledge.
 
 ## Connecting n8n
 

@@ -10,6 +10,7 @@ import {
 } from 'react'
 import { DEFS, DOC_ORDER, type DocField, type DocKey } from '../data/docs'
 import { analyseDocument, seedAllValues } from './api'
+import { loadSample } from './samples'
 import type { AppState, DoneMap, FieldValue, Screen } from './types'
 
 function initialState(): AppState {
@@ -48,6 +49,8 @@ interface Store {
   removeChip: (key: string, index: number) => void
   toggleWhy: (key: string) => void
   approve: () => void
+  /** Demo shortcut: confirm all three documents at once. */
+  prefillAll: () => void
   reset: () => void
   fieldStatus: (field: DocField) => FieldStatus
 }
@@ -69,29 +72,45 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const go = useCallback<Store['go']>((screen, extra) => patch({ screen, ...extra }), [patch])
 
+  /** Loads the sample's bytes in the background, leaving its name on screen. */
+  const attachSample = useCallback(
+    (fileName: string) => {
+      loadSample(fileName).then((file) => {
+        if (!file) return
+        patch((s) => (s.upload?.name === fileName ? { upload: { ...s.upload, file } } : {}))
+      })
+    },
+    [patch],
+  )
+
   const openDoc = useCallback<Store['openDoc']>(
-    (doc) =>
+    (doc) => {
+      const def = DEFS[doc]
+      // The sample is attached on arrival, so a demo is a click-through rather
+      // than a file-picker exercise. Remove swaps it for a real document.
       patch((s) => ({
         doc,
         screen: s.done[doc] ? 'review' : 'upload',
-        upload: null,
+        upload: { name: def.file, meta: def.size },
         why: null,
         error: null,
-      })),
-    [patch],
+      }))
+      attachSample(def.file)
+    },
+    [attachSample, patch],
   )
 
   const pickFile = useCallback<Store['pickFile']>(
     (file) => {
       const doc = DEFS[state.doc]
-      patch({
-        error: null,
-        upload: file
-          ? { name: file.name, meta: formatBytes(file.size), file }
-          : { name: doc.file, meta: doc.size },
-      })
+      if (!file) {
+        patch({ error: null, upload: { name: doc.file, meta: doc.size } })
+        attachSample(doc.file)
+        return
+      }
+      patch({ error: null, upload: { name: file.name, meta: formatBytes(file.size), file } })
     },
-    [patch, state.doc],
+    [attachSample, patch, state.doc],
   )
 
   const startAnalysis = useCallback(() => {
@@ -179,6 +198,18 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     })
   }, [patch])
 
+  const prefillAll = useCallback(() => {
+    analysis.current?.abort()
+    patch({
+      done: Object.fromEntries(DOC_ORDER.map((key) => [key, true])),
+      screen: 'dashboard',
+      upload: null,
+      why: null,
+      error: null,
+      progress: 100,
+    })
+  }, [patch])
+
   const reset = useCallback(() => {
     analysis.current?.abort()
     setState(initialState())
@@ -211,6 +242,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     removeChip,
     toggleWhy: useCallback((key) => patch((s) => ({ why: s.why === key ? null : key })), [patch]),
     approve,
+    prefillAll,
     reset,
     fieldStatus,
   }

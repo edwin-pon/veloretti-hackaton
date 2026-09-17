@@ -1,0 +1,113 @@
+VELORETTI
+Legal guidelines for marketing, version 7
+
+Demo stand-in. No legal source was supplied for this project. Every rule,
+section number and citation below is written for the demo and carries no legal
+weight whatsoever.
+
+1  SCOPE
+
+These guidelines apply to every asset that leaves the studio, in all four
+served markets, paid and owned alike.
+
+2  CLAIMS
+
+2.1  Comparative claims
+
+"Never name a competitor. Ever."
+
+Category comparisons are permitted where a third-party source is reproduced in
+the same asset.
+
+2.2  Superlatives
+
+"Superlatives require measurement."
+
+No absolute superlative (best, fastest, safest, longest range) may appear
+unless a footnoted measurement accompanies it in the same asset.
+
+2.3  Performance figures
+
+Any figure describing range, speed or load must match the approved product
+claim list held by product marketing.
+
+2.4  Sources
+
+A reproduced source carries the name of the testing body and the date of the
+test. A source without a date is not a source.
+
+3  SUSTAINABILITY WORDING
+
+"Climate neutral", "CO2 neutral" and "green" may not be used without a linked
+calculation method, per the EU Green Claims Directive.
+
+"Lower emissions than a car trip" is approved with the standard footnote.
+
+"See memo GC-2025-04 for permitted phrasings."
+
+The memo is not reproduced here. Two approved examples appear in the annex.
+
+4  DISCLAIMERS
+
+4.1  Placement
+
+A disclaimer sits in the asset that carries the claim. A disclaimer on a
+landing page does not cover an ad.
+
+4.2  Range claims
+
+"Use the approved footnote unchanged."
+
+  Range measured per WLTP-e cycle at 25 km/h assist, 75 kg rider, level
+  terrain. Real-world range varies.
+
+The closing sentence is required in Germany and is therefore included by
+default everywhere.
+
+5  DATA AND CONSENT
+
+5.1  Basis
+
+Opt-in across all four markets. Double opt-in in Germany.
+
+"Soft opt-in is not used by Veloretti."
+
+5.2  Profiling
+
+Audience segments may not be built on inferred health or income data.
+
+5.3  Children
+
+No audience may be targeted below 18. Kids-line campaigns address parents.
+
+5.4  Retention
+
+"24 months from last engagement."
+
+The trigger is last engagement, not the date of collection.
+
+6  MARKET-SPECIFIC
+
+6.1  Germany, UWG
+
+"Refer to Kanzlei opinion of 12 March."
+
+No rule text is set out in this section. Two examples appear in the footnotes:
+price advertising states whether VAT and assembly are included, and dealer
+availability claims carry the qualifier "at participating dealers".
+
+6.2  Netherlands, Belgium, Denmark
+
+No market-specific additions at version 7.
+
+7  APPROVAL
+
+"Approval as agreed per campaign."
+
+No owner and no threshold are named. The examples in this section are all paid
+media.
+
+ANNEX  APPROVED SUSTAINABILITY PHRASINGS
+
+  Lower emissions than the same trip by car.
+  Replaces a car trip, not a bus route.

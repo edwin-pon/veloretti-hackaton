@@ -98,24 +98,26 @@ export default function UploadScreen() {
             </div>
           </div>
 
-          <div
-            style={{
-              marginTop: 16,
-              fontSize: 'var(--fs-caption)',
-              color: 'var(--text-muted)',
-              textAlign: 'center',
-            }}
-          >
-            No document to hand?{' '}
-            <button
-              type="button"
-              className="vr-underline"
-              onClick={() => pickFile()}
-              style={{ fontSize: 'var(--fs-caption)' }}
+          {!upload && (
+            <div
+              style={{
+                marginTop: 16,
+                fontSize: 'var(--fs-caption)',
+                color: 'var(--text-muted)',
+                textAlign: 'center',
+              }}
             >
-              Use the sample {def.file}
-            </button>
-          </div>
+              No document to hand?{' '}
+              <button
+                type="button"
+                className="vr-underline"
+                onClick={() => pickFile()}
+                style={{ fontSize: 'var(--fs-caption)' }}
+              >
+                Use the sample {def.file}
+              </button>
+            </div>
+          )}
 
           {upload && (
             <div style={{ marginTop: 36 }}>

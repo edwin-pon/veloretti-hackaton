@@ -1,5 +1,6 @@
 // Extracted verbatim from design/Brand Onboarding.dc.html (the Design Canvas
-// prototype) so the app and the prototype stay in sync. Values are the agent's
+// prototype) so the app and the prototype stay in sync. Each `file` below is a
+// real document in public/samples, so the upload step has something to read. Values are the agent's
 // simulated extraction output; once n8n is wired in these become the fallback
 // used when the webhook is unreachable.
 //
@@ -56,7 +57,7 @@ export const DEFS: Record<DocKey, DocDef> =
       card: 'Brand information',
       desc: 'Identity, positioning, markets and voice, pulled from the brand book.',
       intro: 'The agent reads the brand book and drafts the identity, market and voice rules that every generated campaign will inherit.',
-      file: 'veloretti-visual-language.pdf', size: '4.8 MB · 17 pages',
+      file: 'veloretti-visual-language.pdf', size: '47 KB · 30 pages',
       summaryTitle: 'Agent summary',
       summary: 'Identity and market coverage are stated explicitly in the brand book, so confidence is high there. Voice attributes were inferred from 14 example headlines rather than a written list, and the claim library appears only as scattered footnotes. Both are flagged for your review.',
       extracts: ['Brand name, positioning and mission', 'Primary markets and audience segments', 'Voice attributes and banned wording', 'Substantiated product claims'],
@@ -94,7 +95,7 @@ export const DEFS: Record<DocKey, DocDef> =
       card: 'Legal rules',
       desc: 'Claim limits, disclaimers and market-specific constraints.',
       intro: 'The agent turns your legal guidelines into machine-checkable rules. Anything it cannot state as a rule is surfaced for you to write.',
-      file: 'legal-marketing-guidelines-v7.docx', size: '820 KB · 14 pages',
+      file: 'legal-marketing-guidelines-v7.docx', size: '5 KB · 7 sections',
       summaryTitle: 'Agent summary',
       summary: 'Claim and disclaimer rules translated cleanly into blocking checks. The German UWG section references external case law the agent could not read, so its rule is a draft. One approval threshold had no stated owner and defaults to legal review.',
       extracts: ['Claim and comparison limits', 'Mandatory disclaimers per market', 'Data and consent constraints', 'Approval thresholds'],
@@ -128,7 +129,7 @@ export const DEFS: Record<DocKey, DocDef> =
       card: 'Style guide',
       desc: 'Writing mechanics, colors and typefaces.',
       intro: 'Mechanical rules the generator applies to every asset: casing, punctuation, the color palette and the typefaces used in generated layouts.',
-      file: 'veloretti-visual-language-colour-type.pdf', size: '2.1 MB · 9 pages',
+      file: 'veloretti-visual-language-colour-type.pdf', size: '31 KB · 11 pages',
       summaryTitle: 'Agent summary',
       summary: 'Mechanics, palette and typefaces were listed as explicit rules and extracted with high confidence. The type scale is desktop-only and two example layouts contradict it, so it is flagged for review.',
       extracts: ['Casing and punctuation rules', 'Primary, accent and neutral colors', 'Heading and body typefaces', 'Type scale and fallbacks'],

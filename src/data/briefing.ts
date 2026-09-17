@@ -60,8 +60,8 @@ export interface BriefingDef {
 const SOURCE = 'growth-briefing-back-to-school-2026'
 
 export const BRIEFING: BriefingDef = {
-  file: 'growth-briefing-back-to-school-2026.fig',
-  size: '1,571 text nodes · 7 pages',
+  file: 'growth-briefing-back-to-school-2026.pdf',
+  size: '32 KB · 9 pages',
   summaryTitle: 'Agent summary',
   summary:
     'The briefing is a grid rather than a document: one concept projected onto ads, landing page and newsletter. Campaign window, markets and the creative vocabulary are stated and were read directly from the text layers, not the layer names, which are a stale copy of a previous campaign. Two things need you: the concept states a 15% discount while all 458 ad slots carry a -10% sticker, and the Kids slogan was never written.',

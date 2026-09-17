@@ -26,6 +26,7 @@ import {
 import { analyseBriefing } from './briefing-api'
 import type { Campaign, ChannelEntry, GateResult, Market } from './campaign'
 import { resolveSlots, runGates, summarise, type MatrixSummary, type ResolvedMatrix } from './matrix'
+import { loadSample } from './samples'
 import { useStore } from './store'
 import type { PickedDocument } from './types'
 
@@ -132,24 +133,39 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
     [state.touched],
   )
 
+  /** Loads the sample briefing's bytes in the background, name already on screen. */
+  const attachSample = useCallback(() => {
+    loadSample(BRIEFING.file).then((file) => {
+      if (!file) return
+      patch((s) => (s.upload?.name === BRIEFING.file ? { upload: { ...s.upload, file } } : {}))
+    })
+  }, [patch])
+
   const start = useCallback<CampaignStore['start']>(
     (mode) => {
       run.current?.abort()
-      setState({ ...initialState(), mode })
+      // The sample briefing comes attached, so the demo is a click-through.
+      setState({
+        ...initialState(),
+        mode,
+        upload: { name: BRIEFING.file, meta: BRIEFING.size },
+      })
       go('brief-upload')
+      attachSample()
     },
-    [go],
+    [attachSample, go],
   )
 
   const pickFile = useCallback<CampaignStore['pickFile']>(
-    (file) =>
-      patch({
-        error: null,
-        upload: file
-          ? { name: file.name, meta: formatBytes(file.size), file }
-          : { name: BRIEFING.file, meta: BRIEFING.size },
-      }),
-    [patch],
+    (file) => {
+      if (!file) {
+        patch({ error: null, upload: { name: BRIEFING.file, meta: BRIEFING.size } })
+        attachSample()
+        return
+      }
+      patch({ error: null, upload: { name: file.name, meta: formatBytes(file.size), file } })
+    },
+    [attachSample, patch],
   )
 
   const read = useCallback(() => {
