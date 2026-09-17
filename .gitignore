@@ -6,3 +6,9 @@ dist/
 .env
 .env.*
 !.env.example
+
+# Source brand material — large, client-supplied, extracted into src/ instead
+Veloretti Design System*.zip
+
+# Build artefacts
+*.tsbuildinfo

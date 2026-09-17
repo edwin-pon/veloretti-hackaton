@@ -1,11 +1,14 @@
-# Brand Studio
+# Veloretti Brand Studio
 
-Front end for the Veloretti hackathon build of **Brand Studio** — Pon Datalab's
+Front end for the Veloretti hackathon build of **Brand Studio** — a
 brand-knowledge and campaign-compliance tool.
+
+Single brand, single workspace: this is Veloretti's studio, so there is no brand
+switcher and no per-brand state.
 
 The flow implemented here is **brand onboarding**: upload a source document, an
 agent extracts the rules campaigns must follow, you review and confirm them, and
-the confirmed rules land on a brand dashboard.
+the confirmed rules land on a brand knowledge page.
 
 ```
 hub → upload → analyzing → review → (next document) → dashboard
@@ -39,8 +42,27 @@ Currently live at https://veloretti-brand-studio.nielskorte.workers.dev
 | `src/lib/store.tsx` | All app state and the actions that move the flow along |
 | `src/lib/api.ts` | **The backend seam** — see below |
 | `src/data/docs.ts` | The three source documents and their extractable fields |
-| `src/ds/` | Pon Datalab design system (compiled React components + CSS tokens) |
+| `src/ds/` | Veloretti design system — bundle, tokens, and the primitives it does not ship |
+| `src/assets/` | The official wordmark, black and white |
 | `design/` | The original Design Canvas prototypes this was ported from |
+
+## Brand
+
+The UI follows the Veloretti design system (`Veloretti Design System.zip`):
+PP Neue Montreal throughout, the warm-neutral grey ramp, pill controls, hairline
+borders, 10px cards, sentence-case headlines and uppercase labels at 0.14em.
+
+Two rules worth keeping in mind when extending it:
+
+- **The wordmark is never redrawn or recoloured.** `src/components/Wordmark.tsx`
+  renders the supplied SVGs and nothing else.
+- **Orange is the tertiary accent and is promo-only.** It appears in exactly one
+  place in this app: the flag on a field the agent was unsure about. Everything
+  else stays monochrome. Add a second use only on purpose.
+
+Veloretti's own kit is a commerce kit, so it ships no progress bar, stepper,
+spinner, toggle, notice or multiline field. Those are built from the brand's
+tokens in `src/ds/primitives.tsx`.
 
 The design system bundle expects `React` on the global scope, so
 `src/ds/index.ts` publishes it there before importing the bundle. Those two
@@ -78,6 +100,18 @@ It must respond with the extracted values keyed by field key:
 
 Field keys, types and the confidence scores they are shown against are defined
 in `src/data/docs.ts`.
+
+### About the seeded values
+
+`src/data/docs.ts` is demo data, and the two kinds are worth telling apart:
+
+- **Real** — everything under the style guide (palette, type, usage rules) and
+  the brand identity, voice and blocked words. These come from the Veloretti
+  design system and visual-language guide.
+- **Invented** — the legal-rules document in full, every confidence score,
+  citation, page number and line of agent reasoning, and the four markets
+  (NL/DE/BE/DK). No legal source was provided; the markets are not stated in the
+  design system but the campaign story depends on them.
 
 ## Not built yet
 

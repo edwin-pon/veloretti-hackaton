@@ -1,5 +1,5 @@
-import { DEFS, substitute } from '../data/docs'
-import { ProgressBar, Spinner } from '../ds'
+import { DEFS } from '../data/docs'
+import { Label, ProgressBar, Spinner } from '../ds'
 import { useStore } from '../lib/store'
 
 const STEPS = [
@@ -10,89 +10,63 @@ const STEPS = [
 ]
 
 export default function AnalyzingScreen() {
-  const { state, brand } = useStore()
+  const { state } = useStore()
   const active = Math.min(STEPS.length - 1, Math.floor(state.progress / 25))
-  const fileName = state.upload?.name ?? substitute(DEFS[state.doc].file, brand)
+  const fileName = state.upload?.name ?? DEFS[state.doc].file
 
   return (
-    <div style={{ maxWidth: 640, margin: '40px auto', width: '100%' }}>
-      <div
-        style={{
-          background: '#fff',
-          borderRadius: 20,
-          padding: 40,
-          boxShadow: '0 1px 2px rgba(22,21,20,0.06)',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24 }}>
-          <Spinner size={28} />
-          <div>
-            <h2
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 28,
-                fontWeight: 700,
-                color: 'var(--ink-heading)',
-                margin: 0,
-                lineHeight: 1.2,
-              }}
-            >
-              Reading your document
-            </h2>
-            <div style={{ fontSize: 14, color: 'var(--slate)', marginTop: 4 }}>{fileName}</div>
+    <div style={{ maxWidth: 680, margin: '64px auto' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 40 }}>
+        <Spinner size={26} />
+        <div>
+          <h1 style={{ fontSize: 'var(--fs-h2)' }}>Reading your document</h1>
+          <div style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)', marginTop: 6 }}>
+            {fileName}
           </div>
         </div>
+      </div>
 
-        <ProgressBar value={state.progress} max={100} showValue label="Extraction" />
+      <ProgressBar value={state.progress} max={100} showValue label="Extraction" />
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 32 }}>
-          {STEPS.map((label, index) => {
-            const done = index < active
-            const running = index === active
-            return (
-              <div
-                key={label}
+      <div style={{ marginTop: 48 }}>
+        {STEPS.map((label, index) => {
+          const done = index < active
+          const running = index === active
+          return (
+            <div
+              key={label}
+              style={{
+                display: 'flex',
+                gap: 18,
+                alignItems: 'baseline',
+                padding: '18px 0',
+                borderTop: '1px solid var(--border-subtle)',
+              }}
+            >
+              <Label style={{ color: done || running ? 'var(--vr-ink)' : 'var(--vr-gray-300)' }}>
+                {done ? '✓' : String(index + 1).padStart(2, '0')}
+              </Label>
+              <span
                 style={{
-                  display: 'flex',
-                  gap: 14,
-                  alignItems: 'center',
-                  padding: '12px 0',
-                  borderTop: '1px solid var(--hairline)',
+                  fontSize: 'var(--fs-body)',
+                  fontWeight: running ? 500 : 400,
+                  color: done || running ? 'var(--text-primary)' : 'var(--vr-gray-300)',
                 }}
               >
-                <span
-                  style={{
-                    width: 24,
-                    height: 24,
-                    flex: 'none',
-                    borderRadius: 999,
-                    background: done ? 'var(--navy)' : running ? 'var(--mist)' : 'var(--mist)',
-                    color: done ? '#fff' : 'var(--navy)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: 12,
-                    fontWeight: 700,
-                  }}
-                >
-                  {done ? '✓' : running ? '·' : ''}
-                </span>
-                <span
-                  style={{
-                    fontSize: 16,
-                    color: done || running ? 'var(--ink-heading)' : 'var(--slate)',
-                    fontWeight: running ? 700 : 400,
-                  }}
-                >
-                  {label}
-                </span>
-                <span style={{ marginLeft: 'auto', fontSize: 12, color: 'var(--slate)' }}>
-                  {done ? 'done' : running ? 'running' : 'queued'}
-                </span>
-              </div>
-            )
-          })}
-        </div>
+                {label}
+              </span>
+              <span
+                style={{
+                  marginLeft: 'auto',
+                  fontSize: 'var(--fs-caption)',
+                  color: 'var(--text-muted)',
+                }}
+              >
+                {done ? 'done' : running ? 'running' : 'queued'}
+              </span>
+            </div>
+          )
+        })}
       </div>
     </div>
   )

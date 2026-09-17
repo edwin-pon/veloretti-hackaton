@@ -1,17 +1,10 @@
-import { DEFS, DOC_ORDER, substitute, type DocKey } from '../data/docs'
-import { Badge } from '../ds'
+import { DEFS, DOC_ORDER, type DocKey } from '../data/docs'
+import { Badge, Button, Label } from '../ds'
 import { useStore } from '../lib/store'
 
-const CARD: React.CSSProperties = {
-  background: '#fff',
-  borderRadius: 20,
-  padding: 24,
-  boxShadow: '0 1px 2px rgba(22,21,20,0.06)',
-}
-
 export default function DashboardScreen() {
-  const { state, brand, done, doneCount, allDone, go, openDoc, toggleWhy } = useStore()
-  const values = state.values
+  const { state, doneCount, allDone, go, openDoc, toggleWhy } = useStore()
+  const { values, done } = state
 
   const confirmedFields = DOC_ORDER.filter((key) => done[key]).flatMap((key) =>
     DEFS[key].sections.flatMap((section) => section.fields),
@@ -31,30 +24,6 @@ export default function DashboardScreen() {
     )
     .slice(0, 5)
 
-  const stats = [
-    {
-      value: String(confirmedFields.length),
-      label: 'Rules active across campaigns',
-      tag: confirmedFields.length
-        ? `${advisory.length} advisory`
-        : 'Confirm a source to activate rules',
-    },
-    {
-      value: `${doneCount} of ${DOC_ORDER.length}`,
-      label: 'Sources confirmed',
-      tag: allDone
-        ? 'Brand · Legal · Style'
-        : `${DOC_ORDER.filter((k) => !done[k]).map((k) => DEFS[k].card).join(' · ')} outstanding`,
-    },
-    {
-      value: averageConfidence,
-      label: 'Average extraction confidence',
-      tag: confirmedFields.length
-        ? `${Object.keys(state.touched).length} fields edited by you`
-        : 'Nothing extracted yet',
-    },
-  ]
-
   const asList = (key: string) => (Array.isArray(values[key]) ? (values[key] as string[]) : [])
 
   return (
@@ -62,44 +31,25 @@ export default function DashboardScreen() {
       <div
         style={{
           display: 'flex',
-          alignItems: 'flex-start',
+          alignItems: 'flex-end',
           justifyContent: 'space-between',
-          gap: 24,
+          gap: 32,
           flexWrap: 'wrap',
-          marginBottom: 32,
+          marginBottom: 56,
         }}
       >
         <div style={{ minWidth: 0 }}>
-          <div
-            style={{
-              fontSize: 11,
-              letterSpacing: '1.2px',
-              fontWeight: 700,
-              color: 'var(--slate)',
-              marginBottom: 8,
-            }}
-          >
-            {brand.name.toUpperCase()}
-          </div>
-          <h1
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 36,
-              fontWeight: 700,
-              color: 'var(--ink-heading)',
-              margin: '0 0 8px',
-              lineHeight: 1.2,
-            }}
-          >
-            Brand dashboard
+          <Label>Brand knowledge</Label>
+          <h1 style={{ fontSize: 'var(--fs-display-m)', margin: '18px 0 16px', maxWidth: '20ch' }}>
+            {allDone ? 'Everything the studio knows about you.' : 'What the studio knows so far.'}
           </h1>
           <p
             style={{
-              fontSize: 16,
-              lineHeight: 1.7,
-              color: 'var(--ink-secondary)',
+              fontSize: 'var(--fs-body-l)',
+              lineHeight: 'var(--lh-body)',
+              color: 'var(--text-secondary)',
               margin: 0,
-              maxWidth: '68ch',
+              maxWidth: '60ch',
             }}
           >
             {allDone
@@ -107,44 +57,58 @@ export default function DashboardScreen() {
               : `${doneCount} of ${DOC_ORDER.length} sources confirmed. Campaigns run with partial rules until onboarding is finished.`}
           </p>
         </div>
-        <button
-          type="button"
-          onClick={() => go('hub')}
-          style={{
-            border: '2px solid var(--navy)',
-            background: 'transparent',
-            color: 'var(--navy)',
-            borderRadius: 20,
-            padding: '12px 24px',
-            fontFamily: 'var(--font-sans)',
-            fontSize: 15,
-            fontWeight: 700,
-            letterSpacing: '0.5px',
-            cursor: 'pointer',
-            flex: 'none',
-          }}
-        >
+        <Button variant="secondary" onClick={() => go('hub')}>
           {allDone ? 'Review sources' : 'Continue onboarding'}
-        </button>
+        </Button>
       </div>
 
-      <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', marginBottom: 32 }}>
-        {stats.map((stat) => (
-          <div key={stat.label} style={{ ...CARD, padding: '20px 24px', minWidth: 240, flex: 1 }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))',
+          gap: 32,
+          padding: '28px 0',
+          borderTop: '1px solid var(--border-default)',
+          borderBottom: '1px solid var(--border-default)',
+          marginBottom: 72,
+        }}
+      >
+        {[
+          {
+            value: String(confirmedFields.length),
+            label: 'Rules active',
+            tag: confirmedFields.length ? `${advisory.length} advisory` : 'Confirm a source first',
+          },
+          {
+            value: `${doneCount} of ${DOC_ORDER.length}`,
+            label: 'Sources confirmed',
+            tag: allDone
+              ? 'Brand · Legal · Style'
+              : `${DOC_ORDER.filter((k) => !done[k]).map((k) => DEFS[k].card).join(' · ')} outstanding`,
+          },
+          {
+            value: averageConfidence,
+            label: 'Average confidence',
+            tag: confirmedFields.length
+              ? `${Object.keys(state.touched).length} fields edited by you`
+              : 'Nothing extracted yet',
+          },
+        ].map((stat) => (
+          <div key={stat.label}>
             <div
               style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 32,
-                fontWeight: 700,
-                color: 'var(--ink-heading)',
-                lineHeight: 1.1,
-                letterSpacing: '-0.5px',
+                fontSize: 'var(--fs-display-m)',
+                fontWeight: 500,
+                letterSpacing: 'var(--tracking-display)',
+                lineHeight: 'var(--lh-tight)',
               }}
             >
               {stat.value}
             </div>
-            <div style={{ fontSize: 13, color: 'var(--slate)', marginTop: 6 }}>{stat.label}</div>
-            <div style={{ fontSize: 12, color: 'var(--slate)', marginTop: 10, opacity: 0.85 }}>
+            <div style={{ margin: '12px 0 8px' }}>
+              <Label>{stat.label}</Label>
+            </div>
+            <div style={{ fontSize: 'var(--fs-caption)', color: 'var(--text-muted)' }}>
               {stat.tag}
             </div>
           </div>
@@ -154,13 +118,13 @@ export default function DashboardScreen() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-          gap: 24,
-          marginBottom: 32,
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(380px, 100%), 1fr))',
+          gap: 56,
+          marginBottom: 72,
         }}
       >
-        <div style={CARD}>
-          <SectionTitle>Identity</SectionTitle>
+        <section>
+          <Heading>Identity</Heading>
           {done.brand ? (
             <>
               {[
@@ -168,26 +132,33 @@ export default function DashboardScreen() {
                 { label: 'Mission', key: 'b3' },
                 { label: 'Reading level', key: 'b8' },
               ].map((row) => (
-                <div key={row.key} style={{ marginBottom: 16 }}>
+                <div
+                  key={row.key}
+                  style={{ padding: '18px 0', borderTop: '1px solid var(--border-subtle)' }}
+                >
+                  <Label>{row.label}</Label>
                   <div
                     style={{
-                      fontSize: 11,
-                      letterSpacing: '1px',
-                      fontWeight: 700,
-                      color: 'var(--slate)',
-                      marginBottom: 4,
+                      fontSize: 'var(--fs-body)',
+                      lineHeight: 'var(--lh-body)',
+                      color: 'var(--text-secondary)',
+                      marginTop: 8,
                     }}
                   >
-                    {row.label.toUpperCase()}
-                  </div>
-                  <div style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--ink-secondary)' }}>
                     {String(values[row.key] ?? '')}
                   </div>
                 </div>
               ))}
-              <ChipRow label="MARKETS" items={asList('b4')} />
-              <ChipRow label="TONE" items={asList('b6')} />
-              <div style={{ fontSize: 12, color: 'var(--slate)', marginTop: 12 }}>
+              <ChipRow label="Markets" items={asList('b4')} />
+              <ChipRow label="Tone" items={asList('b6')} />
+              <div
+                style={{
+                  padding: '18px 0',
+                  borderTop: '1px solid var(--border-subtle)',
+                  fontSize: 'var(--fs-caption)',
+                  color: 'var(--text-muted)',
+                }}
+              >
                 Blocked at generation: {asList('b7').join(' · ')}
               </div>
             </>
@@ -198,13 +169,13 @@ export default function DashboardScreen() {
               onAction={() => openDoc('brand')}
             />
           )}
-        </div>
+        </section>
 
-        <div style={CARD}>
-          <SectionTitle>Look and type</SectionTitle>
+        <section>
+          <Heading>Look and type</Heading>
           {done.style ? (
             <>
-              <div style={{ display: 'flex', gap: 16, marginBottom: 20 }}>
+              <div style={{ display: 'flex', gap: 16, padding: '24px 0' }}>
                 {[
                   { label: 'Primary', key: 'c1', fallback: '#123A2C' },
                   { label: 'Accent', key: 'c2', fallback: '#D6FF4B' },
@@ -212,20 +183,19 @@ export default function DashboardScreen() {
                   <div key={swatch.key} style={{ flex: 1, minWidth: 0 }}>
                     <div
                       style={{
-                        height: 72,
-                        borderRadius: 12,
+                        height: 96,
+                        borderRadius: 'var(--radius-md)',
                         background: hexOf(String(values[swatch.key] ?? ''), swatch.fallback),
-                        border: '1px solid var(--hairline)',
-                        marginBottom: 8,
+                        border: '1px solid var(--border-subtle)',
+                        marginBottom: 12,
                       }}
                     />
-                    <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink-heading)' }}>
-                      {swatch.label}
-                    </div>
+                    <Label>{swatch.label}</Label>
                     <div
                       style={{
-                        fontSize: 12,
-                        color: 'var(--slate)',
+                        fontSize: 'var(--fs-caption)',
+                        color: 'var(--text-muted)',
+                        marginTop: 6,
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         whiteSpace: 'nowrap',
@@ -237,48 +207,55 @@ export default function DashboardScreen() {
                 ))}
               </div>
 
-              <div style={{ display: 'flex', gap: 6, marginBottom: 20 }}>
+              <div style={{ display: 'flex', gap: 4, marginBottom: 28 }}>
                 {asList('c3').map((hex) => (
                   <div
                     key={hex}
                     title={hex}
                     style={{
                       flex: 1,
-                      height: 28,
-                      borderRadius: 8,
+                      height: 24,
+                      borderRadius: 'var(--radius-sm)',
                       background: hex,
-                      border: '1px solid var(--hairline)',
+                      border: '1px solid var(--border-subtle)',
                     }}
                   />
                 ))}
               </div>
 
-              <div
-                style={{
-                  fontFamily: `"${familyOf(String(values.f1 ?? ''))}", Georgia, serif`,
-                  fontSize: 24,
-                  fontWeight: 700,
-                  color: 'var(--ink-heading)',
-                  lineHeight: 1.25,
-                }}
-              >
-                Ninety kilometres on one charge
+              <div style={{ padding: '18px 0', borderTop: '1px solid var(--border-subtle)' }}>
+                <div
+                  style={{
+                    fontFamily: `"${familyOf(String(values.f1 ?? ''))}", Georgia, serif`,
+                    fontSize: 26,
+                    fontWeight: 700,
+                    lineHeight: 1.25,
+                  }}
+                >
+                  Ride into the city
+                </div>
+                <div
+                  style={{ fontSize: 'var(--fs-caption)', color: 'var(--text-muted)', marginTop: 8 }}
+                >
+                  {String(values.f1 ?? '')}
+                </div>
               </div>
-              <div style={{ fontSize: 12, color: 'var(--slate)', margin: '4px 0 14px' }}>
-                {String(values.f1 ?? '')}
-              </div>
-              <div
-                style={{
-                  fontFamily: `"${familyOf(String(values.f2 ?? ''))}", Helvetica, Arial, sans-serif`,
-                  fontSize: 16,
-                  color: 'var(--ink-secondary)',
-                  lineHeight: 1.6,
-                }}
-              >
-                Engineered for daily distance, sold and serviced through independent dealers.
-              </div>
-              <div style={{ fontSize: 12, color: 'var(--slate)', marginTop: 4 }}>
-                {String(values.f2 ?? '')}
+              <div style={{ padding: '18px 0', borderTop: '1px solid var(--border-subtle)' }}>
+                <div
+                  style={{
+                    fontFamily: `"${familyOf(String(values.f2 ?? ''))}", Helvetica, Arial, sans-serif`,
+                    fontSize: 17,
+                    lineHeight: 'var(--lh-body)',
+                    color: 'var(--text-secondary)',
+                  }}
+                >
+                  An electric bike designed in Amsterdam, built to make your daily rides a pleasure.
+                </div>
+                <div
+                  style={{ fontSize: 'var(--fs-caption)', color: 'var(--text-muted)', marginTop: 8 }}
+                >
+                  {String(values.f2 ?? '')}
+                </div>
               </div>
             </>
           ) : (
@@ -288,69 +265,70 @@ export default function DashboardScreen() {
               onAction={() => openDoc('style')}
             />
           )}
-        </div>
+        </section>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 24 }}>
-        <div style={CARD}>
-          <SectionTitle>Sources</SectionTitle>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {DOC_ORDER.map((key) => {
-              const isDone = !!done[key]
-              const isNext = !isDone && DOC_ORDER.find((k) => !done[k]) === key
-              return (
-                <div
-                  key={key}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 12,
-                    background: 'var(--mist)',
-                    borderRadius: 16,
-                    padding: '14px 16px',
-                  }}
-                >
-                  <span
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(380px, 100%), 1fr))', gap: 56 }}>
+        <section>
+          <Heading>Sources</Heading>
+          {DOC_ORDER.map((key) => {
+            const isDone = !!done[key]
+            const isNext = !isDone && DOC_ORDER.find((k) => !done[k]) === key
+            return (
+              <div
+                key={key}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 16,
+                  padding: '18px 0',
+                  borderTop: '1px solid var(--border-subtle)',
+                }}
+              >
+                <div style={{ minWidth: 0, flex: 1 }}>
+                  <div style={{ fontSize: 'var(--fs-body)' }}>{DEFS[key].card}</div>
+                  <div
                     style={{
-                      width: 32,
-                      height: 32,
-                      flex: 'none',
-                      borderRadius: 999,
-                      background: DEFS[key].well,
+                      fontSize: 'var(--fs-caption)',
+                      color: 'var(--text-muted)',
+                      marginTop: 4,
                     }}
-                  />
-                  <div style={{ minWidth: 0, flex: 1 }}>
-                    <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--ink-heading)' }}>
-                      {DEFS[key].card}
-                    </div>
-                    <div style={{ fontSize: 12, color: 'var(--slate)' }}>
-                      {isDone
-                        ? `${substitute(DEFS[key].file, brand)} · confirmed today`
-                        : isNext
-                          ? 'No document yet · next in onboarding'
-                          : 'No document yet'}
-                    </div>
-                  </div>
-                  <Badge tone={isDone ? 'mint' : isNext ? 'sky' : 'neutral'}>
-                    {isDone ? 'Confirmed' : isNext ? 'Next up' : 'Not started'}
-                  </Badge>
-                  <button
-                    type="button"
-                    onClick={() => openDoc(key as DocKey)}
-                    style={linkButton}
                   >
-                    {isDone ? 'Open' : 'Upload'}
-                  </button>
+                    {isDone
+                      ? `${DEFS[key].file} · confirmed today`
+                      : isNext
+                        ? 'No document yet · next in onboarding'
+                        : 'No document yet'}
+                  </div>
                 </div>
-              )
-            })}
-          </div>
-        </div>
+                <Badge variant={isDone ? 'ink' : isNext ? 'outline' : 'neutral'}>
+                  {isDone ? 'Confirmed' : isNext ? 'Next' : 'Not started'}
+                </Badge>
+                <button
+                  type="button"
+                  className="vr-underline"
+                  onClick={() => openDoc(key as DocKey)}
+                  style={{ fontSize: 'var(--fs-caption)', flex: 'none' }}
+                >
+                  {isDone ? 'Open' : 'Upload'}
+                </button>
+              </div>
+            )
+          })}
+        </section>
 
-        <div style={CARD}>
-          <SectionTitle>Needs your attention</SectionTitle>
+        <section>
+          <Heading>Needs your attention</Heading>
           {attention.length === 0 ? (
-            <p style={{ fontSize: 15, lineHeight: 1.7, color: 'var(--ink-secondary)', margin: 0 }}>
+            <p
+              style={{
+                fontSize: 'var(--fs-body)',
+                lineHeight: 'var(--lh-body)',
+                color: 'var(--text-secondary)',
+                margin: '18px 0 0',
+                maxWidth: '52ch',
+              }}
+            >
               {allDone
                 ? 'Nothing flagged. Every extracted rule is either high confidence or confirmed by you.'
                 : doneCount === 0
@@ -358,69 +336,56 @@ export default function DashboardScreen() {
                   : 'Nothing flagged in the sources you have confirmed so far.'}
             </p>
           ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {attention.map((item) => (
-                <div
-                  key={item.field.key}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 12,
-                    background: 'var(--mist)',
-                    borderRadius: 16,
-                    padding: '14px 16px',
-                  }}
-                >
-                  <div style={{ minWidth: 0, flex: 1 }}>
-                    <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--ink-heading)' }}>
-                      {item.field.label}
-                    </div>
-                    <div style={{ fontSize: 12, color: 'var(--slate)' }}>
-                      {item.source} · {item.field.conf}% confidence
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      go('review', { doc: item.doc })
-                      if (state.why !== item.field.key) toggleWhy(item.field.key)
+            attention.map((item) => (
+              <div
+                key={item.field.key}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 16,
+                  padding: '18px 0',
+                  borderTop: '1px solid var(--border-subtle)',
+                }}
+              >
+                <div style={{ minWidth: 0, flex: 1 }}>
+                  <div style={{ fontSize: 'var(--fs-body)' }}>{item.field.label}</div>
+                  <div
+                    style={{
+                      fontSize: 'var(--fs-caption)',
+                      color: 'var(--text-muted)',
+                      marginTop: 4,
                     }}
-                    style={linkButton}
                   >
-                    Review
-                  </button>
+                    {item.source} · {item.field.conf}% confidence
+                  </div>
                 </div>
-              ))}
-            </div>
+                <button
+                  type="button"
+                  className="vr-underline"
+                  onClick={() => {
+                    go('review', { doc: item.doc })
+                    if (state.why !== item.field.key) toggleWhy(item.field.key)
+                  }}
+                  style={{ fontSize: 'var(--fs-caption)', flex: 'none' }}
+                >
+                  Review
+                </button>
+              </div>
+            ))
           )}
-        </div>
+        </section>
       </div>
     </div>
   )
 }
 
-const linkButton: React.CSSProperties = {
-  border: 'none',
-  background: 'none',
-  padding: 0,
-  font: 'inherit',
-  fontSize: 13,
-  fontWeight: 700,
-  color: 'var(--navy)',
-  cursor: 'pointer',
-  textDecoration: 'underline',
-  flex: 'none',
-}
-
-function SectionTitle({ children }: { children: React.ReactNode }) {
+function Heading({ children }: { children: React.ReactNode }) {
   return (
     <h2
       style={{
-        fontFamily: 'var(--font-display)',
-        fontSize: 22,
-        fontWeight: 700,
-        color: 'var(--ink-heading)',
-        margin: '0 0 16px',
+        fontSize: 'var(--fs-h2)',
+        paddingBottom: 16,
+        borderBottom: '1px solid var(--border-default)',
       }}
     >
       {children}
@@ -431,29 +396,20 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 function ChipRow({ label, items }: { label: string; items: string[] }) {
   if (items.length === 0) return null
   return (
-    <div style={{ marginBottom: 12 }}>
-      <div
-        style={{
-          fontSize: 11,
-          letterSpacing: '1px',
-          fontWeight: 700,
-          color: 'var(--slate)',
-          marginBottom: 6,
-        }}
-      >
-        {label}
-      </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-        {items.map((item, index) => (
+    <div style={{ padding: '18px 0', borderTop: '1px solid var(--border-subtle)' }}>
+      <Label>{label}</Label>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12 }}>
+        {items.map((item) => (
           <span
             key={item}
             style={{
-              background: index % 2 ? 'var(--mist)' : 'var(--sky)',
-              borderRadius: 20,
-              padding: '6px 12px',
-              fontSize: 13,
-              fontWeight: 700,
-              color: 'var(--navy)',
+              height: 32,
+              padding: '0 14px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              borderRadius: 'var(--radius-pill)',
+              border: '1px solid var(--border-default)',
+              fontSize: 'var(--fs-body-s)',
             }}
           >
             {item}
@@ -474,36 +430,20 @@ function EmptyPanel({
   onAction: () => void
 }) {
   return (
-    <div>
+    <div style={{ paddingTop: 24 }}>
       <p
         style={{
-          fontSize: 15,
-          lineHeight: 1.7,
-          color: 'var(--ink-secondary)',
-          margin: '0 0 20px',
+          fontSize: 'var(--fs-body)',
+          lineHeight: 'var(--lh-body)',
+          color: 'var(--text-secondary)',
+          margin: '0 0 24px',
+          maxWidth: '52ch',
           textWrap: 'pretty',
         }}
       >
         {body}
       </p>
-      <button
-        type="button"
-        onClick={onAction}
-        style={{
-          border: 'none',
-          background: 'var(--cta)',
-          color: 'var(--cta-ink)',
-          borderRadius: 20,
-          padding: '12px 24px',
-          fontFamily: 'var(--font-sans)',
-          fontSize: 15,
-          fontWeight: 700,
-          letterSpacing: '0.5px',
-          cursor: 'pointer',
-        }}
-      >
-        {action}
-      </button>
+      <Button onClick={onAction}>{action}</Button>
     </div>
   )
 }

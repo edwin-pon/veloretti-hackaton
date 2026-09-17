@@ -1,4 +1,8 @@
-@import './ds/colors_and_type.css';
+@import './ds/tokens/fonts.css';
+@import './ds/tokens/colors.css';
+@import './ds/tokens/typography.css';
+@import './ds/tokens/spacing.css';
+@import './ds/tokens/effects.css';
 
 * { box-sizing: border-box; }
 
@@ -6,32 +10,87 @@ html, body, #root {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: var(--mist);
+  background: var(--surface-page);
   font-family: var(--font-sans);
-  color: var(--ink-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
 }
 
-a { color: var(--navy); text-decoration: none; font-weight: 700; }
-a:hover { color: var(--navy-700); }
+/* Sentence case everywhere; the brand reserves uppercase for labels. */
+h1, h2, h3, h4 {
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--lh-snug);
+  margin: 0;
+}
 
-@keyframes dl-spin { to { transform: rotate(360deg); } }
-@keyframes dl-in {
-  from { opacity: 0; transform: translateY(6px); }
+button { font-family: var(--font-sans); }
+
+/* Calm and short, no bounce. */
+@keyframes vr-spin { to { transform: rotate(360deg); } }
+@keyframes vr-in {
+  from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: none; }
 }
 
-/* Hover affordances the prototype expressed via its style-hover attribute. */
-.dl-lift { transition: all 150ms ease-out; }
-.dl-lift:hover:not(:disabled) { transform: translateY(-1px); }
+.vr-field:focus { border-color: var(--vr-ink); }
 
-.dl-brand-btn { transition: all 150ms ease-out; }
-.dl-brand-btn:hover { background: rgba(255, 255, 255, 0.12) !important; }
+.vr-row { transition: background-color var(--dur-fast) var(--ease-standard); }
+.vr-row:hover { background: var(--vr-surface-2); }
 
-.dl-brand-option { transition: background 150ms ease-out; }
-.dl-brand-option:hover { background: var(--mist) !important; }
+.vr-card { transition: box-shadow var(--dur-med) var(--ease-standard); }
+.vr-card:hover { box-shadow: var(--shadow-md); }
 
-.dl-drop { transition: all 150ms ease-out; }
-.dl-drop:hover { border-color: var(--navy); background: var(--mist); }
+.vr-drop { transition: border-color var(--dur-fast) var(--ease-standard), background-color var(--dur-fast) var(--ease-standard); }
+.vr-drop:hover { border-color: var(--vr-ink); background: var(--vr-surface-2); }
 
-.dl-nav-item { transition: background 150ms ease-out; }
-.dl-nav-item:hover { background: rgba(255, 255, 255, 0.08); }
+.vr-underline {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--vr-ink);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.vr-underline:hover { color: var(--vr-gray-600); }
+
+/* --- Focus -------------------------------------------------------------
+   The design-system Button sets `outline: none` as an inline style, which
+   beats any normal rule, so this needs !important to restore a visible focus
+   ring. Uses the brand's own focus token rather than the browser's blue. */
+:focus-visible {
+  outline: 2px solid var(--focus-ring) !important;
+  outline-offset: 2px !important;
+  border-radius: var(--radius-sm);
+}
+
+/* --- Responsive --------------------------------------------------------
+   The header is a single row on desktop. Below that it wraps, and the parts
+   that are nice-to-have rather than load-bearing drop away. */
+.vr-header-row { display: flex; align-items: center; gap: 28px; }
+.vr-header-nav { margin-left: auto; display: flex; align-items: center; gap: 24px; min-width: 0; }
+
+@media (max-width: 880px) {
+  .vr-header-row { gap: 16px; flex-wrap: wrap; }
+  .vr-header-nav { gap: 16px; }
+  .vr-hide-md { display: none !important; }
+}
+
+@media (max-width: 560px) {
+  .vr-header-nav { width: 100%; margin-left: 0; }
+  .vr-hide-sm { display: none !important; }
+}
+
+/* Two-up columns collapse to one below the point where they stop being readable. */
+@media (max-width: 860px) {
+  .vr-two-col { grid-template-columns: minmax(0, 1fr) !important; gap: 40px !important; }
+}
+
+/* Four steps side by side stop being readable on a phone. */
+@media (max-width: 720px) {
+  .vr-stepper { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 20px !important; }
+}
