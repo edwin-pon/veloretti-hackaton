@@ -57,3 +57,40 @@ button { font-family: var(--font-sans); }
   text-underline-offset: 3px;
 }
 .vr-underline:hover { color: var(--vr-gray-600); }
+
+/* --- Focus -------------------------------------------------------------
+   The design-system Button sets `outline: none` as an inline style, which
+   beats any normal rule, so this needs !important to restore a visible focus
+   ring. Uses the brand's own focus token rather than the browser's blue. */
+:focus-visible {
+  outline: 2px solid var(--focus-ring) !important;
+  outline-offset: 2px !important;
+  border-radius: var(--radius-sm);
+}
+
+/* --- Responsive --------------------------------------------------------
+   The header is a single row on desktop. Below that it wraps, and the parts
+   that are nice-to-have rather than load-bearing drop away. */
+.vr-header-row { display: flex; align-items: center; gap: 28px; }
+.vr-header-nav { margin-left: auto; display: flex; align-items: center; gap: 24px; min-width: 0; }
+
+@media (max-width: 880px) {
+  .vr-header-row { gap: 16px; flex-wrap: wrap; }
+  .vr-header-nav { gap: 16px; }
+  .vr-hide-md { display: none !important; }
+}
+
+@media (max-width: 560px) {
+  .vr-header-nav { width: 100%; margin-left: 0; }
+  .vr-hide-sm { display: none !important; }
+}
+
+/* Two-up columns collapse to one below the point where they stop being readable. */
+@media (max-width: 860px) {
+  .vr-two-col { grid-template-columns: minmax(0, 1fr) !important; gap: 40px !important; }
+}
+
+/* Four steps side by side stop being readable on a phone. */
+@media (max-width: 720px) {
+  .vr-stepper { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 20px !important; }
+}

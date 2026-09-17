@@ -89,6 +89,7 @@ export function ProgressBar({
 export function Stepper({ steps = [], current = 0 }: { steps?: string[]; current?: number }) {
   return (
     <ol
+      className="vr-stepper"
       style={{
         display: 'grid',
         gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))`,
@@ -111,14 +112,14 @@ export function Stepper({ steps = [], current = 0 }: { steps?: string[]; current
               }}
             />
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
-              <span style={{ ...LABEL, color: done || active ? 'var(--vr-ink)' : 'var(--vr-gray-300)' }}>
+              <span style={{ ...LABEL, color: done || active ? 'var(--vr-ink)' : 'var(--vr-gray-500)' }}>
                 {done ? '✓' : String(index + 1).padStart(2, '0')}
               </span>
               <span
                 style={{
                   fontSize: '0.9375rem',
                   fontWeight: active ? 500 : 400,
-                  color: done || active ? 'var(--vr-ink)' : 'var(--vr-gray-300)',
+                  color: done || active ? 'var(--vr-ink)' : 'var(--vr-gray-500)',
                 }}
               >
                 {step}
@@ -247,11 +248,14 @@ export function TextField({
   onChange,
   placeholder,
   label,
+  ariaLabel,
 }: {
   value: string
   onChange: (value: string) => void
   placeholder?: string
   label?: string
+  /** Use when the field has no visible label, e.g. the chip "add an item" input. */
+  ariaLabel?: string
 }) {
   const id = useId()
   return (
@@ -261,6 +265,7 @@ export function TextField({
         className="vr-field"
         value={value}
         placeholder={placeholder}
+        aria-label={ariaLabel}
         onChange={(event) => onChange(event.target.value)}
         style={{ ...FIELD, height: 'var(--control-h-md)', padding: '0 18px', borderRadius: 'var(--radius-pill)' }}
       />
@@ -273,11 +278,13 @@ export function TextArea({
   onChange,
   rows = 3,
   label,
+  ariaLabel,
 }: {
   value: string
   onChange: (value: string) => void
   rows?: number
   label?: string
+  ariaLabel?: string
 }) {
   const id = useId()
   return (
@@ -287,6 +294,7 @@ export function TextArea({
         className="vr-field"
         value={value}
         rows={rows}
+        aria-label={ariaLabel}
         onChange={(event) => onChange(event.target.value)}
         style={{
           ...FIELD,
@@ -305,11 +313,13 @@ export function SelectField({
   onChange,
   options,
   label,
+  ariaLabel,
 }: {
   value: string
   onChange: (value: string) => void
   options: string[]
   label?: string
+  ariaLabel?: string
 }) {
   const id = useId()
   return (
@@ -318,6 +328,7 @@ export function SelectField({
         id={id}
         className="vr-field"
         value={value}
+        aria-label={ariaLabel}
         onChange={(event) => onChange(event.target.value)}
         style={{
           ...FIELD,

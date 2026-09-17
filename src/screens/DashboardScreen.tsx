@@ -70,7 +70,7 @@ export default function DashboardScreen() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))',
           gap: 32,
           padding: '28px 0',
           borderTop: '1px solid var(--border-default)',
@@ -123,7 +123,7 @@ export default function DashboardScreen() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(380px, 100%), 1fr))',
           gap: 56,
           marginBottom: 72,
         }}
@@ -273,7 +273,7 @@ export default function DashboardScreen() {
         </section>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: 56 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(380px, 100%), 1fr))', gap: 56 }}>
         <section>
           <Heading>Sources</Heading>
           {DOC_ORDER.map((key) => {

@@ -1,5 +1,6 @@
 import { DEFS, type DocField, type DocSection } from '../data/docs'
 import { Button, Label, Notice } from '../ds'
+import BackLink from '../components/BackLink'
 import FieldCard from '../components/FieldCard'
 import { useReviewStats, useStore } from '../lib/store'
 
@@ -27,14 +28,7 @@ export default function ReviewScreen() {
 
   return (
     <div>
-      <button
-        type="button"
-        className="vr-underline"
-        onClick={() => go('hub')}
-        style={{ fontSize: 'var(--fs-body-s)', marginBottom: 32 }}
-      >
-        Back to onboarding
-      </button>
+      <BackLink onClick={() => go('hub')}>Back to onboarding</BackLink>
 
       <div
         style={{
@@ -68,7 +62,7 @@ export default function ReviewScreen() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))',
           gap: 32,
           padding: '28px 0',
           borderTop: '1px solid var(--border-default)',
@@ -176,7 +170,7 @@ function StyleVisuals() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))',
           gap: 16,
           marginBottom: 16,
         }}
@@ -207,7 +201,7 @@ function StyleVisuals() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))',
           gap: 16,
           marginBottom: 16,
         }}
@@ -238,6 +232,10 @@ function StyleVisuals() {
                   borderRadius: 'var(--radius-md)',
                   padding: '28px 28px 20px',
                   marginBottom: 24,
+                  minHeight: 190,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
                 }}
               >
                 <div
@@ -324,6 +322,15 @@ function familyOf(value: string): string {
   return value.split('—')[0].split(',')[0].trim()
 }
 
+/** One line per scale step, so the preview reads as a scale rather than a repeat. */
+const SCALE_SAMPLES: Record<string, string> = {
+  H1: 'Ride into the city',
+  H2: 'Designed in Amsterdam',
+  H3: 'Built for the way you ride',
+  BODY: 'An electric bike built to make your daily rides a pleasure.',
+  CAPTION: 'Handmade in Europe · Two year warranty',
+}
+
 function scaleRows(value: string, headingFamily: string, bodyFamily: string) {
   return value.split('/').map((part) => {
     const tokens = part.trim().split(/\s+/)
@@ -336,9 +343,7 @@ function scaleRows(value: string, headingFamily: string, bodyFamily: string) {
       size: Math.min(px, 40),
       family: isHeading ? headingFamily : bodyFamily,
       weight: isHeading ? 700 : 400,
-      sample: isHeading
-        ? 'Ride into the city'
-        : 'Timeless, quiet, and made for the way you actually ride.',
+      sample: SCALE_SAMPLES[name.toUpperCase()] ?? 'Timeless, quiet, and made for the way you actually ride.',
     }
   })
 }

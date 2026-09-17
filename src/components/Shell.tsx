@@ -20,6 +20,13 @@ const CAMPAIGN_CRUMBS: Partial<Record<Screen, string>> = {
  * work, and everything below breathes. No colour, no chrome — the brand's
  * "less, but better" applied to an internal tool.
  */
+const RULE: React.CSSProperties = {
+  width: 1,
+  height: 22,
+  background: 'var(--border-default)',
+  flex: 'none',
+}
+
 export default function Shell({ children }: { children: ReactNode }) {
   const { state, doneCount, allDone, go, reset } = useStore()
 
@@ -70,22 +77,13 @@ export default function Shell({ children }: { children: ReactNode }) {
             <Wordmark width={132} />
           </button>
 
-          <span
-            aria-hidden
-            style={{ width: 1, height: 22, background: 'var(--border-default)', flex: 'none' }}
-          />
+          <span aria-hidden className="vr-hide-sm" style={RULE} />
 
-          <Label style={{ color: 'var(--vr-ink)' }}>Brand studio</Label>
+          <span className="vr-hide-sm">
+            <Label style={{ color: 'var(--vr-ink)', whiteSpace: 'nowrap' }}>Brand studio</Label>
+          </span>
 
-          <nav
-            style={{
-              marginLeft: 'auto',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 24,
-              minWidth: 0,
-            }}
-          >
+          <nav className="vr-header-nav">
             <button
               type="button"
               className="vr-underline"
@@ -102,24 +100,22 @@ export default function Shell({ children }: { children: ReactNode }) {
                 as a stutter. Every other screen is a page inside a section. */}
             {crumb !== 'Campaigns' && (
               <>
+                <span aria-hidden className="vr-hide-md" style={RULE} />
                 <span
-                  aria-hidden
-                  style={{ width: 1, height: 22, background: 'var(--border-default)', flex: 'none' }}
-                />
-                <span style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)' }}>
+                  className="vr-hide-md"
+                  style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)' }}
+                >
                   {crumb}
                 </span>
               </>
             )}
-            <span
-              aria-hidden
-              style={{ width: 1, height: 22, background: 'var(--border-default)', flex: 'none' }}
-            />
+            <span aria-hidden className="vr-hide-md" style={RULE} />
             <span style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)' }}>
               {allDone ? 'All sources confirmed' : `${doneCount} of ${DOC_ORDER.length} confirmed`}
             </span>
             <span
               aria-hidden
+              className="vr-hide-sm"
               style={{
                 width: 72,
                 height: 2,
