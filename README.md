@@ -30,6 +30,15 @@ CLOUDFLARE_ACCOUNT_ID=<your account id>
 
 Currently live at https://veloretti-brand-studio.nielskorte.workers.dev
 
+The campaign-intake preview is deployed separately, so it does not overwrite
+that one:
+
+```sh
+npx wrangler deploy --name veloretti-intake-preview
+```
+
+https://veloretti-intake-preview.nielskorte.workers.dev/intake
+
 ## Where things live
 
 | Path | What it is |
@@ -89,6 +98,11 @@ language derivation, market and phase coverage, flighting, scope status,
 placeholder copy and asset differentiation. Brand, legal and rendered-dimension
 checks belong to the compose stage, where there is an actual asset to measure,
 and are deliberately not faked here.
+
+There is a standalone preview of all of this at `/intake`, built from
+`src/preview/`. It imports no design system on purpose, because the studio's own
+UI is a separate job: change the offer mode or untick a channel-plan row and the
+matrix, the briefs and the gates all re-resolve in place.
 
 `npm run check:matrix` resolves the seeded briefing and prints the matrix and
 every gate. Two failures are seeded on purpose and are the point of the exercise:
