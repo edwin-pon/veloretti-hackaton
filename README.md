@@ -20,6 +20,15 @@ npm run build    # type-check + production build into dist/
 npm run deploy   # build, then publish to Cloudflare Workers
 ```
 
+Deploying needs a Cloudflare account to target. It is deliberately not in
+`wrangler.jsonc` — put it in a local `.env` (gitignored):
+
+```sh
+CLOUDFLARE_ACCOUNT_ID=<your account id>
+```
+
+Currently live at https://veloretti-brand-studio.nielskorte.workers.dev
+
 ## Where things live
 
 | Path | What it is |
