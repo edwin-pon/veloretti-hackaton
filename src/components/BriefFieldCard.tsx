@@ -1,37 +1,33 @@
-import type { DocField } from '../data/docs'
-import { Badge, Label, SelectField, TextArea, TextField, Toggle } from '../ds'
-import { useStore } from '../lib/store'
-
-interface Props {
-  field: DocField
-  /** Rendered above the input, e.g. the colour swatch or font specimen. */
-  preview?: React.ReactNode
-  /** Replaces the default input entirely, e.g. the type-scale table. */
-  control?: React.ReactNode
-}
+import type { BriefField } from '../data/briefing'
+import { Badge, Label, SelectField, TextArea, TextField } from '../ds'
+import { useCampaign } from '../lib/campaign-store'
 
 /**
- * One extracted rule: what the agent read, how sure it was, where it came from,
- * and why. Rows are separated by hairlines rather than boxed in cards — the
- * brand reads editorial, not dashboard.
+ * One extracted field of a campaign brief. Same anatomy as the onboarding
+ * FieldCard, with two types onboarding has no use for:
+ *
+ *   * `derived` renders read-only and says what it follows from, because some
+ *     values are not choices. Language follows the market; the CTA follows the
+ *     funnel phase. Making them editable would invite a contradiction.
+ *   * `percent` is the single-sourced offer value, so it gets a plain number
+ *     field rather than free text.
  */
-export default function FieldCard({ field, preview, control }: Props) {
-  const { state, setValue, setDraft, addChip, removeChip, toggleWhy, fieldStatus } = useStore()
+export default function BriefFieldCard({ field }: { field: BriefField }) {
+  const { state, setValue, setDraft, addChip, removeChip, toggleWhy, fieldStatus } = useCampaign()
   const status = fieldStatus(field)
   const value = state.values[field.key]
   const whyOpen = state.why === field.key
+  const derived = field.type === 'derived'
 
   return (
     <div
       style={{
-        background: 'var(--surface-card)',
+        background: derived ? 'var(--surface-sand)' : 'var(--surface-card)',
         border: '1px solid var(--border-subtle)',
         borderRadius: 'var(--radius-lg)',
         padding: 28,
       }}
     >
-      {preview}
-
       <div
         style={{
           display: 'flex',
@@ -51,11 +47,13 @@ export default function FieldCard({ field, preview, control }: Props) {
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 'none' }}>
           <Label style={{ color: 'var(--vr-gray-400)' }}>{field.conf}%</Label>
-          <Badge variant={status.variant}>{status.label}</Badge>
+          <Badge variant={derived ? 'neutral' : status.variant}>
+            {derived ? 'Derived' : status.label}
+          </Badge>
         </div>
       </div>
 
-      {control ?? <FieldControl field={field} value={value} />}
+      <Control />
 
       <div
         style={{
@@ -77,19 +75,11 @@ export default function FieldCard({ field, preview, control }: Props) {
         >
           {whyOpen ? 'Hide reasoning' : 'Why this value'}
         </button>
-        <span style={{ marginLeft: 'auto' }}>
-          {state.touched[field.key] ? 'Edited by you' : ''}
-        </span>
+        <span style={{ marginLeft: 'auto' }}>{state.touched[field.key] ? 'Edited by you' : ''}</span>
       </div>
 
       {whyOpen && (
-        <div
-          style={{
-            marginTop: 18,
-            paddingTop: 18,
-            borderTop: '1px solid var(--border-subtle)',
-          }}
-        >
+        <div style={{ marginTop: 18, paddingTop: 18, borderTop: '1px solid var(--border-subtle)' }}>
           <div style={{ marginBottom: 10 }}>
             <Label>Agent reasoning</Label>
           </div>
@@ -119,11 +109,18 @@ export default function FieldCard({ field, preview, control }: Props) {
     </div>
   )
 
-  function FieldControl({ field, value }: { field: DocField; value: unknown }) {
+  function Control() {
     switch (field.type) {
-      case 'text':
+      case 'derived':
         return (
-          <TextField value={String(value ?? '')} onChange={(next) => setValue(field.key, next)} />
+          <div>
+            <div style={{ fontSize: 'var(--fs-body)', lineHeight: 'var(--lh-body)' }}>
+              {String(value ?? '')}
+            </div>
+            <div style={{ marginTop: 10 }}>
+              <Label>Follows from {field.derivedFrom}</Label>
+            </div>
+          </div>
         )
       case 'area':
         return (
@@ -141,13 +138,30 @@ export default function FieldCard({ field, preview, control }: Props) {
             options={field.options ?? []}
           />
         )
-      case 'toggle':
+      case 'date':
         return (
-          <Toggle
-            checked={value === true}
-            onChange={(next) => setValue(field.key, next)}
-            label={field.toggleLabel}
+          <input
+            type="date"
+            className="vr-field"
+            value={String(value ?? '')}
+            onChange={(event) => setValue(field.key, event.target.value)}
+            style={inputStyle}
           />
+        )
+      case 'percent':
+        return (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <input
+              type="number"
+              min={0}
+              max={100}
+              className="vr-field"
+              value={Number(value ?? 0)}
+              onChange={(event) => setValue(field.key, Number(event.target.value))}
+              style={{ ...inputStyle, width: 120 }}
+            />
+            <span style={{ fontSize: 'var(--fs-body)' }}>%</span>
+          </div>
         )
       case 'chips': {
         const chips = Array.isArray(value) ? (value as string[]) : []
@@ -226,6 +240,22 @@ export default function FieldCard({ field, preview, control }: Props) {
           </div>
         )
       }
+      default:
+        return (
+          <TextField value={String(value ?? '')} onChange={(next) => setValue(field.key, next)} />
+        )
     }
   }
+}
+
+const inputStyle: React.CSSProperties = {
+  fontFamily: 'var(--font-sans)',
+  fontSize: '0.9375rem',
+  color: 'var(--vr-ink)',
+  background: 'var(--vr-white)',
+  border: '1.5px solid var(--vr-gray-200)',
+  outline: 'none',
+  height: 'var(--control-h-md)',
+  padding: '0 18px',
+  borderRadius: 'var(--radius-pill)',
 }

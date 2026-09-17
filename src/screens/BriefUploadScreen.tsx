@@ -1,13 +1,14 @@
 import { useRef, useState } from 'react'
-import { DEFS } from '../data/docs'
+import { BRIEFING } from '../data/briefing'
 import { Button, Label, Notice } from '../ds'
+import { useCampaign } from '../lib/campaign-store'
 import { useStore } from '../lib/store'
 
-export default function UploadScreen() {
-  const { state, go, pickFile, removeFile, startAnalysis } = useStore()
+export default function BriefUploadScreen() {
+  const { go } = useStore()
+  const { state, pickFile, removeFile, read } = useCampaign()
   const inputRef = useRef<HTMLInputElement>(null)
   const [dragging, setDragging] = useState(false)
-  const def = DEFS[state.doc]
   const upload = state.upload
 
   const accept = (files: FileList | null) => {
@@ -20,14 +21,16 @@ export default function UploadScreen() {
       <button
         type="button"
         className="vr-underline"
-        onClick={() => go('hub')}
+        onClick={() => go('campaign-start')}
         style={{ fontSize: 'var(--fs-body-s)', marginBottom: 32 }}
       >
-        Back to onboarding
+        Back to start options
       </button>
 
-      <Label>Step {String(def.order).padStart(2, '0')}</Label>
-      <h1 style={{ fontSize: 'var(--fs-display-m)', margin: '18px 0 20px' }}>{def.title}</h1>
+      <Label>Campaign brief</Label>
+      <h1 style={{ fontSize: 'var(--fs-display-m)', margin: '18px 0 20px' }}>
+        Hand over the growth briefing.
+      </h1>
       <p
         style={{
           fontSize: 'var(--fs-body-l)',
@@ -38,23 +41,32 @@ export default function UploadScreen() {
           textWrap: 'pretty',
         }}
       >
-        {def.intro}
+        A growth briefing is a grid rather than a document: one concept projected onto ads, a
+        landing page and a newsletter. The agent reads the parameters behind that grid, so the
+        studio can resolve it instead of anyone placing the frames by hand.
       </p>
 
       {state.error && (
         <div style={{ marginBottom: 32 }}>
-          <Notice title="Analysis failed" tone="attention">
+          <Notice title="Reading the briefing failed" tone="attention">
             {state.error}
           </Notice>
         </div>
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.7fr) minmax(0, 1fr)', gap: 48, alignItems: 'start' }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'minmax(0, 1.7fr) minmax(0, 1fr)',
+          gap: 48,
+          alignItems: 'start',
+        }}
+      >
         <div>
           <input
             ref={inputRef}
             type="file"
-            accept=".pdf,.docx,.md,.markdown,application/pdf"
+            accept=".pdf,.docx,.md,.markdown,.fig,application/pdf"
             hidden
             onChange={(event) => accept(event.target.files)}
           />
@@ -87,9 +99,11 @@ export default function UploadScreen() {
               cursor: 'pointer',
             }}
           >
-            <div style={{ fontSize: 'var(--fs-h3)', marginBottom: 10 }}>Drop your document here</div>
+            <div style={{ fontSize: 'var(--fs-h3)', marginBottom: 10 }}>
+              Drop the growth briefing here
+            </div>
             <div style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)' }}>
-              PDF, DOCX or Markdown · up to 40 MB
+              Figma export, PDF, DOCX or Markdown · up to 40 MB
             </div>
             <div style={{ marginTop: 28, display: 'flex', justifyContent: 'center' }}>
               <Button variant="secondary" as="button">
@@ -106,14 +120,14 @@ export default function UploadScreen() {
               textAlign: 'center',
             }}
           >
-            No document to hand?{' '}
+            No briefing to hand?{' '}
             <button
               type="button"
               className="vr-underline"
               onClick={() => pickFile()}
               style={{ fontSize: 'var(--fs-caption)' }}
             >
-              Use the sample {def.file}
+              Use the sample {BRIEFING.file}
             </button>
           </div>
 
@@ -156,9 +170,9 @@ export default function UploadScreen() {
               </div>
 
               <div style={{ display: 'flex', gap: 20, alignItems: 'center', marginTop: 28 }}>
-                <Button onClick={startAnalysis}>Start analysis</Button>
+                <Button onClick={read}>Read the brief</Button>
                 <span style={{ fontSize: 'var(--fs-caption)', color: 'var(--text-muted)' }}>
-                  Takes about 40 seconds
+                  Takes about 15 seconds
                 </span>
               </div>
             </div>
@@ -166,9 +180,9 @@ export default function UploadScreen() {
         </div>
 
         <aside>
-          <Label>What the agent extracts</Label>
+          <Label>What the agent looks for</Label>
           <div style={{ marginTop: 20 }}>
-            {def.extracts.map((row) => (
+            {BRIEFING.looksFor.map((row) => (
               <div
                 key={row}
                 style={{
@@ -182,6 +196,21 @@ export default function UploadScreen() {
                 {row}
               </div>
             ))}
+          </div>
+
+          <div style={{ marginTop: 32, paddingTop: 24, borderTop: '1px solid var(--border-subtle)' }}>
+            <p
+              style={{
+                fontSize: 'var(--fs-body-s)',
+                lineHeight: 'var(--lh-body)',
+                color: 'var(--text-muted)',
+                margin: 0,
+                textWrap: 'pretty',
+              }}
+            >
+              Layer names are never read. In the source briefing all 458 ad frames shared one layer
+              name left over from a previous campaign, and it contradicted every frame's contents.
+            </p>
           </div>
         </aside>
       </div>

@@ -1,29 +1,37 @@
 import type { DocKey } from '../data/docs'
 
-/** Screens in the onboarding flow. The campaign/canvas screens land here later. */
-export type Screen = 'hub' | 'upload' | 'analyzing' | 'review' | 'dashboard'
+/** Brand onboarding, then the campaign track. The asset canvas lands here later. */
+export type Screen =
+  | 'hub'
+  | 'upload'
+  | 'analyzing'
+  | 'review'
+  | 'dashboard'
+  | 'campaign-start'
+  | 'brief-upload'
+  | 'brief-analyzing'
+  | 'brief-review'
+  | 'matrix'
 
 export type FieldValue = string | string[] | boolean
 
-/** Which of the three source documents a brand has confirmed. */
+/** Which of the three source documents have been confirmed. */
 export type DoneMap = Partial<Record<DocKey, boolean>>
 
 export interface PickedDocument {
   name: string
   /** Human-readable size, e.g. "4.8 MB". Page count is unknown for real files. */
   meta: string
-  /** Absent when the user accepted the prototype's stand-in document. */
+  /** Absent when the sample document was used. */
   file?: File
 }
 
 export interface AppState {
   screen: Screen
   doc: DocKey
-  brandKey: string
   /** The document picked on the upload screen, not yet analysed. */
   upload: PickedDocument | null
-  brandsOpen: boolean
-  doneByBrand: Record<string, DoneMap>
+  done: DoneMap
   progress: number
   /** Current (possibly edited) value of every extracted field, keyed by field key. */
   values: Record<string, FieldValue>

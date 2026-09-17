@@ -1,25 +1,25 @@
-import { DEFS } from '../data/docs'
+import { BRIEFING } from '../data/briefing'
 import { Label, ProgressBar, Spinner } from '../ds'
-import { useStore } from '../lib/store'
+import { useCampaign } from '../lib/campaign-store'
 
 const STEPS = [
-  'Parsing document structure',
-  'Locating rule statements',
-  'Extracting and normalising values',
+  'Reading text, never layer names',
+  'Locating concept, offer and markets',
+  'Normalising against the campaign vocabulary',
   'Scoring confidence and citations',
 ]
 
-export default function AnalyzingScreen() {
-  const { state } = useStore()
+export default function BriefAnalyzingScreen() {
+  const { state } = useCampaign()
   const active = Math.min(STEPS.length - 1, Math.floor(state.progress / 25))
-  const fileName = state.upload?.name ?? DEFS[state.doc].file
+  const fileName = state.upload?.name ?? BRIEFING.file
 
   return (
     <div style={{ maxWidth: 680, margin: '64px auto' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 40 }}>
         <Spinner size={26} />
         <div>
-          <h1 style={{ fontSize: 'var(--fs-h2)' }}>Reading your document</h1>
+          <h1 style={{ fontSize: 'var(--fs-h2)' }}>Reading the campaign brief</h1>
           <div style={{ fontSize: 'var(--fs-body-s)', color: 'var(--text-muted)', marginTop: 6 }}>
             {fileName}
           </div>

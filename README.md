@@ -1,14 +1,25 @@
-# Brand Studio
+# Veloretti Brand Studio
 
-Front end for the Veloretti hackathon build of **Brand Studio** — Pon Datalab's
+Front end for the Veloretti hackathon build of **Brand Studio** — a
 brand-knowledge and campaign-compliance tool.
 
-The flow implemented here is **brand onboarding**: upload a source document, an
+Single brand, single workspace: this is Veloretti's studio, so there is no brand
+switcher and no per-brand state.
+
+Two flows are implemented. **Brand onboarding**: upload a source document, an
 agent extracts the rules campaigns must follow, you review and confirm them, and
-the confirmed rules land on a brand dashboard.
+the confirmed rules land on a brand knowledge page.
 
 ```
 hub → upload → analyzing → review → (next document) → dashboard
+```
+
+**Campaign intake**: hand over a growth briefing, the agent reads the campaign
+out of it, and the confirmed brief resolves into the slots the campaign has to
+deliver.
+
+```
+campaign start → brief upload → analyzing → brief review → slot matrix
 ```
 
 ## Running it
@@ -30,15 +41,6 @@ CLOUDFLARE_ACCOUNT_ID=<your account id>
 
 Currently live at https://veloretti-brand-studio.nielskorte.workers.dev
 
-The campaign-intake preview is deployed separately, so it does not overwrite
-that one:
-
-```sh
-npx wrangler deploy --name veloretti-intake-preview
-```
-
-https://veloretti-intake-preview.nielskorte.workers.dev/intake
-
 ## Where things live
 
 | Path | What it is |
@@ -53,9 +55,29 @@ https://veloretti-intake-preview.nielskorte.workers.dev/intake
 | `src/data/briefing.ts` | The growth briefing the intake extracts, and the seed used offline |
 | `src/lib/campaign.ts` | The Campaign object and the slot that is the atomic deliverable |
 | `src/lib/matrix.ts` | Resolve, brief templating and the QA gates. Deterministic, no model calls |
+| `src/lib/campaign-store.tsx` | Campaign state, and the matrix and gates derived from it |
 | `src/lib/briefing-api.ts` | **The campaign-intake seam** |
-| `src/ds/` | Pon Datalab design system (compiled React components + CSS tokens) |
+| `src/ds/` | Veloretti design system — bundle, tokens, and the primitives it does not ship |
+| `src/assets/` | The official wordmark, black and white |
 | `design/` | The original Design Canvas prototypes this was ported from |
+
+## Brand
+
+The UI follows the Veloretti design system (`Veloretti Design System.zip`):
+PP Neue Montreal throughout, the warm-neutral grey ramp, pill controls, hairline
+borders, 10px cards, sentence-case headlines and uppercase labels at 0.14em.
+
+Two rules worth keeping in mind when extending it:
+
+- **The wordmark is never redrawn or recoloured.** `src/components/Wordmark.tsx`
+  renders the supplied SVGs and nothing else.
+- **Orange is the tertiary accent and is promo-only.** It appears in exactly one
+  place in this app: the flag on a field the agent was unsure about. Everything
+  else stays monochrome. Add a second use only on purpose.
+
+Veloretti's own kit is a commerce kit, so it ships no progress bar, stepper,
+spinner, toggle, notice or multiline field. Those are built from the brand's
+tokens in `src/ds/primitives.tsx`.
 
 The design system bundle expects `React` on the global scope, so
 `src/ds/index.ts` publishes it there before importing the bundle. Those two
@@ -72,11 +94,11 @@ parameters and resolve the grid.
 `docs/growth-briefing-blueprint.md` is the source those vocabularies were read
 from. Change a vocabulary there first, then here.
 
-The flow:
-
-```
-briefing → extract → review → resolve → gates → campaign
-```
+There are two human checkpoints, and both are there to be cheap. Brief sign-off
+happens on `BriefReviewScreen`, where the slot count updates as you edit, so the
+cost of a change is visible before it is confirmed. Matrix sign-off happens on
+`MatrixScreen`, where rows are pruned. A slot removed there costs nothing; the
+same slot removed after its copy and renders costs all of it.
 
 Three things in the model are load-bearing and easy to get wrong:
 
@@ -98,11 +120,6 @@ language derivation, market and phase coverage, flighting, scope status,
 placeholder copy and asset differentiation. Brand, legal and rendered-dimension
 checks belong to the compose stage, where there is an actual asset to measure,
 and are deliberately not faked here.
-
-There is a standalone preview of all of this at `/intake`, built from
-`src/preview/`. It imports no design system on purpose, because the studio's own
-UI is a separate job: change the offer mode or untick a channel-plan row and the
-matrix, the briefs and the gates all re-resolve in place.
 
 `npm run check:matrix` resolves the seeded briefing and prints the matrix and
 every gate. Two failures are seeded on purpose and are the point of the exercise:
@@ -147,12 +164,19 @@ The briefing webhook works the same way, against the field keys in
 `src/data/briefing.ts`, and may additionally return `markets`, `channelPlan` and
 `propositions`, which the intake edits as tables rather than as fields.
 
-## Not built yet
+### About the seeded values
 
-Campaign intake has its model, its resolver and its gates, but no screens yet:
-`CampaignStart`, the briefing upload, the extracted-brief review and the slot
-matrix are still to be built on top of `src/lib/matrix.ts`. The Design Canvas
-prototype covers all four.
+`src/data/docs.ts` is demo data, and the two kinds are worth telling apart:
+
+- **Real** — everything under the style guide (palette, type, usage rules) and
+  the brand identity, voice and blocked words. These come from the Veloretti
+  design system and visual-language guide.
+- **Invented** — the legal-rules document in full, every confidence score,
+  citation, page number and line of agent reasoning, and the four markets
+  (NL/DE/BE/DK). No legal source was provided; the markets are not stated in the
+  design system but the campaign story depends on them.
+
+## Not built yet
 
 The prototype in `design/` also covers the asset canvas (variant A is the one to
 build), the media manager, settings and the platform console. The sidebar shows
