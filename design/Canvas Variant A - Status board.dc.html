@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/datalab-design-system-adceb3aa-55c6-4d43-9298-97acdf287790/colors_and_type.css">
+<link rel="stylesheet" href="_ds/datalab-design-system-adceb3aa-55c6-4d43-9298-97acdf287790/styles.css">
+<script src="_ds/datalab-design-system-adceb3aa-55c6-4d43-9298-97acdf287790/_ds_bundle.js"></script>
+<style>
+  html, body { margin:0; padding:0; background:#E6ECF2; font-family:var(--font-sans); color:var(--ink-body); overflow:hidden; }
+  a { color:#002C47; } a:hover { color:#013A5E; }
+</style>
+</helmet>
+
+<div style="width:100vw;height:100vh;display:flex;flex-direction:column;background:#E6ECF2">
+
+  <div style="flex:none;background:#fff;border-bottom:1px solid #CBD7E3;padding:12px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+    <div style="flex:none;min-width:0">
+      <div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--ink-heading);line-height:1.25;white-space:nowrap">Spring commuter push</div>
+      <div style="font-size:12px;color:var(--slate);margin-top:1px;white-space:nowrap">{{ resultLabel }}</div>
+    </div>
+    <span style="flex:none;width:1px;height:32px;background:var(--hairline)"></span>
+    <div style="flex:1 1 100%;order:2;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <div style="flex:none;display:flex;align-items:center;gap:6px">
+        <span style="font-size:10px;letter-spacing:1px;font-weight:700;color:var(--slate);white-space:nowrap">MARKET</span>
+        <sc-for list="{{ marketFilters }}" as="f" hint-placeholder-count="3">
+          <button onClick="{{ f.onToggle }}" style="border:2px solid {{ f.border }};background:{{ f.bg }};color:{{ f.color }};border-radius:20px;padding:6px 13px;font-family:var(--font-sans);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">{{ f.label }}</button>
+        </sc-for>
+      </div>
+      <span style="flex:none;width:1px;height:32px;background:var(--hairline)"></span>
+      <div style="flex:none;display:flex;align-items:center;gap:6px">
+        <span style="font-size:10px;letter-spacing:1px;font-weight:700;color:var(--slate);white-space:nowrap">LOCALE</span>
+        <sc-for list="{{ localeFilters }}" as="f" hint-placeholder-count="4">
+          <button onClick="{{ f.onToggle }}" style="border:2px solid {{ f.border }};background:{{ f.bg }};color:{{ f.color }};border-radius:20px;padding:6px 13px;font-family:var(--font-sans);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">{{ f.label }}</button>
+        </sc-for>
+      </div>
+      <span style="flex:none;width:1px;height:32px;background:var(--hairline)"></span>
+      <div style="flex:none;display:flex;align-items:center;gap:6px">
+        <span style="font-size:10px;letter-spacing:1px;font-weight:700;color:var(--slate);white-space:nowrap">CHANNEL</span>
+        <sc-for list="{{ channelFilters }}" as="f" hint-placeholder-count="3">
+          <button onClick="{{ f.onToggle }}" style="border:2px solid {{ f.border }};background:{{ f.bg }};color:{{ f.color }};border-radius:20px;padding:6px 13px;font-family:var(--font-sans);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">{{ f.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:none;display:flex;gap:8px;align-items:center">
+      <sc-if value="{{ check.running }}">
+        <div style="width:150px">
+          <x-import component-from-global-scope="DatalabDesignSystem_adceb3.ProgressBar" value="{{ check.progress }}" max="{{ 100 }}" label="Checking" hint-size="100%,36px"></x-import>
+        </div>
+      </sc-if>
+      <button onClick="{{ check.onRun }}" style="flex:none;white-space:nowrap;border:2px solid var(--navy);background:transparent;color:var(--navy);border-radius:20px;padding:8px 16px;font-family:var(--font-sans);font-size:13px;font-weight:700;cursor:pointer">{{ check.label }}</button>
+      <button onClick="{{ onApproveAllPassing }}" style="flex:none;white-space:nowrap;border:none;background:var(--navy);color:#fff;border-radius:20px;padding:10px 18px;font-family:var(--font-sans);font-size:13px;font-weight:700;letter-spacing:0.5px;cursor:pointer">Approve all passing</button>
+      <button style="flex:none;white-space:nowrap;border:none;background:var(--mist);color:var(--slate);border-radius:20px;padding:10px 18px;font-family:var(--font-sans);font-size:13px;font-weight:700;letter-spacing:0.5px;cursor:not-allowed">Render · 5</button>
+    </div>
+  </div>
+
+  <div data-canvas="viewport" style="flex:1;min-height:0;position:relative;overflow:hidden">
+    <div data-pan="bg" onMouseDown="{{ onDown }}" onMouseMove="{{ onMove }}" onMouseUp="{{ onUp }}" onMouseLeave="{{ onUp }}" onWheel="{{ onWheel }}" style="position:absolute;inset:0;cursor:{{ cursor }};background-image:radial-gradient(#C3CFDC 1px, transparent 1px);background-size:{{ dotSize }} {{ dotSize }};background-position:{{ dotPos }}">
+
+      <div data-pan="bg" data-canvas="plane" style="position:absolute;top:0;left:0;transform-origin:0 0;transform:{{ transform }};padding:48px 64px 64px;display:flex;gap:64px;align-items:flex-start">
+
+        <sc-for list="{{ sections }}" as="sec" hint-placeholder-count="3">
+          <section style="flex:none;display:flex;flex-direction:column;gap:16px">
+
+            <div data-pan="bg" style="display:flex;align-items:flex-start;justify-content:space-between;gap:24px">
+              <div style="min-width:0">
+                <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+                  <span style="font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--ink-heading)">{{ sec.market }}</span>
+                  <span style="font-size:12px;letter-spacing:1px;font-weight:700;color:var(--slate)">{{ sec.locale }}</span>
+                  <x-import component-from-global-scope="DatalabDesignSystem_adceb3.Badge" tone="{{ sec.tone }}" hint-size="auto,24px">{{ sec.status }}</x-import>
+                </div>
+                <p style="font-size:13px;line-height:1.6;color:var(--slate);margin:6px 0 0;max-width:62ch;text-wrap:pretty">{{ sec.legalNote }}</p>
+              </div>
+              <button style="flex:none;white-space:nowrap;border:none;background:{{ sec.approveBg }};color:{{ sec.approveColor }};border-radius:20px;padding:9px 18px;font-family:var(--font-sans);font-size:13px;font-weight:700;letter-spacing:0.5px;cursor:{{ sec.approveCursor }}">{{ sec.approveLabel }}</button>
+            </div>
+
+            <div style="background:rgba(255,255,255,0.55);border:1px solid #CBD7E3;border-radius:20px;padding:24px">
+              <div style="display:grid;grid-template-columns:{{ sec.gridCols }};gap:20px;align-items:start">
+
+                <div></div>
+                <sc-for list="{{ sec.channels }}" as="ch" hint-placeholder-count="3">
+                  <div style="padding-bottom:4px">
+                    <div style="font-size:14px;font-weight:700;color:var(--ink-heading)">{{ ch.name }}</div>
+                    <div style="font-size:11px;color:var(--slate);margin-top:2px">{{ ch.format }}</div>
+                  </div>
+                </sc-for>
+
+                <sc-for list="{{ sec.cells }}" as="cell" hint-placeholder-count="8">
+                  <div style="min-width:0">
+                    <sc-if value="{{ cell.isLabel }}">
+                      <div style="padding-top:8px">
+                        <div style="font-size:14px;font-weight:700;color:var(--ink-heading);text-wrap:pretty">{{ cell.label }}</div>
+                        <div style="font-size:12px;line-height:1.5;color:var(--slate);margin-top:4px;text-wrap:pretty">{{ cell.sub }}</div>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ cell.isCard }}">
+                      <div onClick="{{ cell.onSelect }}" style="display:flex;flex-direction:column;gap:8px;cursor:pointer">
+                        <div style="position:relative;height:{{ cell.h }};border-radius:12px;background:{{ cell.bg }};border:{{ cell.ring }};box-shadow:{{ cell.shadow }};padding:16px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden">
+                          <span style="font-size:10px;letter-spacing:1px;font-weight:700;color:{{ cell.tagColor }}">{{ cell.locale }}</span>
+                          <div>
+                            <div style="font-family:var(--font-display);font-size:{{ cell.titleSize }};font-weight:700;line-height:1.25;color:{{ cell.titleColor }};text-wrap:pretty">{{ cell.title }}</div>
+                            <div style="font-size:12px;line-height:1.5;color:{{ cell.descColor }};margin-top:6px;text-wrap:pretty">{{ cell.desc }}</div>
+                          </div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-height:24px">
+                          <x-import component-from-global-scope="DatalabDesignSystem_adceb3.Badge" tone="{{ cell.tone }}" hint-size="auto,24px">{{ cell.status }}</x-import>
+                          <span style="flex:1;min-width:0;font-size:12px;color:var(--slate);text-wrap:pretty">{{ cell.note }}</span>
+                          <button onClick="{{ cell.onCompliance }}" style="flex:none;border:2px solid var(--navy);background:{{ cell.compBg }};color:{{ cell.compColor }};border-radius:20px;padding:5px 12px;font-family:var(--font-sans);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap">{{ cell.compLabel }}</button>
+                        </div>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+
+              </div>
+            </div>
+          </section>
+        </sc-for>
+
+        <sc-if value="{{ empty }}">
+          <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 8px rgba(0,44,71,0.08)">
+            <p style="font-size:15px;line-height:1.7;color:var(--slate);margin:0">No assets match these filters.</p>
+          </div>
+        </sc-if>
+
+      </div>
+    </div>
+  </div>
+
+  <sc-if value="{{ edit.open }}">
+    <div style="position:fixed;top:24px;right:24px;bottom:24px;width:min(400px,42vw);z-index:50;overflow-y:auto;background:#fff;border-radius:20px;padding:18px 22px;box-shadow:-16px 0 64px rgba(0,44,71,0.24);display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+        <div style="min-width:0">
+          <div style="font-size:11px;letter-spacing:1px;font-weight:700;color:var(--slate)">EDIT ASSET</div>
+          <div style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--ink-heading);line-height:1.25;margin-top:2px">{{ edit.label }}</div>
+        </div>
+        <button onClick="{{ edit.onClose }}" style="border:none;background:none;font:inherit;font-size:13px;color:var(--slate);cursor:pointer;text-decoration:underline;flex:none">Close</button>
+      </div>
+
+      <div style="flex:none;box-sizing:border-box;border-radius:12px;background:{{ edit.bg }};padding:12px;height:76px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden">
+        <span style="font-size:10px;letter-spacing:1px;font-weight:700;color:{{ edit.tagColor }}">{{ edit.locale }}</span>
+        <div>
+          <div style="font-family:var(--font-display);font-size:15px;font-weight:700;line-height:1.2;color:{{ edit.titleColor }};text-wrap:pretty;overflow:hidden">{{ edit.title }}</div>
+        </div>
+      </div>
+
+      <div style="flex:none">
+        <x-import component-from-global-scope="DatalabDesignSystem_adceb3.TextInput" value="{{ edit.title }}" on-change="{{ edit.onTitle }}" placeholder="Headline" hint-size="100%,44px"></x-import>
+      </div>
+
+      <div style="flex:none">
+        <x-import component-from-global-scope="DatalabDesignSystem_adceb3.TextInput" multiline="{{ true }}" rows="{{ 1 }}" value="{{ edit.desc }}" on-change="{{ edit.onDesc }}" placeholder="Body copy" hint-size="100%,48px"></x-import>
+      </div>
+
+      <div style="flex:none;display:flex;flex-direction:column;gap:8px">
+        <div style="flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+          <span style="font-size:12px;font-weight:700;color:var(--ink-heading)">Background</span>
+          <span style="font-size:11px;color:var(--slate)">Title and description are per-asset</span>
+        </div>
+        <button onClick="{{ edit.onBrowse }}" style="flex:none;display:flex;align-items:center;gap:12px;text-align:left;border:2px solid var(--hairline);background:#fff;border-radius:12px;padding:10px 12px;font-family:var(--font-sans);cursor:pointer">
+          <span style="width:48px;height:34px;flex:none;border-radius:8px;background:{{ edit.bg }}"></span>
+          <span style="flex:1;min-width:0">
+            <span style="display:block;font-size:14px;font-weight:700;color:var(--ink-heading)">{{ edit.mediaName }}</span>
+            <span style="display:block;font-size:12px;color:var(--slate);margin-top:2px">{{ edit.mediaMeta }}</span>
+          </span>
+          <span style="flex:none;font-size:12px;font-weight:700;color:var(--navy);text-decoration:underline">Browse</span>
+        </button>
+
+        <div style="flex:none;background:var(--mist);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+            <span style="font-size:10px;letter-spacing:1px;font-weight:700;color:var(--slate);white-space:nowrap">APPLY BACKGROUND TO</span>
+            <span style="font-size:11px;color:var(--slate);white-space:nowrap">{{ edit.scopeCount }}</span>
+          </div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap">
+            <sc-for list="{{ edit.scopes }}" as="sc" hint-placeholder-count="5">
+              <button onClick="{{ sc.onPick }}" title="{{ sc.title }}" style="border:2px solid {{ sc.border }};background:{{ sc.bg }};color:{{ sc.color }};border-radius:20px;padding:5px 10px;font-family:var(--font-sans);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap">{{ sc.chip }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ picker.open }}">
+    <div onClick="{{ picker.onClose }}" style="position:fixed;inset:0;z-index:70;background:rgba(0,44,71,0.44)"></div>
+  </sc-if>
+
+  <sc-if value="{{ picker.open }}">
+    <div style="position:fixed;top:6vh;left:50%;transform:translateX(-50%);width:min(880px,90vw);max-height:88vh;z-index:75;background:#fff;border-radius:20px;box-shadow:0 24px 80px rgba(0,44,71,0.34);display:flex;flex-direction:column;overflow:hidden">
+
+      <div style="flex:none;padding:24px 28px 16px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;border-bottom:1px solid var(--hairline)">
+        <div style="min-width:0">
+          <div style="font-size:11px;letter-spacing:1px;font-weight:700;color:var(--slate)">MEDIA MANAGER</div>
+          <div style="font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--ink-heading);line-height:1.25;margin-top:4px">Select a background</div>
+          <div style="font-size:13px;color:var(--slate);margin-top:2px">{{ picker.subline }}</div>
+        </div>
+        <button onClick="{{ picker.onClose }}" style="flex:none;border:none;background:none;font:inherit;font-size:13px;color:var(--slate);cursor:pointer;text-decoration:underline">Cancel</button>
+      </div>
+
+      <div style="flex:none;padding:16px 28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--hairline)">
+        <div style="flex:1;min-width:220px">
+          <x-import component-from-global-scope="DatalabDesignSystem_adceb3.SearchBar" value="{{ picker.query }}" on-change="{{ picker.onQuery }}" placeholder="Search the library" hint-size="100%,48px"></x-import>
+        </div>
+        <div style="display:flex;gap:4px;background:var(--mist);border-radius:20px;padding:4px">
+          <sc-for list="{{ picker.kinds }}" as="k" hint-placeholder-count="3">
+            <button onClick="{{ k.onPick }}" style="border:none;background:{{ k.bg }};color:{{ k.color }};border-radius:20px;padding:8px 16px;font-family:var(--font-sans);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap">{{ k.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="flex:1;min-height:0;overflow-y:auto;padding:20px 28px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px">
+          <sc-for list="{{ picker.items }}" as="m" hint-placeholder-count="9">
+            <button onClick="{{ m.onPick }}" style="text-align:left;border:{{ m.ring }};background:#fff;border-radius:12px;padding:0;overflow:hidden;cursor:pointer;display:flex;flex-direction:column">
+              <span style="height:110px;background:{{ m.bg }};display:flex;align-items:flex-start;justify-content:flex-end;padding:8px">
+                <span style="background:rgba(255,255,255,0.9);border-radius:8px;padding:2px 8px;font-size:10px;font-weight:700;color:var(--navy)">{{ m.kind }}</span>
+              </span>
+              <span style="padding:10px 12px;display:block">
+                <span style="display:block;font-size:13px;font-weight:700;color:var(--ink-heading);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ m.name }}</span>
+                <span style="display:block;font-size:11px;color:var(--slate);margin-top:2px">{{ m.meta }}</span>
+              </span>
+            </button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ picker.empty }}">
+          <p style="font-size:15px;line-height:1.7;color:var(--slate);margin:16px 0">Nothing in the library matches that.</p>
+        </sc-if>
+      </div>
+
+      <div style="flex:none;padding:16px 28px;border-top:1px solid var(--hairline);display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <span style="font-size:13px;color:var(--slate)">{{ picker.applyNote }}</span>
+        <button onClick="{{ picker.onClose }}" style="margin-left:auto;flex:none;border:2px solid var(--navy);background:transparent;color:var(--navy);border-radius:20px;padding:10px 20px;font-family:var(--font-sans);font-size:14px;font-weight:700;cursor:pointer">Done</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ comp.open }}">
+    <div onClick="{{ comp.onClose }}" style="position:fixed;inset:0;z-index:55;background:rgba(0,44,71,0.34)"></div>
+  </sc-if>
+
+  <sc-if value="{{ comp.open }}">
+    <div style="position:fixed;top:24px;right:24px;bottom:24px;width:min(420px,45vw);z-index:60;overflow-y:auto;background:#fff;border-radius:20px;padding:28px;box-shadow:-16px 0 64px rgba(0,44,71,0.32);display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+        <div style="min-width:0">
+          <div style="font-size:11px;letter-spacing:1px;font-weight:700;color:var(--slate)">COMPLIANCE AGENT</div>
+          <div style="font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--ink-heading);line-height:1.25;margin-top:4px">{{ comp.label }}</div>
+          <div style="font-size:13px;color:var(--slate);margin-top:4px">{{ comp.summary }}</div>
+        </div>
+        <button onClick="{{ comp.onClose }}" style="border:none;background:none;font:inherit;font-size:13px;color:var(--slate);cursor:pointer;text-decoration:underline;flex:none">Close</button>
+      </div>
+
+      <sc-if value="{{ comp.clean }}">
+        <p style="font-size:15px;line-height:1.7;color:var(--ink-secondary);margin:0">Passes every confirmed legal and style rule.</p>
+      </sc-if>
+
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{ comp.issues }}" as="iss" hint-placeholder-count="2">
+          <div style="background:var(--mist);border-radius:12px;padding:16px 18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <x-import component-from-global-scope="DatalabDesignSystem_adceb3.Badge" tone="{{ iss.tone }}" hint-size="auto,24px">{{ iss.badge }}</x-import>
+              <span style="font-size:11px;color:var(--slate);font-weight:700">{{ iss.source }}</span>
+            </div>
+            <div style="font-size:15px;font-weight:700;color:var(--ink-heading);line-height:1.4">{{ iss.label }}</div>
+            <div style="font-size:14px;line-height:1.6;color:var(--slate);margin-top:4px;text-wrap:pretty">{{ iss.fix }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="border-top:1px solid var(--hairline);padding-top:20px">
+        <div style="font-size:11px;letter-spacing:1px;font-weight:700;color:var(--slate);margin-bottom:8px">APPROVAL</div>
+        <p style="font-size:15px;line-height:1.7;color:var(--ink-secondary);margin:0 0 16px;text-wrap:pretty">{{ comp.approvalNote }}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <sc-if value="{{ comp.canApprove }}">
+            <button onClick="{{ comp.onApprove }}" style="flex:none;white-space:nowrap;border:none;background:var(--mint);color:var(--navy);border-radius:20px;padding:12px 22px;font-family:var(--font-sans);font-size:14px;font-weight:700;letter-spacing:0.5px;cursor:pointer">Approve asset</button>
+          </sc-if>
+          <sc-if value="{{ comp.canApprove }}">
+            <button onClick="{{ comp.onSendReview }}" style="flex:none;white-space:nowrap;border:2px solid var(--navy);background:transparent;color:var(--navy);border-radius:20px;padding:10px 20px;font-family:var(--font-sans);font-size:14px;font-weight:700;cursor:pointer">Send for legal review</button>
+          </sc-if>
+          <sc-if value="{{ comp.decided }}">
+            <button onClick="{{ comp.onReopen }}" style="flex:none;white-space:nowrap;border:2px solid var(--navy);background:transparent;color:var(--navy);border-radius:20px;padding:10px 20px;font-family:var(--font-sans);font-size:14px;font-weight:700;cursor:pointer">{{ comp.reopenLabel }}</button>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <div style="flex:none;background:#fff;border-top:1px solid #CBD7E3;padding:8px 24px;display:flex;align-items:center;gap:16px">
+    <div style="flex:none;display:flex;align-items:center;gap:4px">
+      <button onClick="{{ onZoomOut }}" style="border:none;background:transparent;color:var(--navy);border-radius:20px;padding:6px 14px;font-family:var(--font-sans);font-size:16px;font-weight:700;cursor:pointer">−</button>
+      <button onClick="{{ onReset }}" style="border:none;background:transparent;color:var(--navy);border-radius:20px;padding:6px 10px;font-family:var(--font-sans);font-size:13px;font-weight:700;cursor:pointer;min-width:52px">{{ zoomLabel }}</button>
+      <button onClick="{{ onZoomIn }}" style="border:none;background:transparent;color:var(--navy);border-radius:20px;padding:6px 14px;font-family:var(--font-sans);font-size:16px;font-weight:700;cursor:pointer">+</button>
+      <span style="width:1px;height:20px;background:var(--hairline)"></span>
+      <button onClick="{{ onFit }}" style="border:none;background:transparent;color:var(--navy);border-radius:20px;padding:6px 12px;font-family:var(--font-sans);font-size:13px;font-weight:700;cursor:pointer">Fit</button>
+    </div>
+    <span style="margin-left:auto;font-size:12px;color:var(--slate);white-space:nowrap">Drag to pan · scroll to zoom</span>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1600,&quot;height&quot;:1000}}">
+class Component extends DCLogic {
+  state = {
+    markets: [], locales: [], channels: [], sel: null,
+    compOpen: null, approvals: {}, checked: false, checking: false, checkProgress: 0, edits: {}, bgScope: 'one',
+    pickerOpen: false, pickerQuery: '', pickerKind: 'All',
+    zoom: 0.42, x: 0, y: 0, dragging: false
+  };
+
+  markets = [
+    { key: 'nl', name: 'Netherlands', locale: 'nl-NL', status: 'Ready', tone: 'mint', approvable: true,
+      legalNote: 'Range claims carry the WLTP-e footnote. No additional national notices apply.' },
+    { key: 'de', name: 'Germany', locale: 'de-DE', status: 'Blocked', tone: 'error', approvable: false,
+      legalNote: 'UWG applies: price advertising must state whether VAT and assembly are included.' },
+    { key: 'be', name: 'Belgium', locale: 'nl-BE', status: 'Blocked', tone: 'error', approvable: false,
+      legalNote: 'Dutch-language market. Price claims clear the Belgian list separately.' },
+    { key: 'befr', name: 'Belgium', locale: 'fr-BE', status: 'Ready', tone: 'mint', approvable: true,
+      legalNote: 'French-language Belgium. Same claims set as nl-BE; copy is drafted separately, not machine-translated.' }
+  ];
+
+  channels = [
+    { key: 'ig', name: 'Instagram feed', format: '1080×1080', h: '200px', titleSize: '17px', w: '220px' },
+    { key: 'st', name: 'Instagram story', format: '1080×1920', h: '260px', titleSize: '16px', w: '150px' },
+    { key: 'li', name: 'LinkedIn', format: '1200×627', h: '150px', titleSize: '17px', w: '260px' }
+  ];
+
+  audiences = [
+    { key: 'commuter', name: 'Daily commuter', sub: 'Urban professional, 8–15 km each way' },
+    { key: 'parent', name: 'School-run parent', sub: 'Cargo Line, load and range' },
+    { key: 'dealer', name: 'Dealer buyer', sub: 'Margin, parts, co-op budget' }
+  ];
+
+  copy = {
+    nl: { title: 'Negentig kilometer op één lading', desc: 'Elke dag naar school, werk en terug.' },
+    de: { title: 'Neunzig Kilometer mit einer Ladung', desc: 'Für den täglichen Weg zur Arbeit.' },
+    be: { title: 'Negentig kilometer op één lading', desc: 'Van school tot supermarkt, elke dag.' },
+    befr: { title: 'Quatre-vingt-dix kilomètres sur une charge', desc: 'De l\u2019école au supermarché, chaque jour.' }
+  };
+
+  audCopy = {
+    commuter: { title: 'Woon-werkverkeer zonder auto', desc: 'Acht tot vijftien kilometer, elke dag.' },
+    parent: { title: 'Boodschappen, school, werk', desc: 'Eén bakfiets voor de hele dag.' },
+    dealer: { title: 'Voorraad, service, verkoop dichtbij', desc: 'Voor onze dealerpartners.' }
+  };
+
+  flags = {
+    'be-ig': { status: 'Blocked', tone: 'error', note: 'Price claim not confirmed', bg: '#123A2C' },
+    'de-li': { status: 'Blocked', tone: 'error', note: 'Superlative without measurement', bg: '#0B0F0D' },
+    'nl-st': { status: 'Fix', tone: 'warning', note: 'Range figure missing footnote', bg: '#D6FF4B' },
+    'de-st': { status: 'Fix', tone: 'warning', note: 'Accent behind body copy', bg: '#123A2C' },
+    'be-li': { status: 'Fix', tone: 'warning', note: 'Headline is title case', bg: '#E8EDEA' },
+    'de-ig': { status: 'Approved', tone: 'neutral', note: 'Mara Feldt · 2 Mar', bg: '#123A2C' }
+  };
+
+  issueDetail = {
+    'be-ig': { severity: 'block', label: 'Price claim is not in the confirmed list', source: 'Legal guidelines p.4',
+      fix: 'Remove the price, or add it to the confirmed claims list in Brand knowledge first.' },
+    'de-li': { severity: 'block', label: 'Superlative used without a dated measurement', source: 'Legal guidelines p.2',
+      fix: 'UWG requires a dated measurement behind any superlative, or drop the wording.' },
+    'nl-st': { severity: 'warn', label: 'Range figure is missing the WLTP-e footnote', source: 'Legal guidelines p.6',
+      fix: 'Append the confirmed footnote unchanged: measured per WLTP-e at 25 km/h, 75 kg rider.' },
+    'de-st': { severity: 'warn', label: 'Accent colour sits behind body copy', source: 'Style guide p.6',
+      fix: 'Signal lime is reserved for the call to action. Move the accent off the body text.' },
+    'be-li': { severity: 'warn', label: 'Headline is title case', source: 'Style guide p.6',
+      fix: 'Sentence case only. Lower-case everything after the first word.' }
+  };
+
+  runCheck = () => {
+    clearInterval(this.checkTimer);
+    this.setState({ checking: true, checked: false, checkProgress: 6, compOpen: null });
+    this.checkTimer = setInterval(() => {
+      this.setState(s => {
+        const p = (s.checkProgress || 0) + 8;
+        if (p >= 100) {
+          clearInterval(this.checkTimer);
+          return { checkProgress: 100, checking: false, checked: true };
+        }
+        return { checkProgress: p };
+      });
+    }, 90);
+  };
+
+  mediaLib = [
+    { id: 'm1', kind: 'Image', bg: '#123A2C', name: 'Commuter dusk ride', meta: '4000 × 2500 · Mar 2026' },
+    { id: 'm2', kind: 'Image', bg: '#0B0F0D', name: 'Studio side profile', meta: '3600 × 2400 · Feb 2026' },
+    { id: 'm3', kind: 'Image', bg: '#D6FF4B', name: 'Signal lime flat lay', meta: '3000 × 3000 · Feb 2026' },
+    { id: 'm4', kind: 'Video', bg: '#3A2456', name: 'City loop cutdown', meta: '0:12 · 1080 × 1920' },
+    { id: 'm5', kind: 'Image', bg: '#E8EDEA', name: 'Dealer floor, Ghent', meta: '4200 × 2800 · Jan 2026' },
+    { id: 'm6', kind: 'Video', bg: '#013A5E', name: 'Cargo school run', meta: '0:20 · 1080 × 1080' },
+    { id: 'm7', kind: 'Image', bg: '#123A2C', name: 'Battery close-up', meta: '3200 × 3200 · Jan 2026' },
+    { id: 'm8', kind: 'Image', bg: '#0B0F0D', name: 'Rain commute, Utrecht', meta: '3800 × 2500 · Dec 2025' },
+    { id: 'm9', kind: 'Video', bg: '#123A2C', name: 'Range test timelapse', meta: '0:30 · 1920 × 1080' }
+  ];
+
+  setEdit = (id, patch) => this.setState(s => ({
+    edits: Object.assign({}, s.edits, { [id]: Object.assign({}, s.edits[id], patch) })
+  }));
+
+  targetIds = (id, scope) => {
+    const seg = id.split('-');
+    const mkKey = seg[0], chKey = seg[1], audKey = seg[2] || null;
+    const ids = [];
+    this.markets.forEach(m => [null].concat(this.audiences).forEach(a => this.channels.forEach(c => {
+      const cand = m.key + '-' + c.key + (a ? '-' + a.key : '');
+      const sameChannel = c.key === chKey;
+      const sameLocale = m.key === mkKey;
+      const sameAudience = (a ? a.key : null) === audKey;
+      if (scope === 'one' && cand !== id) return;
+      if (scope === 'all') { ids.push(cand); return; }
+      if (scope === 'channel' && !sameChannel) return;
+      if (scope === 'locale' && !sameLocale) return;
+      if (scope === 'audience' && !sameAudience) return;
+      ids.push(cand);
+    })));
+    return ids;
+  };
+
+  applyBg = (id, bg) => {
+    const scope = this.state.bgScope || 'one';
+    const ids = this.targetIds(id, scope);
+    this.setState(s => {
+      const next = Object.assign({}, s.edits);
+      ids.forEach(k => { next[k] = Object.assign({}, next[k], { bg: bg }); });
+      return { edits: next };
+    });
+  };
+
+  setApproval = (id, val) => this.setState(s => {
+    const next = Object.assign({}, s.approvals);
+    if (val) next[id] = val; else delete next[id];
+    return { approvals: next };
+  });
+
+  els = () => ({
+    vp: document.querySelector('[data-canvas="viewport"]'),
+    pl: document.querySelector('[data-canvas="plane"]')
+  });
+
+  refitAfterChange = () => {
+    const pl0 = this.els().pl;
+    const before = pl0 ? pl0.scrollWidth + 'x' + pl0.scrollHeight : '';
+    clearInterval(this.poll);
+    let tries = 0;
+    this.poll = setInterval(() => {
+      const pl = this.els().pl;
+      const now = pl ? pl.scrollWidth + 'x' + pl.scrollHeight : '';
+      if ((now && now !== before) || ++tries > 20) {
+        clearInterval(this.poll);
+        if (now !== before) this.fit();
+      }
+    }, 50);
+  };
+
+  watch = () => {
+    const { vp, pl } = this.els();
+    if (!vp || !pl) return;
+    const sig = pl.scrollWidth + 'x' + pl.scrollHeight + '@' + vp.clientWidth + 'x' + vp.clientHeight;
+    if (sig === this.sig) return;
+    this.sig = sig;
+    this.fit();
+  };
+
+  componentDidMount() {
+    this.watch();
+    this.timer = setInterval(this.watch, 250);
+    this.onResize = () => this.fit();
+    window.addEventListener('resize', this.onResize);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    clearInterval(this.poll);
+    clearInterval(this.checkTimer);
+    window.removeEventListener('resize', this.onResize);
+  }
+
+  fit = () => {
+    const { vp, pl } = this.els();
+    if (!vp || !pl) return;
+    const w = pl.scrollWidth, h = pl.scrollHeight;
+    const vw = vp.clientWidth, vh = vp.clientHeight;
+    if (!w || !h || !vw || !vh) return;
+    const zoom = Math.min(1, Math.min(vw / w, vh / h));
+    this.setState({
+      zoom: +zoom.toFixed(3),
+      x: Math.max(0, (vw - w * zoom) / 2),
+      y: Math.max(0, (vh - h * zoom) / 2)
+    });
+  };
+
+  onDown = e => {
+    if (!e.target.closest || !e.target.closest('[data-pan="bg"]')) return;
+    this.drag = { x: e.clientX, y: e.clientY, ox: this.state.x, oy: this.state.y };
+    this.setState({ dragging: true });
+  };
+
+  onMove = e => {
+    if (!this.drag) return;
+    this.setState({
+      x: this.drag.ox + (e.clientX - this.drag.x),
+      y: this.drag.oy + (e.clientY - this.drag.y)
+    });
+  };
+
+  onUp = () => { this.drag = null; if (this.state.dragging) this.setState({ dragging: false }); };
+
+  onWheel = e => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.06 : 0.06;
+    this.setState(s => ({ zoom: Math.min(1.6, Math.max(0.25, +(s.zoom + delta).toFixed(3))) }));
+  };
+
+  chipStyle(active) {
+    return {
+      bg: active ? 'var(--navy)' : 'transparent',
+      border: active ? 'var(--navy)' : 'var(--hairline)',
+      color: active ? '#fff' : 'var(--navy)'
+    };
+  }
+
+  toggle(field, key) {
+    this.setState(s => {
+      const cur = s[field] || [];
+      return { [field]: cur.indexOf(key) === -1 ? cur.concat([key]) : cur.filter(x => x !== key) };
+    });
+    this.refitAfterChange();
+  }
+
+  renderVals() {
+    const st = this.state;
+    const light = bg => bg === '#D6FF4B' || bg === '#E8EDEA';
+
+    const shownMarkets = this.markets
+      .filter(m => !st.markets.length || st.markets.indexOf(m.key) !== -1)
+      .filter(m => !st.locales.length || st.locales.indexOf(m.locale) !== -1);
+    const shownChannels = this.channels.filter(c => !st.channels.length || st.channels.indexOf(c.key) !== -1);
+    const shownAudiences = [null].concat(this.audiences);
+
+    const total = shownMarkets.length * shownChannels.length * shownAudiences.length;
+    const filtered = st.markets.length || st.locales.length || st.channels.length;
+    const dot = Math.max(8, Math.round(24 * st.zoom));
+
+    return {
+      transform: 'translate(' + st.x + 'px,' + st.y + 'px) scale(' + st.zoom + ')',
+      cursor: st.dragging ? 'grabbing' : 'grab',
+      zoomLabel: Math.round(st.zoom * 100) + '%',
+      dotSize: dot + 'px',
+      dotPos: (st.x % dot) + 'px ' + (st.y % dot) + 'px',
+      onDown: this.onDown, onMove: this.onMove, onUp: this.onUp, onWheel: this.onWheel,
+      onZoomIn: () => this.setState(s => ({ zoom: Math.min(1.6, +(s.zoom + 0.1).toFixed(2)) })),
+      onZoomOut: () => this.setState(s => ({ zoom: Math.max(0.25, +(s.zoom - 0.1).toFixed(2)) })),
+      onReset: () => this.setState({ zoom: 1, x: 0, y: 0 }),
+      onFit: this.fit,
+
+      marketFilters: this.markets
+        .filter((m, i, arr) => arr.findIndex(x => x.name === m.name) === i)
+        .map(m => {
+          const keys = this.markets.filter(x => x.name === m.name).map(x => x.key);
+          const active = keys.every(k => st.markets.indexOf(k) !== -1);
+          return Object.assign({
+            label: m.name,
+            onToggle: () => {
+              this.setState(s2 => ({
+                markets: active
+                  ? s2.markets.filter(k => keys.indexOf(k) === -1)
+                  : s2.markets.concat(keys.filter(k => s2.markets.indexOf(k) === -1))
+              }));
+              this.refitAfterChange();
+            }
+          }, this.chipStyle(active));
+        }),
+
+      localeFilters: this.markets.map(m => Object.assign({
+        label: m.locale, onToggle: () => this.toggle('locales', m.locale)
+      }, this.chipStyle(st.locales.indexOf(m.locale) !== -1))),
+
+      channelFilters: this.channels.map(c => Object.assign({
+        label: c.name, onToggle: () => this.toggle('channels', c.key)
+      }, this.chipStyle(st.channels.indexOf(c.key) !== -1))),
+
+      edit: (() => {
+        const id = st.sel;
+        if (!id || st.compOpen) return { open: false, media: [] };
+        const seg = id.split('-');
+        const mk = this.markets.find(x => x.key === seg[0]) || this.markets[0];
+        const ch = this.channels.find(x => x.key === seg[1]) || this.channels[0];
+        const aud = seg[2] ? this.audiences.find(x => x.key === seg[2]) : null;
+        const base = aud ? this.audCopy[aud.key] : this.copy[mk.key];
+        const flag = aud ? null : this.flags[mk.key + '-' + ch.key];
+        const ed = st.edits[id] || {};
+        const bg = ed.bg || (flag ? flag.bg : '#123A2C');
+        const cur = this.mediaLib.find(x => x.bg === bg);
+        return {
+          open: true,
+          label: mk.name + ' · ' + ch.name + (aud ? ' · ' + aud.name : ''),
+          format: ch.format + ' · ' + mk.locale,
+          locale: mk.locale,
+          title: ed.title !== undefined ? ed.title : base.title,
+          desc: ed.desc !== undefined ? ed.desc : base.desc,
+          bg: bg,
+          titleColor: light(bg) ? '#0B0F0D' : '#fff',
+          descColor: light(bg) ? '#3F4A44' : 'rgba(255,255,255,0.78)',
+          tagColor: light(bg) ? '#3F4A44' : '#D6FF4B',
+          mediaNote: cur ? cur.kind + ' from the media library' : 'Generated background',
+          mediaName: cur ? cur.name : 'Generated background',
+          mediaMeta: cur ? cur.kind + ' · ' + cur.meta : 'Drafted by the agent, not from the library',
+          onBrowse: () => this.setState({ pickerOpen: true, pickerQuery: '', pickerKind: 'All' }),
+          onTitle: v => this.setEdit(id, { title: typeof v === 'string' ? v : v.target.value }),
+          onDesc: v => this.setEdit(id, { desc: typeof v === 'string' ? v : v.target.value }),
+          media: this.mediaLib.map(m2 => ({
+            kind: m2.kind, bg: m2.bg,
+            ring: m2.bg === bg ? '3px solid var(--mint)' : '1px solid var(--hairline)',
+            labelColor: light(m2.bg) ? '#0B0F0D' : 'rgba(255,255,255,0.85)',
+            onPick: () => this.applyBg(id, m2.bg)
+          })),
+          scopeCount: (() => {
+            const n = this.targetIds(id, st.bgScope || 'one').length;
+            return n === 1 ? '1 asset' : n + ' assets';
+          })(),
+          scopes: [
+            { key: 'one', chip: 'This one', title: 'This asset only' },
+            { key: 'channel', chip: ch.format, title: 'Every ' + ch.name + ' asset' },
+            { key: 'locale', chip: mk.locale, title: 'Every ' + mk.name + ' ' + mk.locale + ' asset' },
+            { key: 'audience', chip: aud ? aud.name.split(' ')[0] : 'Generic', title: aud ? 'Every ' + aud.name + ' asset' : 'Every generic asset' },
+            { key: 'all', chip: 'All', title: 'Every asset in the campaign' }
+          ].map(sc => {
+            const on = (st.bgScope || 'one') === sc.key;
+            return {
+              chip: sc.chip, title: sc.title,
+              bg: on ? 'var(--navy)' : 'transparent',
+              border: on ? 'var(--navy)' : 'var(--hairline)',
+              color: on ? '#fff' : 'var(--navy)',
+              onPick: () => this.setState({ bgScope: sc.key })
+            };
+          }),
+          onClose: () => this.setState({ sel: null })
+        };
+      })(),
+
+      picker: (() => {
+        const id = st.sel;
+        if (!st.pickerOpen || !id) return { open: false, items: [], kinds: [] };
+        const q = (st.pickerQuery || '').trim().toLowerCase();
+        const items = this.mediaLib.filter(m2 => {
+          if (st.pickerKind !== 'All' && m2.kind !== st.pickerKind) return false;
+          if (q && (m2.name + ' ' + m2.meta + ' ' + m2.kind).toLowerCase().indexOf(q) === -1) return false;
+          return true;
+        });
+        const ed = st.edits[id] || {};
+        const n = this.targetIds(id, st.bgScope || 'one').length;
+        return {
+          open: true,
+          subline: items.length + ' of ' + this.mediaLib.length + ' items in this brand library',
+          query: st.pickerQuery,
+          onQuery: v => this.setState({ pickerQuery: typeof v === 'string' ? v : v.target.value }),
+          kinds: ['All', 'Image', 'Video'].map(k => ({
+            label: k,
+            bg: st.pickerKind === k ? 'var(--navy)' : 'transparent',
+            color: st.pickerKind === k ? '#fff' : 'var(--navy)',
+            onPick: () => this.setState({ pickerKind: k })
+          })),
+          items: items.map(m2 => ({
+            name: m2.name, meta: m2.meta, kind: m2.kind, bg: m2.bg,
+            ring: ed.bg === m2.bg ? '3px solid var(--mint)' : '1px solid var(--hairline)',
+            onPick: () => this.applyBg(id, m2.bg)
+          })),
+          empty: items.length === 0,
+          applyNote: 'Selection applies to ' + (n === 1 ? '1 asset' : n + ' assets') + ', per the scope below.',
+          onClose: () => this.setState({ pickerOpen: false })
+        };
+      })(),
+
+      check: {
+        running: st.checking,
+        progress: st.checkProgress || 0,
+        label: st.checking ? 'Checking…' : st.checked ? 'Re-check all' : 'Check all assets',
+        onRun: this.runCheck
+      },
+
+      onApproveAllPassing: () => {
+        const next = Object.assign({}, st.approvals);
+        shownMarkets.forEach(m => shownAudiences.forEach(aud => shownChannels.forEach(ch => {
+          const id = m.key + '-' + ch.key + (aud ? '-' + aud.key : '');
+          const d = aud ? null : this.issueDetail[m.key + '-' + ch.key];
+          if (!d || d.severity !== 'block') next[id] = next[id] || 'approved';
+        })));
+        this.setState({ approvals: next });
+      },
+
+      comp: (() => {
+        const id = st.compOpen;
+        if (!id) return { open: false, issues: [] };
+        const seg = id.split('-');
+        const mk = this.markets.find(x => x.key === seg[0]) || this.markets[0];
+        const ch = this.channels.find(x => x.key === seg[1]) || this.channels[0];
+        const aud = seg[2] ? this.audiences.find(x => x.key === seg[2]) : null;
+        const d = aud ? null : this.issueDetail[seg[0] + '-' + seg[1]];
+        const blocked = !!d && d.severity === 'block';
+        const ap = st.approvals[id];
+        return {
+          open: true,
+          label: mk.name + ' · ' + ch.name + (aud ? ' · ' + aud.name : ''),
+          summary: mk.locale + ' · ' + (blocked ? '1 blocked' : d ? '1 to fix' : 'passes every rule'),
+          clean: !d,
+          issues: d ? [{
+            label: d.label, source: d.source, fix: d.fix,
+            tone: blocked ? 'error' : 'warning',
+            badge: blocked ? 'Blocked' : 'Fix'
+          }] : [],
+          canApprove: !blocked && !ap,
+          decided: !!ap,
+          reopenLabel: ap === 'approved' ? 'Withdraw approval' : 'Recall from review',
+          approvalNote: ap === 'approved' ? 'Approved by Mara Feldt · ready to render'
+            : ap === 'review' ? 'Sent to Anna Lindqvist for legal sign-off'
+            : blocked ? 'Blocked. Fix the issue above, then approve.'
+            : d ? 'Warning only. Approve as it stands or correct it first.'
+            : 'Passes every rule. Approve it or send it for legal sign-off.',
+          onApprove: () => this.setApproval(id, 'approved'),
+          onSendReview: () => this.setApproval(id, 'review'),
+          onReopen: () => this.setApproval(id, null),
+          onClose: () => this.setState({ compOpen: null })
+        };
+      })(),
+
+      resultLabel: filtered
+        ? total + ' of ' + (this.markets.length * this.channels.length * (this.audiences.length + 1)) + ' assets shown'
+        : total + ' assets · generic set plus ' + this.audiences.length + ' audiences',
+      empty: shownMarkets.length === 0 || shownChannels.length === 0,
+
+      sections: shownMarkets.map(m => {
+        const cells = [];
+        shownAudiences.forEach(aud => {
+          cells.push({
+            isLabel: true, isCard: false,
+            label: aud ? aud.name : 'All audiences',
+            sub: aud ? aud.sub : 'Generic set, runs where no persona is targeted'
+          });
+          shownChannels.forEach(ch => {
+            const flag = aud ? null : this.flags[m.key + '-' + ch.key];
+            const base = aud ? this.audCopy[aud.key] : this.copy[m.key];
+            const id = m.key + '-' + ch.key + (aud ? '-' + aud.key : '');
+            const bg = flag ? flag.bg : '#123A2C';
+            const selected = st.sel === id;
+            const ap = st.approvals[id];
+            const ed = st.edits[id] || {};
+            const detail = aud ? null : this.issueDetail[m.key + '-' + ch.key];
+            cells.push({
+              isLabel: false, isCard: true,
+              locale: m.locale, h: ch.h, titleSize: ch.titleSize,
+              title: ed.title !== undefined ? ed.title : base.title,
+              desc: ed.desc !== undefined ? ed.desc : base.desc,
+              bg: ed.bg || bg,
+              titleColor: light(ed.bg || bg) ? '#0B0F0D' : '#fff',
+              descColor: light(ed.bg || bg) ? '#3F4A44' : 'rgba(255,255,255,0.78)',
+              tagColor: light(ed.bg || bg) ? '#3F4A44' : '#D6FF4B',
+              ring: selected ? '3px solid var(--mint)' : '1px solid var(--hairline)',
+              shadow: selected ? '0 8px 24px rgba(0,44,71,0.12)' : 'none',
+              status: ap === 'approved' ? 'Approved' : ap === 'review' ? 'In review' : flag ? flag.status : 'Passes',
+              tone: ap === 'approved' ? 'neutral' : ap === 'review' ? 'sky' : flag ? flag.tone : 'mint',
+              note: ap === 'approved' ? 'Mara Feldt · today' : ap === 'review' ? 'With Anna Lindqvist' : flag ? flag.note : 'Clears every confirmed rule',
+              compLabel: detail ? 'Compliance · 1' : 'Compliance',
+              compBg: st.compOpen === id ? 'var(--navy)' : 'transparent',
+              compColor: st.compOpen === id ? '#fff' : 'var(--navy)',
+              onCompliance: e => { e.stopPropagation(); this.setState(s2 => ({ compOpen: s2.compOpen === id ? null : id })); },
+              onSelect: () => this.setState({ sel: id, compOpen: null })
+            });
+          });
+        });
+
+        return {
+          market: m.name, locale: m.locale, status: m.status, tone: m.tone, legalNote: m.legalNote,
+          approveLabel: m.approvable ? 'Approve market' : 'Blocked',
+          approveBg: m.approvable ? 'var(--mint)' : 'var(--mist)',
+          approveColor: m.approvable ? 'var(--navy)' : 'var(--slate)',
+          approveCursor: m.approvable ? 'pointer' : 'not-allowed',
+          channels: shownChannels.map(c => ({ name: c.name, format: c.format })),
+          gridCols: '180px ' + shownChannels.map(c => c.w).join(' '),
+          cells: cells
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

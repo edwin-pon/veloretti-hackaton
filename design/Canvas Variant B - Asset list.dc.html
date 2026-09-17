@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/datalab-design-system-adceb3aa-55c6-4d43-9298-97acdf287790/colors_and_type.css">
+<link rel="stylesheet" href="_ds/datalab-design-system-adceb3aa-55c6-4d43-9298-97acdf287790/styles.css">
+<script src="_ds/datalab-design-system-adceb3aa-55c6-4d43-9298-97acdf287790/_ds_bundle.js"></script>
+<style>
+  html, body { margin:0; padding:0; background:#F0F4F8; font-family:var(--font-sans); color:var(--ink-body); }
+  a { color:#002C47; } a:hover { color:#013A5E; }
+</style>
+</helmet>
+
+<div style="min-height:100vh;display:flex;align-items:stretch">
+
+  <div style="flex:1;min-width:0;padding:40px 40px 40px 48px;display:flex;flex-direction:column;gap:20px">
+
+    <div>
+      <div style="font-size:11px;letter-spacing:1.5px;font-weight:700;color:var(--slate)">VARIANT B · ASSET LIST</div>
+      <h1 style="font-family:var(--font-display);font-size:36px;font-weight:700;color:var(--ink-heading);margin:8px 0 8px;line-height:1.2">Spring commuter push</h1>
+      <p style="font-size:18px;line-height:1.7;color:var(--ink-secondary);margin:0;max-width:64ch;text-wrap:pretty">One row per asset, sortable and filterable, with a preview panel on the right. Built for campaigns where the count runs into the hundreds and the grid stops being scannable.</p>
+    </div>
+
+    <div style="background:#fff;border-radius:20px;padding:20px 24px;box-shadow:0 2px 8px rgba(0,44,71,0.08);display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+        <div style="flex:1;min-width:240px">
+          <x-import component-from-global-scope="DatalabDesignSystem_adceb3.SearchBar" value="{{ query }}" on-change="{{ onQuery }}" placeholder="Filter by market, format or copy" hint-size="100%,48px"></x-import>
+        </div>
+        <div style="display:flex;gap:4px;background:var(--mist);border-radius:20px;padding:4px">
+          <sc-for list="{{ statusFilters }}" as="f" hint-placeholder-count="4">
+            <button onClick="{{ f.onPick }}" style="border:none;background:{{ f.bg }};color:{{ f.color }};border-radius:20px;padding:8px 16px;font-family:var(--font-sans);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap">{{ f.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;border-top:1px solid var(--hairline);padding-top:16px">
+        <span style="font-size:14px;color:var(--slate)">{{ resultLabel }}</span>
+        <sc-if value="{{ hasSelection }}">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span style="font-size:14px;font-weight:700;color:var(--ink-heading)">{{ selectionLabel }}</span>
+            <button style="border:none;background:var(--mint);color:var(--navy);border-radius:20px;padding:8px 16px;font-family:var(--font-sans);font-size:13px;font-weight:700;cursor:pointer">Approve selected</button>
+            <button style="border:2px solid var(--navy);background:transparent;color:var(--navy);border-radius:20px;padding:6px 14px;font-family:var(--font-sans);font-size:13px;font-weight:700;cursor:pointer">Send for review</button>
+            <button onClick="{{ onClearSelection }}" style="border:none;background:none;padding:0 4px;font:inherit;font-size:13px;font-weight:700;color:var(--navy);cursor:pointer;text-decoration:underline">Clear</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+
+    <div style="background:#fff;border-radius:20px;box-shadow:0 2px 8px rgba(0,44,71,0.08);overflow-x:auto">
+      <div style="min-width:820px;padding:4px 24px 12px">
+        <div style="display:flex;gap:16px;align-items:center;padding:16px 0">
+          <span style="flex:0 0 28px"></span>
+          <span style="flex:0 0 56px;font-size:11px;letter-spacing:1px;font-weight:700;color:var(--slate)">ART</span>
+          <sc-for list="{{ headers }}" as="h" hint-placeholder-count="5">
+            <button onClick="{{ h.onSort }}" style="flex:{{ h.flex }};text-align:left;border:none;background:none;padding:0;font-family:var(--font-sans);font-size:11px;letter-spacing:1px;font-weight:700;color:{{ h.color }};cursor:pointer">{{ h.label }}{{ h.arrow }}</button>
+          </sc-for>
+          <span style="flex:0 0 90px"></span>
+        </div>
+
+        <sc-for list="{{ rows }}" as="r" hint-placeholder-count="9">
+          <div onClick="{{ r.onSelect }}" style="display:flex;gap:16px;align-items:center;padding:14px 0;border-top:1px solid var(--hairline);background:{{ r.rowBg }};cursor:pointer">
+            <span style="flex:0 0 28px;display:flex;align-items:center">
+              <button onClick="{{ r.onCheck }}" style="width:20px;height:20px;border:2px solid {{ r.boxBorder }};background:{{ r.boxBg }};border-radius:6px;color:#fff;font-size:12px;font-weight:700;line-height:1;cursor:pointer;padding:0">{{ r.boxGlyph }}</button>
+            </span>
+            <span style="flex:0 0 56px;height:40px;border-radius:8px;background:{{ r.bg }};display:flex;align-items:flex-end;padding:6px;box-sizing:border-box">
+              <span style="width:100%;height:6px;border-radius:999px;background:{{ r.swatchBar }}"></span>
+            </span>
+            <div style="flex:2 1 220px;min-width:180px">
+              <div style="font-size:15px;font-weight:700;color:var(--ink-heading);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ r.title }}</div>
+              <div style="font-size:12px;color:var(--slate);margin-top:2px">{{ r.format }}</div>
+            </div>
+            <div style="flex:1 1 120px;min-width:100px">
+              <div style="font-size:14px;color:var(--ink-heading)">{{ r.market }}</div>
+              <div style="font-size:12px;letter-spacing:1px;color:var(--slate)">{{ r.locale }}</div>
+            </div>
+            <div style="flex:1 1 130px;min-width:110px;font-size:14px;color:{{ r.personaColor }}">{{ r.persona }}</div>
+            <div style="flex:1 1 130px;min-width:110px">
+              <x-import component-from-global-scope="DatalabDesignSystem_adceb3.Badge" tone="{{ r.tone }}" hint-size="auto,24px">{{ r.status }}</x-import>
+            </div>
+            <div style="flex:1 1 160px;min-width:130px;font-size:13px;line-height:1.5;color:var(--slate);text-wrap:pretty">{{ r.issue }}</div>
+            <button onClick="{{ r.onSelect }}" style="flex:0 0 90px;border:2px solid var(--navy);background:transparent;color:var(--navy);border-radius:20px;padding:7px 0;font-family:var(--font-sans);font-size:13px;font-weight:700;cursor:pointer">Open</button>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="background:#fff;border-radius:20px;padding:20px 24px;box-shadow:0 2px 8px rgba(0,44,71,0.08);display:flex;gap:32px;flex-wrap:wrap;align-items:center">
+      <span style="font-size:11px;letter-spacing:1px;font-weight:700;color:var(--slate)">WHY THIS LAYOUT</span>
+      <span style="flex:1;min-width:280px;font-size:15px;line-height:1.7;color:var(--ink-secondary);text-wrap:pretty">Scales past the point where a grid fits on screen. Sorting by status or market answers "what is left" instantly, and multi-select turns approval into one action rather than twenty. The trade is that you no longer see the campaign as a whole.</span>
+    </div>
+  </div>
+
+  <aside style="width:380px;flex:none;background:#fff;border-left:1px solid var(--hairline);padding:32px 28px;display:flex;flex-direction:column;gap:20px;position:sticky;top:0;height:100vh;overflow-y:auto">
+    <div>
+      <div style="font-size:11px;letter-spacing:1px;font-weight:700;color:var(--slate)">PREVIEW</div>
+      <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--ink-heading);line-height:1.25;margin-top:6px">{{ preview.label }}</div>
+      <div style="font-size:13px;color:var(--slate);margin-top:2px">{{ preview.format }}</div>
+    </div>
+
+    <div style="border-radius:12px;background:{{ preview.bg }};padding:24px;min-height:200px;display:flex;flex-direction:column;justify-content:space-between">
+      <span style="font-size:10px;letter-spacing:1px;font-weight:700;color:{{ preview.tagColor }}">{{ preview.locale }}</span>
+      <div>
+        <div style="font-family:var(--font-display);font-size:22px;font-weight:700;line-height:1.25;color:{{ preview.titleColor }};text-wrap:pretty">{{ preview.title }}</div>
+        <div style="font-size:14px;line-height:1.6;color:{{ preview.descColor }};margin-top:8px;text-wrap:pretty">{{ preview.desc }}</div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-size:11px;letter-spacing:1px;font-weight:700;color:var(--slate);margin-bottom:10px">COMPLIANCE</div>
+      <sc-if value="{{ preview.clean }}">
+        <p style="font-size:15px;line-height:1.7;color:var(--ink-secondary);margin:0">Passes every confirmed legal and style rule.</p>
+      </sc-if>
+      <sc-if value="{{ preview.hasIssue }}">
+        <div style="background:var(--mist);border-radius:12px;padding:14px 16px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+            <x-import component-from-global-scope="DatalabDesignSystem_adceb3.Badge" tone="{{ preview.issueTone }}" hint-size="auto,24px">{{ preview.issueBadge }}</x-import>
+            <span style="font-size:11px;font-weight:700;color:var(--slate)">{{ preview.issueSource }}</span>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:var(--ink-heading);line-height:1.4">{{ preview.issueLabel }}</div>
+          <div style="font-size:14px;line-height:1.6;color:var(--slate);margin-top:4px;text-wrap:pretty">{{ preview.issueFix }}</div>
+        </div>
+      </sc-if>
+    </div>
+
+    <div style="margin-top:auto;border-top:1px solid var(--hairline);padding-top:20px;display:flex;gap:10px;flex-wrap:wrap">
+      <button style="flex:none;border:none;background:{{ preview.approveBg }};color:{{ preview.approveColor }};border-radius:20px;padding:12px 22px;font-family:var(--font-sans);font-size:14px;font-weight:700;letter-spacing:0.5px;cursor:{{ preview.approveCursor }}">{{ preview.approveLabel }}</button>
+      <button style="flex:none;border:2px solid var(--navy);background:transparent;color:var(--navy);border-radius:20px;padding:10px 20px;font-family:var(--font-sans);font-size:14px;font-weight:700;cursor:pointer">Edit copy</button>
+    </div>
+  </aside>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1600,&quot;height&quot;:1000}}">
+class Component extends DCLogic {
+  state = { query: '', filter: 'All', sort: 'status', sel: 'be-ig', checked: {} };
+
+  assets = [
+    { id: 'be-ig', market: 'Belgium', locale: 'NL-BE', format: 'Instagram feed · 1080×1080', bg: '#123A2C',
+      title: 'Negentig kilometer op één lading', desc: 'Elke dag naar school, werk en terug.', status: 'Blocked',
+      issue: 'Price claim not confirmed', issueSource: 'Legal p.4',
+      issueFix: 'Remove the price or add it to the confirmed claims list first.' },
+    { id: 'de-li', market: 'Germany', locale: 'de-DE', format: 'LinkedIn · 1200×627', bg: '#0B0F0D',
+      title: 'Neunzig Kilometer mit einer Ladung', desc: 'Für den täglichen Weg zur Arbeit.', status: 'Blocked',
+      issue: 'Superlative without measurement', issueSource: 'Legal p.2',
+      issueFix: 'Superlatives need a dated measurement, or drop the wording.' },
+    { id: 'nl-st', market: 'Netherlands', locale: 'nl-NL', format: 'Instagram story · 1080×1920', bg: '#D6FF4B',
+      title: 'Boodschappen, school, werk', desc: 'Eén bakfiets voor de hele dag.', status: 'Needs a fix',
+      issue: 'Range figure missing footnote', issueSource: 'Legal p.6',
+      issueFix: 'Append the WLTP-e footnote unchanged.' },
+    { id: 'de-st', market: 'Germany', locale: 'de-DE', format: 'Instagram story · 1080×1920', bg: '#123A2C',
+      title: 'Einkauf, Schule, Arbeit', desc: 'Ein Lastenrad für den ganzen Tag.', status: 'Needs a fix',
+      persona: 'School-run parent', issue: 'Accent behind body copy', issueSource: 'Style p.6',
+      issueFix: 'Move Signal lime to the call to action.' },
+    { id: 'be-li', market: 'Belgium', locale: 'NL-BE', format: 'LinkedIn · 1200×627', bg: '#E8EDEA',
+      title: 'Voorraad, service, verkoop dichtbij', desc: 'Voor onze dealerpartners.', status: 'Needs a fix',
+      persona: 'Dealer buyer', issue: 'Headline is title case', issueSource: 'Style p.6',
+      issueFix: 'Lower-case everything after the first word.' },
+    { id: 'nl-ig', market: 'Netherlands', locale: 'nl-NL', format: 'Instagram feed · 1080×1080', bg: '#123A2C',
+      title: 'Negentig kilometer op één lading', desc: 'Getest op de dagelijkse rit.', status: 'Ready' },
+    { id: 'nl-li', market: 'Netherlands', locale: 'nl-NL', format: 'LinkedIn · 1200×627', bg: '#0B0F0D',
+      title: 'Woon-werkverkeer zonder auto', desc: 'Acht tot vijftien kilometer, elke dag.', status: 'Ready',
+      persona: 'Daily commuter' },
+    { id: 'de-ig', market: 'Germany', locale: 'de-DE', format: 'Instagram feed · 1080×1080', bg: '#123A2C',
+      title: 'Neunzig Kilometer mit einer Ladung', desc: 'Getestet auf dem täglichen Weg.', status: 'Approved' },
+    { id: 'be-st', market: 'Belgium', locale: 'NL-BE', format: 'Instagram story · 1080×1920', bg: '#123A2C',
+      title: 'Elke rit, elke dag', desc: 'Van school tot supermarkt.', status: 'Approved' }
+  ];
+
+  toneOf(s) {
+    return s === 'Blocked' ? 'error' : s === 'Needs a fix' ? 'warning' : s === 'Approved' ? 'neutral' : 'mint';
+  }
+
+  renderVals() {
+    const st = this.state;
+    const order = { 'Blocked': 0, 'Needs a fix': 1, 'Ready': 2, 'Approved': 3 };
+    const q = (st.query || '').trim().toLowerCase();
+    let rows = this.assets.filter(a => {
+      if (st.filter !== 'All' && a.status !== st.filter) return false;
+      if (q && (a.title + ' ' + a.market + ' ' + a.format + ' ' + (a.persona || '')).toLowerCase().indexOf(q) === -1) return false;
+      return true;
+    });
+    rows = rows.slice().sort((a, b) => {
+      if (st.sort === 'market') return a.market.localeCompare(b.market);
+      if (st.sort === 'format') return a.format.localeCompare(b.format);
+      if (st.sort === 'asset') return a.title.localeCompare(b.title);
+      return order[a.status] - order[b.status];
+    });
+
+    const checkedIds = Object.keys(st.checked).filter(k => st.checked[k]);
+    const sel = this.assets.find(a => a.id === st.sel) || this.assets[0];
+    const light = bg => bg === '#D6FF4B' || bg === '#E8EDEA';
+    const approvable = sel.status === 'Ready';
+
+    return {
+      query: st.query,
+      onQuery: v => this.setState({ query: typeof v === 'string' ? v : v.target.value }),
+      statusFilters: ['All', 'Blocked', 'Needs a fix', 'Ready', 'Approved'].map(f => ({
+        label: f,
+        bg: st.filter === f ? 'var(--navy)' : 'transparent',
+        color: st.filter === f ? '#fff' : 'var(--navy)',
+        onPick: () => this.setState({ filter: f })
+      })),
+      resultLabel: rows.length + ' of ' + this.assets.length + ' assets',
+      hasSelection: checkedIds.length > 0,
+      selectionLabel: checkedIds.length + ' selected',
+      onClearSelection: () => this.setState({ checked: {} }),
+
+      headers: [
+        { key: 'asset', label: 'ASSET', flex: '2 1 220px' },
+        { key: 'market', label: 'MARKET', flex: '1 1 120px' },
+        { key: 'persona', label: 'AUDIENCE', flex: '1 1 130px' },
+        { key: 'status', label: 'STATUS', flex: '1 1 130px' },
+        { key: 'issue', label: 'FLAGGED', flex: '1 1 160px' }
+      ].map(h => ({
+        label: h.label, flex: h.flex,
+        color: st.sort === h.key ? 'var(--ink-heading)' : 'var(--slate)',
+        arrow: st.sort === h.key ? ' ↓' : '',
+        onSort: () => this.setState({ sort: h.key })
+      })),
+
+      rows: rows.map(a => ({
+        title: a.title, format: a.format, market: a.market, locale: a.locale, bg: a.bg,
+        persona: a.persona || 'No split',
+        personaColor: a.persona ? 'var(--ink-heading)' : 'var(--slate)',
+        status: a.status, tone: this.toneOf(a.status),
+        issue: a.issue || '—',
+        swatchBar: light(a.bg) ? 'rgba(11,15,13,0.35)' : 'rgba(255,255,255,0.45)',
+        rowBg: st.sel === a.id ? 'var(--mist)' : 'transparent',
+        boxBg: st.checked[a.id] ? 'var(--navy)' : 'transparent',
+        boxBorder: st.checked[a.id] ? 'var(--navy)' : 'var(--hairline)',
+        boxGlyph: st.checked[a.id] ? '✓' : '',
+        onSelect: () => this.setState({ sel: a.id }),
+        onCheck: e => {
+          e.stopPropagation();
+          this.setState(s => ({ checked: Object.assign({}, s.checked, { [a.id]: !s.checked[a.id] }) }));
+        }
+      })),
+
+      preview: {
+        label: sel.market + ' · ' + sel.format.split(' · ')[0],
+        format: sel.format.split(' · ')[1] + (sel.persona ? ' · ' + sel.persona : ''),
+        locale: sel.locale, bg: sel.bg, title: sel.title, desc: sel.desc,
+        titleColor: light(sel.bg) ? '#0B0F0D' : '#fff',
+        descColor: light(sel.bg) ? '#3F4A44' : 'rgba(255,255,255,0.78)',
+        tagColor: light(sel.bg) ? '#3F4A44' : '#D6FF4B',
+        clean: !sel.issue,
+        hasIssue: !!sel.issue,
+        issueLabel: sel.issue || '', issueSource: sel.issueSource || '', issueFix: sel.issueFix || '',
+        issueTone: sel.status === 'Blocked' ? 'error' : 'warning',
+        issueBadge: sel.status === 'Blocked' ? 'Blocked' : 'Fix',
+        approveLabel: sel.status === 'Approved' ? 'Withdraw approval' : sel.status === 'Blocked' ? 'Blocked' : 'Approve asset',
+        approveBg: approvable ? 'var(--mint)' : sel.status === 'Approved' ? 'var(--mist)' : 'var(--mist)',
+        approveColor: approvable ? 'var(--navy)' : sel.status === 'Approved' ? 'var(--navy)' : 'var(--slate)',
+        approveCursor: sel.status === 'Blocked' ? 'not-allowed' : 'pointer'
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/datalab-design-system-adceb3aa-55c6-4d43-9298-97acdf287790/colors_and_type.css">
+<link rel="stylesheet" href="_ds/datalab-design-system-adceb3aa-55c6-4d43-9298-97acdf287790/styles.css">
+<script src="_ds/datalab-design-system-adceb3aa-55c6-4d43-9298-97acdf287790/_ds_bundle.js"></script>
+<style>
+  html, body { margin:0; padding:0; background:#F0F4F8; font-family:var(--font-sans); color:var(--ink-body); }
+  a { color:#002C47; } a:hover { color:#013A5E; }
+</style>
+</helmet>
+
+<div style="min-height:100vh;padding:40px 48px;display:flex;flex-direction:column;gap:32px">
+
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap">
+    <div style="min-width:0">
+      <div style="font-size:11px;letter-spacing:1.5px;font-weight:700;color:var(--slate)">VARIANT C · MARKET SPREADS</div>
+      <h1 style="font-family:var(--font-display);font-size:36px;font-weight:700;color:var(--ink-heading);margin:8px 0 8px;line-height:1.2">Spring commuter push</h1>
+      <p style="font-size:18px;line-height:1.7;color:var(--ink-secondary);margin:0;max-width:64ch;text-wrap:pretty">One sheet per market, reviewed the way a market lead reads it: the lead asset at full size, its adaptations beside it, and the market's legal position stated once at the top.</p>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;flex:none">
+      <button style="border:2px solid var(--navy);background:transparent;color:var(--navy);border-radius:20px;padding:10px 20px;font-family:var(--font-sans);font-size:14px;font-weight:700;cursor:pointer">Media manager</button>
+      <button style="border:none;background:var(--mist);color:var(--slate);border-radius:20px;padding:12px 22px;font-family:var(--font-sans);font-size:14px;font-weight:700;letter-spacing:0.5px;cursor:not-allowed">Render at scale · 5 to approve</button>
+    </div>
+  </div>
+
+  <sc-for list="{{ spreads }}" as="s" hint-placeholder-count="3">
+    <section style="background:#fff;border-radius:20px;padding:28px;box-shadow:0 2px 8px rgba(0,44,71,0.08);display:flex;flex-direction:column;gap:24px">
+
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap">
+        <div style="min-width:0">
+          <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+            <span style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--ink-heading)">{{ s.market }}</span>
+            <span style="font-size:12px;letter-spacing:1px;font-weight:700;color:var(--slate)">{{ s.locale }}</span>
+            <x-import component-from-global-scope="DatalabDesignSystem_adceb3.Badge" tone="{{ s.tone }}" hint-size="auto,24px">{{ s.status }}</x-import>
+          </div>
+          <p style="font-size:15px;line-height:1.7;color:var(--slate);margin:8px 0 0;max-width:70ch;text-wrap:pretty">{{ s.legalNote }}</p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;flex:none">
+          <button style="border:2px solid var(--navy);background:transparent;color:var(--navy);border-radius:20px;padding:8px 16px;font-family:var(--font-sans);font-size:13px;font-weight:700;cursor:pointer">Compliance · {{ s.issueCount }}</button>
+          <button style="border:none;background:{{ s.approveBg }};color:{{ s.approveColor }};border-radius:20px;padding:10px 20px;font-family:var(--font-sans);font-size:13px;font-weight:700;letter-spacing:0.5px;cursor:{{ s.approveCursor }}">{{ s.approveLabel }}</button>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:24px;align-items:stretch;flex-wrap:wrap">
+
+        <div style="flex:1 1 400px;min-width:320px;display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+            <span style="font-size:12px;font-weight:700;color:var(--ink-heading)">{{ s.hero.platform }}</span>
+            <span style="font-size:11px;color:var(--slate)">{{ s.hero.format }} · lead asset</span>
+          </div>
+          <div style="position:relative;border-radius:12px;background:{{ s.hero.bg }};border:{{ s.hero.ring }};min-height:320px;padding:32px;display:flex;flex-direction:column;justify-content:space-between">
+            <span style="font-size:11px;letter-spacing:1.5px;font-weight:700;color:{{ s.hero.tagColor }}">{{ s.hero.tag }}</span>
+            <div>
+              <div style="font-family:var(--font-display);font-size:32px;font-weight:700;line-height:1.2;color:{{ s.hero.titleColor }};text-wrap:pretty">{{ s.hero.title }}</div>
+              <div style="font-size:16px;line-height:1.6;color:{{ s.hero.descColor }};margin-top:12px;max-width:44ch;text-wrap:pretty">{{ s.hero.desc }}</div>
+              <div style="font-size:11px;line-height:1.5;color:{{ s.hero.footColor }};margin-top:16px;max-width:52ch;text-wrap:pretty">{{ s.hero.footnote }}</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-height:24px">
+            <x-import component-from-global-scope="DatalabDesignSystem_adceb3.Badge" tone="{{ s.hero.tone }}" hint-size="auto,24px">{{ s.hero.status }}</x-import>
+            <span style="font-size:13px;color:var(--slate);text-wrap:pretty">{{ s.hero.note }}</span>
+          </div>
+        </div>
+
+        <div style="flex:1 1 380px;min-width:300px;display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:11px;letter-spacing:1px;font-weight:700;color:var(--slate)">ADAPTATIONS</span>
+          <sc-for list="{{ s.variants }}" as="v" hint-placeholder-count="3">
+            <div style="display:flex;gap:16px;align-items:center;background:var(--mist);border-radius:12px;padding:12px 14px">
+              <div style="width:{{ v.thumbW }};height:64px;flex:none;border-radius:8px;background:{{ v.bg }};display:flex;align-items:flex-end;padding:8px;box-sizing:border-box">
+                <span style="width:100%;height:6px;border-radius:999px;background:{{ v.bar }}"></span>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                  <span style="font-size:14px;font-weight:700;color:var(--ink-heading)">{{ v.platform }}</span>
+                  <sc-if value="{{ v.hasPersona }}">
+                    <span style="background:#B399FF;color:var(--navy);border-radius:8px;padding:2px 8px;font-size:11px;font-weight:700">{{ v.persona }}</span>
+                  </sc-if>
+                </div>
+                <div style="font-size:13px;line-height:1.5;color:var(--slate);margin-top:3px;text-wrap:pretty">{{ v.note }}</div>
+              </div>
+              <div style="flex:none">
+                <x-import component-from-global-scope="DatalabDesignSystem_adceb3.Badge" tone="{{ v.tone }}" hint-size="auto,24px">{{ v.status }}</x-import>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </sc-for>
+
+  <div style="background:#fff;border-radius:20px;padding:20px 24px;box-shadow:0 2px 8px rgba(0,44,71,0.08);display:flex;gap:32px;flex-wrap:wrap;align-items:center">
+    <span style="font-size:11px;letter-spacing:1px;font-weight:700;color:var(--slate)">WHY THIS LAYOUT</span>
+    <span style="flex:1;min-width:280px;font-size:15px;line-height:1.7;color:var(--ink-secondary);text-wrap:pretty">Matches how approval actually happens: a market lead signs off their own market, and the legal position that governs it is stated once rather than repeated on every card. The lead asset is large enough to judge; the rest are adaptations of it. The trade is that comparing one format across markets means scrolling.</span>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1600,&quot;height&quot;:1100}}">
+class Component extends DCLogic {
+  data = [
+    { market: 'Netherlands', locale: 'nl-NL', status: 'Ready', tone: 'mint', issueCount: '1 to fix',
+      legalNote: 'Range claims carry the WLTP-e footnote. No additional national notices apply.',
+      approveLabel: 'Approve market', approvable: true,
+      hero: { platform: 'Instagram feed', format: '1080×1080', bg: '#123A2C', tag: 'DIRECTION A · RANGE',
+        title: 'Negentig kilometer op één lading',
+        desc: 'Getest op de dagelijkse rit naar school, werk en terug.',
+        footnote: 'Actieradius gemeten volgens WLTP-e bij 25 km/u trapondersteuning, 75 kg rijder.',
+        status: 'Passes', tone: 'mint', note: 'Clears every confirmed rule' },
+      variants: [
+        { platform: 'Instagram story', format: '1080×1920', bg: '#D6FF4B', thumbW: '36px',
+          note: 'Range figure missing the footnote', status: 'Fix', tone: 'warning' },
+        { platform: 'LinkedIn', format: '1200×627', bg: '#0B0F0D', thumbW: '84px', persona: 'Daily commuter',
+          note: 'Reframed for the commuter persona', status: 'Passes', tone: 'mint' }
+      ] },
+
+    { market: 'Germany', locale: 'de-DE', status: 'Blocked', tone: 'error', issueCount: '3',
+      legalNote: 'UWG applies: price advertising must state whether VAT and assembly are included. The additional notice is still marked draft and needs legal input.',
+      approveLabel: 'Blocked', approvable: false,
+      hero: { platform: 'Instagram feed', format: '1080×1080', bg: '#123A2C', tag: 'DIRECTION A · RANGE',
+        title: 'Neunzig Kilometer mit einer Ladung',
+        desc: 'Getestet auf dem täglichen Weg zur Arbeit und zurück.',
+        footnote: 'Reichweite gemessen nach WLTP-e bei 25 km/h Unterstützung, 75 kg Fahrergewicht.',
+        status: 'Approved', tone: 'neutral', note: 'Approved by Mara Feldt · 2 Mar' },
+      variants: [
+        { platform: 'LinkedIn', format: '1200×627', bg: '#0B0F0D', thumbW: '84px',
+          note: 'Superlative used without a dated measurement', status: 'Blocked', tone: 'error' },
+        { platform: 'Instagram story', format: '1080×1920', bg: '#123A2C', thumbW: '36px', persona: 'School-run parent',
+          note: 'Accent colour sits behind body copy', status: 'Fix', tone: 'warning' }
+      ] },
+
+    { market: 'Belgium', locale: 'NL-BE', status: 'Blocked', tone: 'error', issueCount: '2',
+      legalNote: 'Dutch-language market. Claims follow the Netherlands set; price claims must clear the Belgian confirmed list separately.',
+      approveLabel: 'Blocked', approvable: false,
+      hero: { platform: 'Instagram feed', format: '1080×1080', bg: '#123A2C', tag: 'DIRECTION A · RANGE',
+        title: 'Negentig kilometer op één lading',
+        desc: 'Vanaf €2.499 — elke dag naar school, werk en terug.',
+        footnote: 'Actieradius gemeten volgens WLTP-e bij 25 km/u trapondersteuning, 75 kg rijder.',
+        status: 'Blocked', tone: 'error', note: 'Price claim is not in the confirmed list' },
+      variants: [
+        { platform: 'Instagram story', format: '1080×1920', bg: '#123A2C', thumbW: '36px',
+          note: 'Clears every confirmed rule', status: 'Passes', tone: 'mint' },
+        { platform: 'LinkedIn', format: '1200×627', bg: '#E8EDEA', thumbW: '84px', persona: 'Dealer buyer',
+          note: 'Headline is title case', status: 'Fix', tone: 'warning' }
+      ] }
+  ];
+
+  renderVals() {
+    const light = bg => bg === '#D6FF4B' || bg === '#E8EDEA';
+    return {
+      spreads: this.data.map(m => ({
+        market: m.market, locale: m.locale, status: m.status, tone: m.tone,
+        legalNote: m.legalNote, issueCount: m.issueCount,
+        approveLabel: m.approveLabel,
+        approveBg: m.approvable ? 'var(--mint)' : 'var(--mist)',
+        approveColor: m.approvable ? 'var(--navy)' : 'var(--slate)',
+        approveCursor: m.approvable ? 'pointer' : 'not-allowed',
+        hero: Object.assign({}, m.hero, {
+          ring: m.hero.tone === 'error' ? '3px solid #E4572E' : '1px solid var(--hairline)',
+          titleColor: light(m.hero.bg) ? '#0B0F0D' : '#fff',
+          descColor: light(m.hero.bg) ? '#3F4A44' : 'rgba(255,255,255,0.8)',
+          footColor: light(m.hero.bg) ? '#8C9A93' : 'rgba(255,255,255,0.5)',
+          tagColor: light(m.hero.bg) ? '#3F4A44' : '#D6FF4B'
+        }),
+        variants: m.variants.map(v => ({
+          platform: v.platform, note: v.note, status: v.status, tone: v.tone,
+          bg: v.bg, thumbW: v.thumbW,
+          hasPersona: !!v.persona, persona: v.persona || '',
+          bar: light(v.bg) ? 'rgba(11,15,13,0.35)' : 'rgba(255,255,255,0.45)'
+        }))
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>
