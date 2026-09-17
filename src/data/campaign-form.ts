@@ -39,6 +39,27 @@ export function blankCampaign(): CampaignInput {
   }
 }
 
+/**
+ * A filled-in campaign, for demos. Written for this build rather than taken
+ * from a real Veloretti plan, so treat the wording as a plausible example and
+ * not as anything the brand has committed to.
+ */
+export function exampleCampaign(): CampaignInput {
+  return {
+    name: 'Back to School',
+    description:
+      'Late August, and the commute starts again: school runs, the first cold mornings, back to the office two or three days a week. We want the Ace Two to be the obvious answer to that first week back, against the train and against the second car. Lead on arriving without the hassle rather than on price.',
+    markets: ['NL', 'BE'],
+    channels: ['Meta', 'Google', 'TikTok'],
+    audiences: [
+      'Commuters returning to the office',
+      'Parents doing the school run',
+      'Students starting a new year',
+    ],
+    bikeModel: BIKE_MODELS[0],
+  }
+}
+
 /** What has to be answered before there is anything worth sending. */
 export function missingFrom(input: CampaignInput): string[] {
   const missing: string[] = []

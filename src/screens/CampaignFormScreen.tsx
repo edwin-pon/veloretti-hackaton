@@ -13,7 +13,7 @@ import { useStore } from '../lib/store'
  */
 export default function CampaignFormScreen() {
   const { go } = useStore()
-  const { state, missing, pushing, set, toggle, setDraft, addAudience, removeAudience, send } =
+  const { state, missing, pushing, fillExample, set, toggle, setDraft, addAudience, removeAudience, send } =
     useCampaign()
   const { input } = state
 
@@ -45,6 +45,35 @@ export default function CampaignFormScreen() {
         Answer these six and the studio hands them to the agent, inside the brand rules you
         confirmed. What comes back is drafted against those rules, not against a blank page.
       </p>
+
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 20,
+          flexWrap: 'wrap',
+          padding: '20px 0',
+          borderTop: '1px solid var(--border-default)',
+          borderBottom: '1px solid var(--border-default)',
+          marginBottom: 48,
+        }}
+      >
+        <Label style={{ color: 'var(--vr-ink)', whiteSpace: 'nowrap' }}>Demo shortcut</Label>
+        <Button variant="secondary" onClick={fillExample}>
+          Fill in an example campaign
+        </Button>
+        <span
+          style={{
+            fontSize: 'var(--fs-body-s)',
+            color: 'var(--text-muted)',
+            maxWidth: '48ch',
+            textWrap: 'pretty',
+          }}
+        >
+          For demos only. Answers all six with a worked example, written for this build rather than
+          taken from a real plan. Everything stays editable.
+        </span>
+      </div>
 
       <Field label="Campaign name" hint="Names the campaign everywhere it appears" required>
         <TextField

@@ -14,7 +14,12 @@ import {
   useState,
   type ReactNode,
 } from 'react'
-import { blankCampaign, missingFrom, type CampaignInput } from '../data/campaign-form'
+import {
+  blankCampaign,
+  exampleCampaign,
+  missingFrom,
+  type CampaignInput,
+} from '../data/campaign-form'
 import { campaignPayload, pushCampaign, type PushOutcome } from './campaign-api'
 import {
   deleteCampaign,
@@ -48,6 +53,8 @@ interface CampaignStore {
   /** Drafts on disk, newest first. */
   saved: SavedCampaign[]
   start: () => void
+  /** Demo shortcut: answers all six at once. */
+  fillExample: () => void
   resume: (id: string) => void
   discard: (id: string) => void
   set: <K extends keyof CampaignInput>(key: K, value: CampaignInput[K]) => void
@@ -122,6 +129,16 @@ export function CampaignProvider({ children }: { children: ReactNode }) {
       setState({ ...initialState(), id: newCampaignId() })
       go('campaign')
     }, [go]),
+    fillExample: useCallback(
+      () =>
+        patch((s) => ({
+          id: s.id ?? newCampaignId(),
+          input: exampleCampaign(),
+          draft: '',
+          outcome: null,
+        })),
+      [patch],
+    ),
     resume: useCallback(
       (id) => {
         const record = loadCampaign(id)
