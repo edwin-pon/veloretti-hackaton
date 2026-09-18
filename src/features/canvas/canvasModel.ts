@@ -76,6 +76,9 @@ export interface CanvasModel {
   allApproved: boolean;
   renderFormats: RenderFormat[];
   renderTotal: number;
+  /** Assets the render covers: the approved ones, or the whole canvas when none are approved. */
+  renderScopeCount: number;
+  renderIncludesUnapproved: boolean;
   selected: CanvasCard | null;
   selectedLabel: string;
   selectedMarket: Market | null;
@@ -236,9 +239,11 @@ export function buildCanvas(state: AppState): CanvasModel {
     return parts.join(' · ');
   })();
 
+  const renderScopeCount = approvedCount > 0 ? approvedCount : allCards.length;
+
   const renderFormats = RENDER_DEFINITIONS.map((definition) => ({
     ...definition,
-    count: definition.per * approvedCount,
+    count: definition.per * renderScopeCount,
   }));
 
   const selected = state.canvasSel
@@ -267,6 +272,8 @@ export function buildCanvas(state: AppState): CanvasModel {
     allApproved: allCards.length > 0 && approvedCount === allCards.length,
     renderFormats,
     renderTotal: renderFormats.reduce((total, format) => total + format.count, 0),
+    renderScopeCount,
+    renderIncludesUnapproved: approvedCount === 0 && allCards.length > 0,
     selected,
     selectedLabel: selectedParts
       ? [

@@ -122,11 +122,10 @@ export function CanvasScreen() {
           </Button>
           <Button
             size="sm"
-            disabled={!model.allApproved}
             title={
               model.allApproved
                 ? 'Queue every approved asset for rendering'
-                : `${pendingApproval} assets still need approval`
+                : `${pendingApproval} assets still need approval — only approved assets are rendered`
             }
             onClick={() => state.patch({ renderOpen: true, compOpenId: null })}
           >

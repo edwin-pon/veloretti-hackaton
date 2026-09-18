@@ -23,9 +23,9 @@ export interface Campaign {
 export const campaigns: Campaign[] = [
   {
     id: 'c1',
-    name: 'Cargo Line spring',
+    name: 'Back to School',
     status: 'Draft',
-    window: '16 Mar — 30 Apr 2026',
+    window: '17 Aug — 28 Sep 2026',
     marketKeys: ['nl', 'de', 'be'],
     channels: 'Social',
     flagged: 2,
@@ -91,7 +91,7 @@ export const campaigns: Campaign[] = [
   },
 ];
 
-export const defaultCampaignName = 'Cargo Line spring';
+export const defaultCampaignName = 'Back to School';
 
 export function campaignByName(name: string | null | undefined): Campaign {
   return campaigns.find((campaign) => campaign.name === name) ?? campaigns[0];

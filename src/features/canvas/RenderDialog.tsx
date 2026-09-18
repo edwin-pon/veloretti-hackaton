@@ -17,7 +17,9 @@ export function RenderDialog({ model }: RenderDialogProps) {
       open={state.renderOpen}
       onClose={() => state.patch({ renderOpen: false })}
       title={done ? 'Rendered' : queued ? 'Queued for rendering' : 'Ready to render'}
-      subtitle={`${model.approvedCount} approved assets · ${model.renderFormats.length} output sets`}
+      subtitle={`${model.renderScopeCount} ${
+        model.renderIncludesUnapproved ? 'assets, none approved yet' : 'approved assets'
+      } · ${model.renderFormats.length} output sets`}
       wide
     >
       <div>
@@ -79,8 +81,9 @@ export function RenderDialog({ model }: RenderDialogProps) {
         ) : (
           <>
             <p className={styles.quiet}>
-              Every approved asset is re-rendered into each output set, with brand rules
-              and market footnotes applied per size.
+              {model.renderIncludesUnapproved
+                ? 'Nothing is approved yet, so every asset on the canvas is queued. Approve a selection first to render only those.'
+                : 'Every approved asset is re-rendered into each output set, with brand rules and market footnotes applied per size.'}
             </p>
             <Button
               style={{ marginTop: 'var(--space-4)' }}

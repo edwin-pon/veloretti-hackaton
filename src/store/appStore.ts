@@ -444,16 +444,28 @@ export const useAppStore = create<AppStore>((set, get) => ({
   restartOnboarding: () => {
     stopAllTimers();
     const state = get();
+    // Restart drops the user at step 3, so the first two sources stay confirmed.
+    const startKey = documentOrder[2];
+    const done = Object.fromEntries(
+      documentOrder.slice(0, 2).map((key) => [key, true]),
+    ) as Partial<Record<DocumentKey, boolean>>;
+
     set({
       screen: 'hub',
-      doc: 'brand',
+      doc: startKey,
       file: false,
       touched: {},
       values: seedValues(state.brandKey),
       why: null,
       brandsOpen: false,
       progress: 0,
-      doneByBrand: { ...state.doneByBrand, [state.brandKey]: {} },
+      doneByBrand: { ...state.doneByBrand, [state.brandKey]: done },
+      campPicks: [],
+      campDraft: '',
+      briefFile: false,
+      briefRead: false,
+      briefProgress: 0,
+      dirProgress: 0,
     });
   },
 
@@ -626,7 +638,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
     });
     runProgress(
       'render',
-      420,
+      90,
       6,
       (renderProgress) => set({ renderProgress }),
       () => set({ renderProgress: 100 }),
