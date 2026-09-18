@@ -1,0 +1,33 @@
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  user-select: none;
+  background: var(--vr-gray-100);
+  color: var(--vr-gray-800);
+  border: 1px solid var(--vr-gray-200);
+}
+
+.ink {
+  background: var(--vr-black);
+  color: var(--vr-white);
+  border-color: var(--vr-black);
+}
+
+.inverse {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--vr-white);
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+.accent {
+  background: var(--vr-orange);
+  color: var(--vr-white);
+  border-color: var(--vr-orange);
+}

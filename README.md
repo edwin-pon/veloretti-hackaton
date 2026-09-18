@@ -1,231 +1,102 @@
-# Veloretti Brand Studio
+# Veloretti · Brand Studio
 
-Front end for the Veloretti hackathon build of **Brand Studio** — a
-brand-knowledge and campaign-compliance tool.
+Front-end for **Brand Studio**, a marketing-automation tool for the Veloretti brand
+workspace. Brand documents go in, machine-checkable rules come out, and every generated
+campaign asset is checked against those rules before it can ship.
 
-Single brand, single workspace: this is Veloretti's studio, so there is no brand
-switcher and no per-brand state.
+This is a front-end only build — there is no backend. Agent runs, extraction and
+rendering are simulated against a fixed dataset so the whole flow is walkable.
 
-Two flows are implemented. **Brand onboarding**: upload a source document, an
-agent extracts the rules campaigns must follow, you review and confirm them, and
-the confirmed rules land on a brand knowledge page.
-
-```
-hub → upload → analyzing → review → (next document) → dashboard
-```
-
-**Campaign intake**: hand over a growth briefing, the agent reads the campaign
-out of it, and the confirmed brief resolves into the slots the campaign has to
-deliver.
-
-```
-campaigns → start → brief upload → analyzing → brief review → slot matrix
-```
-
-Campaigns save themselves from the first edit, so a half-read briefing survives
-a closed tab. The list shows every draft with the stage it reached and what it
-currently resolves to, and continuing one lands on the screen it was left on.
-
-## Running it
-
-```sh
+```bash
 npm install
-npm run dev      # http://localhost:5173
-npm run build    # type-check + production build into dist/
-npm run check:matrix  # resolve the seeded briefing and run every QA gate
-npm run deploy   # build, then publish to Cloudflare Workers
+npm run dev
 ```
 
-Deploying needs a Cloudflare account to target. It is deliberately not in
-`wrangler.jsonc` — put it in a local `.env` (gitignored):
+---
 
-```sh
-CLOUDFLARE_ACCOUNT_ID=<your account id>
-```
+## What it does
 
-Currently live at https://veloretti-brand-studio.nielskorte.workers.dev
+1. **Onboarding** — upload the brand book, legal guidelines and style guide one at a
+   time. An agent reads each one and returns editable fields, every one carrying a
+   confidence score, a citation and its reasoning.
+2. **Knowledge base** — the confirmed rules, browsable by topic, plus agent-drafted
+   target audiences that need confirming before campaigns can target them.
+3. **Campaigns** — start from confirmed brand data or start clean. The agent reads a
+   brief or interviews you, then drafts three creative directions.
+4. **Asset canvas** — every market × placement × audience on one pannable canvas. Edit
+   copy per asset, apply a background across a chosen scope, run the compliance check,
+   approve, and render at scale.
+5. **Media manager** — the generated campaign shoot plus a mirrored DAM back
+   catalogue (1,452 files in total), each described and tagged by the agent, with
+   the low-confidence ones queued for review.
+6. **Administration** — workspace, team and roles, approval thresholds, channel
+   integrations, and an activity log that names which changes were machine-made.
 
-## Where things live
+## Stack
+
+- **React 19 + TypeScript + Vite**
+- **Zustand** for the application state machine
+- **CSS Modules** over design-system tokens — no utility framework, no CSS-in-JS
+
+## Layout
 
 | Path | What it is |
-|---|---|
-| `src/screens/` | One file per screen in the flow |
-| `src/components/Shell.tsx` | Sidebar, breadcrumb and onboarding progress chrome |
-| `src/components/FieldCard.tsx` | An extracted field: value, confidence, citation, agent reasoning |
-| `src/lib/store.tsx` | All app state and the actions that move the flow along |
-| `src/lib/api.ts` | **The backend seam** — see below |
-| `src/data/docs.ts` | The three source documents and their extractable fields |
-| `src/data/vocab.ts` | Controlled vocabularies for campaign intake: phases, CTAs, platforms, ratios, markets |
-| `src/data/briefing.ts` | The growth briefing the intake extracts, and the seed used offline |
-| `src/lib/campaign.ts` | The Campaign object and the slot that is the atomic deliverable |
-| `src/lib/matrix.ts` | Resolve, brief templating and the QA gates. Deterministic, no model calls |
-| `src/lib/campaign-store.tsx` | Campaign state, and the matrix and gates derived from it |
-| `src/lib/campaign-storage.ts` | Autosaved drafts. **The seam to replace with a backend** |
-| `src/lib/briefing-api.ts` | **The campaign-intake seam** |
-| `src/ds/` | Veloretti design system — bundle, tokens, and the primitives it does not ship |
-| `src/assets/` | The official wordmark, black and white |
-| `public/samples/` | The documents the demo uploads, as real files |
-| `docs/samples/` | Their plain-text sources, and what `scripts/build-samples.sh` builds from |
-| `design/` | The original Design Canvas prototypes this was ported from |
+| --- | --- |
+| [src/design-system/](src/design-system) | Veloretti tokens and the UI primitives built on them |
+| [src/data/](src/data) | The dataset: documents, campaigns, media, compliance rules, target audiences, workspace |
+| [src/store/](src/store) | Typed store and derived selectors |
+| [src/features/](src/features) | One folder per area: shell, onboarding, knowledge, campaigns, canvas, media, admin |
+| [src/assets/](src/assets) | Wordmark, PP Neue Montreal, editorial and campaign photography |
 
-## Brand
+State is deliberately kept in one store rather than in URLs — the flow is a single
+guided session, and every screen reads from the same brand and campaign context.
 
-The UI follows the Veloretti design system (`Veloretti Design System.zip`):
-PP Neue Montreal throughout, the warm-neutral grey ramp, pill controls, hairline
-borders, 10px cards, sentence-case headlines and uppercase labels at 0.14em.
+## Campaign imagery
 
-Two rules worth keeping in mind when extending it:
+[src/data/campaignMedia.ts](src/data/campaignMedia.ts) holds the generated shoot: two
+models (**Ace**, **Ivy**) across two markets (**Netherlands**, **Germany**), each in the
+three placement ratios. The German set is shot on cobbled old-town streets with the rider
+helmeted — the kind of market adaptation the canvas and compliance screens exist to
+manage. Sources were 49 MB of PNGs; they ship as 1200 px JPEGs totalling ~3.6 MB.
 
-- **The wordmark is never redrawn or recoloured.** `src/components/Wordmark.tsx`
-  renders the supplied SVGs and nothing else.
-- **Orange is the tertiary accent and is promo-only.** It appears in exactly one
-  place in this app: the flag on a field the agent was unsure about. Everything
-  else stays monochrome. Add a second use only on purpose.
+The canvas opens on this shoot rather than on placeholder colour: `defaultAssetBackgrounds`
+maps each market and placement to its image. Belgium is a Dutch-language market and follows
+the Netherlands shoot, using the Ace set so the two stay tellable apart.
 
-Veloretti's own kit is a commerce kit, so it ships no progress bar, stepper,
-spinner, toggle, notice or multiline field. Those are built from the brand's
-tokens in `src/ds/primitives.tsx`.
+Library items render through [`Photo`](src/design-system/components/Photo.tsx), which
+falls back to the item's flat brand tone when there is no image, so the synthetic back
+catalogue still looks deliberate.
 
-The design system bundle expects `React` on the global scope, so
-`src/ds/index.ts` publishes it there before importing the bundle. Those two
-imports must stay in that order.
+## Design system
 
-## Campaign intake
+Built on the **Veloretti Design System**: PP Neue Montreal, a warm-neutral grey ramp,
+pill-shaped controls, 10px card radius, hairline borders and restrained motion. Tokens
+live in [src/design-system/tokens/](src/design-system/tokens) and are the only source of
+colour, type, spacing and easing.
 
-Six questions, and the answers go to n8n:
+Two documented departures from the brand system, both needed because this is an internal
+review tool rather than a storefront:
 
-| Field | |
-|---|---|
-| Campaign name | open text |
-| Description | open text, several lines |
-| Markets | NL, BE; more than one allowed |
-| Channels | Meta, Google, TikTok; more than one allowed |
-| Audience | open text, as many as apply |
-| Bike model | Ace Two, the only one for now |
+- **[Status tokens](src/design-system/tokens/status.css)** — the brand is monochrome and
+  reserves the orange for promotions, but compliance outcomes and confidence scores have
+  to be legible at a glance. A muted pine (pass), warm ochre (needs review) and the brand
+  orange (blocked) sit beside the existing grey ramp. Status colour is always paired with
+  a text label, never used alone.
+- **[Line icons](src/design-system/components/icons.tsx)** — the brand ships no icon set.
+  These are drawn in-house to the documented spec (1.6px stroke, rounded joins) rather
+  than pulled from a third-party family.
 
+Generated campaign assets are a separate surface. They are styled from the **extracted**
+style guide — the values sitting in `c1`–`c4` and `f1`–`f4` — never from the app's own
+tokens. Edit the palette or typeface on the style-guide screen and every mock, canvas
+asset and specimen follows. Because the brand here is Veloretti, the two currently
+resolve to the same ink, orange and PP Neue Montreal; onboard a different brand book and
+the creative changes while the studio chrome stays put.
+
+## Checks
+
+```bash
+npm run typecheck
+npm run lint
+npm run build
 ```
-campaigns → new campaign → send to the agent → handed over
-```
-
-Name, description, at least one market and at least one channel have to be
-answered before the button does anything. Campaigns save themselves from the
-first edit, so a half-written brief survives a closed tab, and the list shows
-every draft with what it currently says.
-
-An earlier version read a growth briefing here and resolved it into a slot
-matrix of 364 deliverables, with QA gates and an export manifest. That lives in
-the history, and the reasoning behind it is still in
-`docs/growth-briefing-blueprint.md`. The thinking moved to n8n: the studio asks
-what the campaign is, and the agent works out what it takes.
-
-## Demo documents
-
-Every document the app offers is a real file in `public/samples`, named exactly
-as the app refers to it:
-
-| File | Stands in for |
-|---|---|
-| `veloretti-visual-language.pdf` | Brand book, 30 pages |
-| `legal-marketing-guidelines-v7.docx` | Legal guidelines, 7 sections |
-| `veloretti-visual-language-colour-type.pdf` | Colour and type, 11 pages |
-| `growth-briefing-back-to-school-2026.pdf` | The growth briefing, 9 pages |
-
-Each one contains the lines the agent is seeded to quote, on the page or in the
-section it cites, so a demo holds together if someone opens the source. They are
-stand-ins and say so on their own first page: the identity, voice, palette and
-type come from Veloretti's own material, the legal document is invented in full,
-and so are the page numbers, the confidence scores and the product claims.
-
-Edit `docs/samples/*.txt` and run `sh scripts/build-samples.sh` to rebuild them
-(macOS only, it uses `cupsfilter` and `textutil`). The built files are committed,
-so this is only needed when a source changes.
-
-Two things follow from the documents being real:
-
-- **Nothing has to be uploaded.** Opening a step attaches its sample already, so
-  a demo is a click-through. Remove swaps it for a real document, and the drop
-  zone works as it always did.
-- **A live webhook gets bytes.** With `VITE_N8N_ANALYSE_URL` set, the sample is
-  POSTed as an actual file rather than as a filename.
-
-To skip onboarding altogether, **Fill in the sample documents** on the hub
-confirms all three sources at once and opens brand knowledge.
-
-## Connecting n8n
-
-`src/lib/api.ts` and `src/lib/briefing-api.ts` are the only files that talk to a
-backend. Set:
-
-```sh
-VITE_N8N_ANALYSE_URL=https://<your-n8n>/webhook/analyse-document
-VITE_N8N_BRIEFING_URL=https://<your-n8n>/webhook/analyse-briefing
-```
-
-With it unset, the flow runs against the values baked into the prototype and
-fakes the analysis timing, so the demo works offline.
-
-The webhook receives:
-
-- `multipart/form-data` with `brand`, `doc`, `fileName` and `document` when a
-  real file was picked, or
-- `application/json` with `brand`, `doc` and `fileName` when the sample
-  document was used.
-
-It must respond with the extracted values keyed by field key:
-
-```json
-{
-  "values": {
-    "b1": "Veloretti",
-    "b4": ["Netherlands", "Germany", "Belgium", "Denmark"],
-    "s1": true
-  }
-}
-```
-
-Field keys, types and the confidence scores they are shown against are defined
-in `src/data/docs.ts`.
-
-### Pushing a campaign back
-
-The handoff screen can POST a resolved campaign straight to n8n. Set:
-
-```sh
-VITE_N8N_CAMPAIGN_URL=https://<your-n8n>/webhook/<id>
-```
-
-It sends `{ campaign, slots, summary, gates, exportedAt }`, where `campaign` and
-`slots` are byte-identical to the JSON that screen downloads, so a mapping built
-on the sample file keeps working.
-
-Two n8n details decide whether it appears to work:
-
-- a `/webhook/` URL answers only while its workflow is **active**; a
-  `/webhook-test/` one only after someone clicks **Execute workflow**, and then
-  once. Both return the same 404 when they are not listening;
-- n8n sends no CORS headers unless the Webhook node's allowed origins are set,
-  so the browser is usually refused the *response* even though the request
-  arrives. The screen says "sent, but not confirmed" in that case rather than
-  claiming a delivery it cannot see.
-
-The briefing webhook works the same way, against the field keys in
-`src/data/briefing.ts`, and may additionally return `markets`, `channelPlan` and
-`propositions`, which the intake edits as tables rather than as fields.
-
-### About the seeded values
-
-`src/data/docs.ts` is demo data, and the two kinds are worth telling apart:
-
-- **Real** — everything under the style guide (palette, type, usage rules) and
-  the brand identity, voice and blocked words. These come from the Veloretti
-  design system and visual-language guide.
-- **Invented** — the legal-rules document in full, every confidence score,
-  citation, page number and line of agent reasoning, and the four markets
-  (NL/DE/BE/DK). No legal source was provided; the markets are not stated in the
-  design system but the campaign story depends on them.
-
-## Not built yet
-
-The prototype in `design/` also covers the asset canvas (variant A is the one to
-build), the media manager, settings and the platform console. The sidebar shows
-those sections disabled.

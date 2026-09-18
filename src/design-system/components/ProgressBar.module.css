@@ -1,0 +1,34 @@
+.track {
+  width: 100%;
+  height: 4px;
+  background: var(--vr-gray-200);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  background: var(--vr-ink);
+  border-radius: var(--radius-pill);
+  transition: width var(--dur-med) var(--ease-out);
+}
+
+.ok {
+  background: var(--status-ok);
+}
+
+.warn {
+  background: var(--status-warn);
+}
+
+.block {
+  background: var(--status-block);
+}
+
+.thin {
+  height: 2px;
+}
+
+.thick {
+  height: 8px;
+}

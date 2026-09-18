@@ -1,0 +1,354 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.head {
+  max-width: 68ch;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.title {
+  font-size: var(--fs-display-m);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--lh-snug);
+}
+
+.lede {
+  font-size: var(--fs-body-l);
+  line-height: var(--lh-body);
+  color: var(--vr-gray-600);
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.875rem;
+  color: var(--vr-gray-400);
+  white-space: nowrap;
+}
+
+.stepDone,
+.stepCurrent {
+  color: var(--vr-ink);
+}
+
+.stepMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  flex: none;
+  font-size: 0.6875rem;
+  border: 1.5px solid var(--vr-gray-200);
+  border-radius: var(--radius-pill);
+  color: var(--vr-gray-400);
+}
+
+.stepDone .stepMark {
+  background: var(--status-ok);
+  border-color: var(--status-ok);
+  color: var(--vr-white);
+}
+
+.stepCurrent .stepMark {
+  border-color: var(--vr-black);
+  color: var(--vr-ink);
+}
+
+.stepRule {
+  flex: 1;
+  height: 1px;
+  min-width: 16px;
+  background: var(--vr-gray-200);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.cardNext {
+  border-color: var(--vr-black);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.cardNum {
+  font-size: 0.75rem;
+  letter-spacing: var(--tracking-label);
+  color: var(--vr-gray-400);
+}
+
+.cardTitle {
+  font-size: var(--fs-h3);
+  letter-spacing: var(--tracking-tight);
+}
+
+.cardDesc {
+  margin-top: 8px;
+  font-size: 0.9375rem;
+  color: var(--vr-gray-600);
+}
+
+.cardFoot {
+  margin-top: auto;
+  font-size: var(--fs-caption);
+  color: var(--vr-gray-400);
+}
+
+.done {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.doneTitle {
+  font-size: var(--fs-h3);
+}
+
+.doneBody {
+  margin-top: 6px;
+  font-size: 0.9375rem;
+  color: var(--vr-gray-600);
+  max-width: 60ch;
+}
+
+/* ---------------- Upload ---------------- */
+
+.uploadGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr);
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: var(--space-8) var(--space-5);
+  text-align: center;
+  background: var(--vr-white);
+  border: 1.5px dashed var(--vr-gray-250);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: var(--transition-control);
+}
+
+.drop:hover {
+  border-color: var(--vr-black);
+  background: var(--surface-sand);
+}
+
+.dropTitle {
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-medium);
+}
+
+.dropMeta {
+  font-size: var(--fs-caption);
+  color: var(--vr-gray-500);
+}
+
+.file {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.fileIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: var(--radius-md);
+  background: var(--surface-sand);
+  color: var(--vr-gray-700);
+}
+
+.fileBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.fileName {
+  font-size: 0.9375rem;
+  font-weight: var(--fw-medium);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fileMeta {
+  font-size: var(--fs-caption);
+  color: var(--vr-gray-500);
+}
+
+.fileActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.extractList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: var(--space-4);
+}
+
+.extractRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.875rem;
+  color: var(--vr-gray-700);
+  line-height: 1.5;
+}
+
+.extractDot {
+  flex: none;
+  margin-top: 7px;
+  width: 5px;
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background: var(--vr-gray-300);
+}
+
+/* ---------------- Analyzing ---------------- */
+
+.analyze {
+  max-width: 620px;
+  margin: 8vh auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.analyzeHead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.analyzeTitle {
+  font-size: var(--fs-h2);
+}
+
+.analyzeFile {
+  margin-top: 4px;
+  font-size: 0.875rem;
+  color: var(--vr-gray-500);
+}
+
+.analyzeMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: var(--fs-caption);
+  color: var(--vr-gray-500);
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stepRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  font-size: 0.9375rem;
+  color: var(--vr-gray-400);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.stepRow:last-child {
+  border-bottom: none;
+}
+
+.stepRowActive {
+  color: var(--vr-ink);
+  font-weight: var(--fw-medium);
+}
+
+.stepRowDone {
+  color: var(--vr-ink);
+}
+
+.stepGlyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex: none;
+  border-radius: var(--radius-pill);
+  background: var(--vr-gray-100);
+  color: var(--vr-gray-400);
+}
+
+.stepRowDone .stepGlyph {
+  background: var(--status-ok);
+  color: var(--vr-white);
+}
+
+.stepRowActive .stepGlyph {
+  background: var(--vr-black);
+  color: var(--vr-white);
+}
+
+.stepLabel {
+  flex: 1;
+}
+
+.stepNote {
+  font-size: var(--fs-caption);
+  color: var(--vr-gray-400);
+}
+
+@media (max-width: 1000px) {
+  .uploadGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

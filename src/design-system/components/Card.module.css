@@ -1,0 +1,62 @@
+.card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  transition:
+    border-color var(--dur-med) var(--ease-standard),
+    box-shadow var(--dur-med) var(--ease-standard);
+}
+
+.panel {
+  background: var(--surface-sand);
+  border-color: transparent;
+}
+
+.flush {
+  background: transparent;
+  border-color: var(--border-subtle);
+}
+
+.ink {
+  background: var(--vr-black);
+  border-color: var(--vr-black);
+  color: var(--vr-white);
+}
+
+.interactive {
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  font: inherit;
+  color: inherit;
+  display: block;
+}
+
+.interactive:hover {
+  border-color: var(--vr-gray-300);
+  box-shadow: var(--shadow-md);
+}
+
+.raised {
+  box-shadow: var(--shadow-md);
+}
+
+.p0 {
+  padding: 0;
+}
+
+.p3 {
+  padding: var(--space-3);
+}
+
+.p4 {
+  padding: var(--space-4);
+}
+
+.p5 {
+  padding: var(--space-5);
+}
+
+.p6 {
+  padding: var(--space-6);
+}

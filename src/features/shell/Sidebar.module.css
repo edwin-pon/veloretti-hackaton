@@ -1,0 +1,270 @@
+.sidebar {
+  width: 264px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-6) var(--space-5);
+  background: var(--vr-black);
+  color: var(--vr-white);
+  overflow-y: auto;
+}
+
+.brandMark {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.wordmark {
+  width: 124px;
+  height: auto;
+}
+
+.product {
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.switcher {
+  position: relative;
+}
+
+.switchButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: var(--transition-control);
+}
+
+.switchButton:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.switchBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.switchName {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: var(--fw-medium);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.switchMeta {
+  display: block;
+  font-size: 0.6875rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.caret {
+  flex: none;
+  color: rgba(255, 255, 255, 0.6);
+  transition: transform var(--dur-fast) var(--ease-standard);
+}
+
+.caretOpen {
+  transform: rotate(180deg);
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  padding: 6px;
+  background: var(--vr-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  animation: vr-fade-in var(--dur-med) var(--ease-out);
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 10px;
+  text-align: left;
+  font: inherit;
+  color: var(--vr-ink);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-standard);
+}
+
+.menuItem:hover {
+  background: var(--vr-gray-100);
+}
+
+.menuName {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: var(--fw-medium);
+}
+
+.menuMeta {
+  display: block;
+  font-size: 0.6875rem;
+  color: var(--vr-gray-500);
+}
+
+.menuFoot {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--vr-gray-100);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 14px;
+  text-align: left;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.66);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: var(--transition-control);
+}
+
+.navItem:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--vr-white);
+}
+
+.navActive {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--vr-white);
+  font-weight: var(--fw-medium);
+}
+
+.navIcon {
+  flex: none;
+  opacity: 0.85;
+}
+
+.navLabel {
+  flex: 1;
+  min-width: 0;
+}
+
+.navCount {
+  flex: none;
+  min-width: 22px;
+  padding: 2px 8px;
+  text-align: center;
+  font-size: 0.6875rem;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-pill);
+}
+
+.subNav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 2px 0 6px 22px;
+  padding-left: 12px;
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.subItem {
+  padding: 7px 12px;
+  text-align: left;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.55);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: var(--transition-control);
+}
+
+.subItem:hover {
+  color: var(--vr-white);
+}
+
+.subActive {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--vr-white);
+  font-weight: var(--fw-medium);
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.account {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-standard);
+}
+
+.account:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.accountTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.accountBody {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.accountName {
+  font-size: 0.875rem;
+  font-weight: var(--fw-medium);
+}
+
+.accountRole {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+}

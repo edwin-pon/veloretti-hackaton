@@ -1,0 +1,36 @@
+/* Veloretti — Status tokens (application extension)
+
+   The Veloretti visual language is monochrome and reserves the tertiary orange
+   for promotional messages. Brand Studio is an internal review tool: compliance
+   outcomes, extraction confidence and campaign states have to be legible at a
+   glance, so a minimal status layer is added here.
+
+   It stays inside the brand's warm-neutral world — a muted pine and a warm ochre
+   sit beside the existing grey ramp, and the brand orange is used only for the
+   one state that genuinely blocks work. Nothing is saturated, nothing shouts.
+   Status colour is always paired with a text label, never used on its own. */
+:root {
+  /* Pass / approved / high confidence */
+  --status-ok: #4f6b57;
+  --status-ok-ink: #3a5140;
+  --status-ok-bg: #eaefea;
+
+  /* Needs review / low confidence / draft */
+  --status-warn: #8a6a2f;
+  --status-warn-ink: #6d5325;
+  --status-warn-bg: #f4eee2;
+
+  /* Blocked — the one state that stops a campaign shipping */
+  --status-block: var(--vr-orange);
+  --status-block-ink: var(--vr-orange-ink);
+  --status-block-bg: #fbeae0;
+
+  /* Informational / neutral state */
+  --status-info: var(--vr-gray-700);
+  --status-info-ink: var(--vr-gray-800);
+  --status-info-bg: var(--vr-gray-100);
+
+  /* Agent surfaces — where generated content is shown before it is confirmed */
+  --agent-surface: #eef0ee;
+  --agent-border: #d5dad5;
+}

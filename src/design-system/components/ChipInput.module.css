@@ -1,0 +1,70 @@
+.wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  min-height: var(--control-h-md);
+  background: var(--vr-white);
+  border: 1.5px solid var(--vr-gray-200);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--dur-fast) var(--ease-standard);
+}
+
+.wrap:focus-within {
+  border-color: var(--vr-black);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 28px;
+  padding: 0 6px 0 12px;
+  background: var(--vr-gray-100);
+  border-radius: var(--radius-pill);
+  font-size: 0.8125rem;
+  color: var(--vr-ink);
+  white-space: nowrap;
+}
+
+.remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--vr-gray-500);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  transition: var(--transition-control);
+}
+
+.remove:hover {
+  background: var(--vr-gray-250);
+  color: var(--vr-ink);
+}
+
+.input {
+  flex: 1;
+  min-width: 120px;
+  height: 28px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--vr-ink);
+}
+
+.input::placeholder {
+  color: var(--vr-gray-300);
+}
+
+.readonly {
+  cursor: default;
+}

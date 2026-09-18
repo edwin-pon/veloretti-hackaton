@@ -1,0 +1,73 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  padding: 14px 18px;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  background: var(--vr-white);
+  border: 1.5px solid var(--vr-gray-200);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: var(--transition-control);
+}
+
+.card:hover {
+  border-color: var(--vr-gray-400);
+}
+
+.selected {
+  border-color: var(--vr-black);
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+}
+
+.label {
+  font-size: 0.9375rem;
+  font-weight: var(--fw-medium);
+  color: var(--vr-ink);
+}
+
+.note {
+  margin-top: 2px;
+  font-size: 0.8125rem;
+  color: var(--vr-gray-500);
+}
+
+.mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--vr-gray-300);
+  border-radius: var(--radius-pill);
+  transition: var(--transition-control);
+}
+
+.selected .mark {
+  border-color: var(--vr-black);
+  background: var(--vr-black);
+  color: var(--vr-white);
+}
+
+.mark svg {
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-standard);
+}
+
+.selected .mark svg {
+  opacity: 1;
+}
+
+.trailing {
+  flex: none;
+  font-size: 0.8125rem;
+  color: var(--vr-gray-500);
+}

@@ -1,0 +1,126 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: auto;
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  line-height: 1;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  text-decoration: none;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  appearance: none;
+  transition: var(--transition-control);
+}
+
+.button:disabled,
+.button[aria-disabled='true'] {
+  cursor: not-allowed;
+  background: var(--vr-gray-100);
+  border-color: var(--vr-gray-100);
+  color: var(--vr-gray-300);
+}
+
+.button:disabled:hover,
+.button[aria-disabled='true']:hover {
+  background: var(--vr-gray-100);
+  border-color: var(--vr-gray-100);
+  color: var(--vr-gray-300);
+}
+
+.full {
+  width: 100%;
+}
+
+.uppercase {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* Sizes */
+.sm {
+  height: var(--control-h-sm);
+  padding: 0 18px;
+  font-size: 0.8125rem;
+}
+
+.md {
+  height: var(--control-h-md);
+  padding: 0 26px;
+  font-size: 0.9375rem;
+}
+
+.lg {
+  height: var(--control-h-lg);
+  padding: 0 34px;
+  font-size: 1rem;
+}
+
+/* Variants */
+.primary {
+  background: var(--vr-black);
+  color: var(--vr-white);
+  border-color: var(--vr-black);
+}
+
+.primary:hover:not(:disabled):not([aria-disabled='true']) {
+  background: var(--vr-gray-900);
+  border-color: var(--vr-gray-900);
+}
+
+.secondary {
+  background: transparent;
+  color: var(--vr-ink);
+  border-color: var(--vr-black);
+}
+
+.secondary:hover:not(:disabled):not([aria-disabled='true']) {
+  background: var(--vr-black);
+  color: var(--vr-white);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--vr-ink);
+  border-color: transparent;
+}
+
+.ghost:hover:not(:disabled):not([aria-disabled='true']) {
+  background: var(--vr-gray-100);
+}
+
+.accent {
+  background: var(--vr-orange);
+  color: var(--vr-white);
+  border-color: var(--vr-orange);
+}
+
+.accent:hover:not(:disabled):not([aria-disabled='true']) {
+  background: var(--vr-orange-ink);
+  border-color: var(--vr-orange-ink);
+}
+
+.quiet {
+  background: var(--vr-white);
+  color: var(--vr-ink);
+  border-color: var(--vr-gray-200);
+}
+
+.quiet:hover:not(:disabled):not([aria-disabled='true']) {
+  border-color: var(--vr-gray-400);
+}
+
+/* Inverse — for use on the ink sidebar */
+.inverse {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--vr-white);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.inverse:hover:not(:disabled):not([aria-disabled='true']) {
+  background: rgba(255, 255, 255, 0.14);
+}
